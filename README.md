@@ -3,19 +3,23 @@
 
 [![Status](https://img.shields.io/badge/Status-Research%20in%20Progress-blue)]()
 [![Institution](https://img.shields.io/badge/UNMdP-Estructura%20Econ%C3%B3mica%20Mundial%20y%20Argentina-green)]()
-[![Target](https://img.shields.io/badge/Target-MEXT%20Research%20Plan%20Bridge-orange)]()
+[![Level](https://img.shields.io/badge/Level-Master's%20Research%20Preparation-orange)]()
 
 ---
 
 ## Overview
 
-This repository hosts the empirical and methodological core of a final research paper for the course **Estructura Económica Mundial y Argentina** (Universidad Nacional de Mar del Plata).  
+This repository hosts the empirical and methodological core of the final research paper for the course **Estructura Económica Mundial y Argentina** (Universidad Nacional de Mar del Plata).  
+
+**Authors:** Facundo & Santilli Agustín  
+**Working document:** *Trabajo Final Carrera Facundo y Santilli Agustin | Estructura Económica Mundial y Argentina*
+
 The work examines the transmission of energy cost shocks — triggered by the 2026 Strait of Hormuz disruption — into the global macroeconomic and financial system, with particular attention to inflation dynamics, asset pricing volatility, and differential regional impacts (emphasis on Asia, especially Japan).
 
 The project is deliberately structured under the **“Iceberg Strategy”**:
 
 - **Surface layer** (course-facing narrative): clear, accessible macroeconomic and geopolitical analysis suitable for traditional economics faculty.
-- **Submerged base** (quant/thesis layer): rigorous time-series econometrics, volatility modelling and reproducible Python pipelines that will later feed a research paper in Quantitative Finance.
+- **Submerged base** (advanced research layer): rigorous time-series econometrics, volatility modelling and reproducible Python pipelines designed to serve as a solid empirical foundation for future master’s-level research in quantitative economics and finance.
 
 ---
 
@@ -92,7 +96,7 @@ All specifications will use publicly available high-frequency and monthly series
 - **Course**: Estructura Económica Mundial y Argentina (Cód. 946) – 2º cuatrimestre 2026  
 - **Instructors**: Claudia Beatriz Malamud & Rosana Renata Zuanetti  
 - **Institution**: Universidad Nacional de Mar del Plata – Departamento de Economía  
-- **Strategic goal**: Empirical foundation for a future application in a master's degree Quantitative Finance
+- **Purpose**: Final undergraduate research paper with methodological depth suitable as empirical foundation for future master’s applications in quantitative economics / finance.
 
 ---
 
