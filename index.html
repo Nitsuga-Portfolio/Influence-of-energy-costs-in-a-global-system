@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Cost Shocks & Global Financial System | Strait of Hormuz 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            academic: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              accent: '#0ea5e9',
+              accentDark: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .mode-panel { display: none; }
+    .mode-panel.active { display: block; }
+    .nav-tab { transition: all 0.15s ease; }
+    .nav-tab.active { 
+      background-color: #0ea5e9; 
+      color: white; 
+      font-weight: 600;
+    }
+    .section-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+    }
+    .code-block {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+    }
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="bg-academic-50 text-academic-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-academic-900 text-white sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-lg sm:text-xl font-semibold tracking-tight">Energy Cost Shocks & the Global System</h1>
+          <p class="text-sm text-slate-300 mt-0.5">Case Study: Strait of Hormuz Crisis 2026 · UNMdP</p>
+        </div>
+        
+        <!-- Mode Switcher -->
+        <div class="flex bg-academic-800 rounded-lg p-1">
+          <button id="btn-presentation" onclick="setMode('presentation')" 
+                  class="mode-btn px-4 py-2 rounded-md text-sm font-medium transition-all bg-academic-accent text-white">
+            Presentation
+          </button>
+          <button id="btn-methodology" onclick="setMode('methodology')" 
+                  class="mode-btn px-4 py-2 rounded-md text-sm font-medium transition-all text-slate-300 hover:text-white">
+            Methodology & Transparency
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
+    <!-- ==================== PRESENTATION MODE ==================== -->
+    <div id="mode-presentation" class="mode-panel active">
+      
+      <!-- Section Navigation -->
+      <nav class="flex flex-wrap gap-2 mb-8">
+        <button class="nav-tab active px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('intro')">1. Introduction</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('shock')">2. The Shock</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('transmission')">3. Transmission</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('results')">4. Econometric Results</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('finance')">5. Financial Markets</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('asia')">6. Japan & Asia</button>
+        <button class="nav-tab px-4 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('conclusions')">7. Conclusions</button>
+      </nav>
+
+      <!-- Section: Introduction -->
+      <section id="section-intro" class="tab-content active">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">1. Introduction & Motivation</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-4">
+            The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. 
+            In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to 
+            approximately <strong>20% of global oil supply</strong> and a significant share of seaborne LNG trade.
+          </p>
+
+          <p class="text-academic-700 leading-relaxed mb-6">
+            This research examines how such a sharp, geopolitically driven energy cost shock propagates through 
+            the macroeconomic system and financial markets, with particular attention to differential regional impacts 
+            — especially the high energy-import dependence of Japan and other Asian economies.
+          </p>
+
+          <div class="grid sm:grid-cols-3 gap-4 mt-6">
+            <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+              <div class="text-2xl font-semibold text-academic-accent">~20%</div>
+              <div class="text-sm text-academic-700 mt-1">of global oil supply normally transits Hormuz</div>
+            </div>
+            <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+              <div class="text-2xl font-semibold text-academic-accent">90–96%</div>
+              <div class="text-sm text-academic-700 mt-1">of Japan’s crude imports originate in the Middle East</div>
+            </div>
+            <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+              <div class="text-2xl font-semibold text-academic-accent">Dual layer</div>
+              <div class="text-sm text-academic-700 mt-1">Macro narrative + rigorous time-series analysis</div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 bg-sky-50 border border-sky-100 rounded-lg">
+            <p class="text-sm text-sky-900">
+              <strong>Research Question:</strong> How do sharp energy cost shocks transmit into inflation, growth, 
+              equity and credit-market volatility, and what explains the heterogeneous resilience observed across 
+              major economies — particularly Japan?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: The Shock -->
+      <section id="section-shock" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">2. The 2026 Hormuz Shock — Stylised Facts</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-6">
+            The disruption ranks among the largest supply shocks in the history of the modern oil market. 
+            Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs 
+            created significant regional price differentials, particularly affecting Asia and Europe.
+          </p>
+
+          <div class="grid lg:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3">Key Price Movements (Illustrative)</h3>
+              <canvas id="priceChart" height="220"></canvas>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+                <span class="stat-pill bg-rose-100 text-rose-800">Brent</span>
+                <p class="text-sm text-academic-700">Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption, later stabilising at elevated levels.</p>
+              </div>
+              <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+                <span class="stat-pill bg-amber-100 text-amber-800">LNG (Asia)</span>
+                <p class="text-sm text-academic-700">Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.</p>
+              </div>
+              <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+                <span class="stat-pill bg-sky-100 text-sky-800">Regional asymmetry</span>
+                <p class="text-sm text-academic-700">United States relatively insulated; Asia and Europe absorbed the bulk of the physical and price impact.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-academic-600 italic">
+            Sources: IEA Oil Market Report, EIA, Goldman Sachs Research, Federal Reserve Financial Stability Report (May 2026), Atlantic Council (Japan analysis).
+          </p>
+        </div>
+      </section>
+
+      <!-- Section: Transmission -->
+      <section id="section-transmission" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">3. Macroeconomic Transmission Channels</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-6">
+            An energy cost shock operates primarily as a negative supply shock. It simultaneously raises production costs, 
+            erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="border border-academic-200 rounded-lg p-5">
+              <h3 class="font-semibold text-academic-900 mb-2">Direct channels</h3>
+              <ul class="text-sm text-academic-700 space-y-1.5 list-disc list-inside">
+                <li>Higher input costs for energy-intensive sectors</li>
+                <li>Pass-through to consumer energy prices</li>
+                <li>Terms-of-trade deterioration for net importers</li>
+              </ul>
+            </div>
+            <div class="border border-academic-200 rounded-lg p-5">
+              <h3 class="font-semibold text-academic-900 mb-2">Indirect / financial channels</h3>
+              <ul class="text-sm text-academic-700 space-y-1.5 list-disc list-inside">
+                <li>Tighter financial conditions via higher inflation risk premia</li>
+                <li>Equity market volatility and sectoral reallocation</li>
+                <li>Potential monetary policy response (FED, ECB, BOJ)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 bg-academic-50 rounded-lg border border-academic-100">
+            <p class="text-sm text-academic-700">
+              <strong>Rule-of-thumb estimates</strong> (IMF / Goldman Sachs): a sustained 10% increase in oil prices 
+              typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp, 
+              with larger effects for highly import-dependent economies.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Econometric Results -->
+      <section id="section-results" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">4. Econometric Analysis — Core Results</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-4">
+            We estimate the dynamic response of key macroeconomic and financial variables to the energy cost shock 
+            using a Structural Vector Autoregression (SVAR) identified with an external instrument approach, 
+            complemented by GARCH-family models for volatility analysis.
+          </p>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+            <p class="text-sm text-amber-900">
+              <strong>Note:</strong> The charts and quantitative results below are currently illustrative placeholders. 
+              Final estimates will be produced once the data pipeline and identification strategy are fully implemented 
+              (see Methodology mode for full transparency).
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3">Impulse Responses (illustrative)</h3>
+              <canvas id="irfChart" height="240"></canvas>
+              <p class="text-xs text-academic-500 mt-2">Response of inflation and equity returns to a unit energy-price shock</p>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3">Conditional Volatility</h3>
+              <canvas id="volChart" height="240"></canvas>
+              <p class="text-xs text-academic-500 mt-2">GARCH(1,1) fitted volatility around the shock window</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Financial Markets -->
+      <section id="section-finance" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">5. Implications for Financial Markets</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-6">
+            Beyond the real economy, energy cost shocks affect asset pricing through multiple channels: 
+            higher discount rates (via inflation risk), increased cash-flow uncertainty for energy-intensive firms, 
+            and shifts in risk premia. Volatility itself becomes a priced factor.
+          </p>
+
+          <div class="space-y-4">
+            <div class="border-l-4 border-academic-accent pl-4">
+              <h3 class="font-medium text-academic-900">Equity market volatility</h3>
+              <p class="text-sm text-academic-700 mt-1">GARCH and EGARCH models allow us to quantify the increase in conditional variance and test for leverage effects during the disruption window.</p>
+            </div>
+            <div class="border-l-4 border-academic-accent pl-4">
+              <h3 class="font-medium text-academic-900">Credit spreads & risk premia</h3>
+              <p class="text-sm text-academic-700 mt-1">Corporate bond spreads (especially for energy-intensive and emerging-market issuers) typically widen as growth outlooks deteriorate and uncertainty rises.</p>
+            </div>
+            <div class="border-l-4 border-academic-accent pl-4">
+              <h3 class="font-medium text-academic-900">Cross-asset spillovers</h3>
+              <p class="text-sm text-academic-700 mt-1">Energy futures, equities, and safe-haven assets (yen, gold) exhibit time-varying correlations that can be examined via multivariate GARCH or dynamic conditional correlation models.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Japan & Asia -->
+      <section id="section-asia" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">6. Regional Asymmetries — Focus on Japan</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-6">
+            Japan presents a particularly informative case: extreme dependence on Middle Eastern crude 
+            (approximately 90–96% of imports) combined with one of the deepest strategic petroleum reserve systems 
+            among IEA members and a highly developed policy response capacity.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
+              <h3 class="font-semibold text-academic-900 mb-2">Vulnerability</h3>
+              <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+                <li>Very high Middle East crude dependence</li>
+                <li>Limited domestic production</li>
+                <li>Exposure to Asian LNG price spikes</li>
+              </ul>
+            </div>
+            <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
+              <h3 class="font-semibold text-academic-900 mb-2">Resilience factors</h3>
+              <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+                <li>Strategic reserves ≈ 250 days of consumption</li>
+                <li>Early and large stock releases in 2026</li>
+                <li>Rapid diversification of supply sources</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="text-sm text-academic-600">
+            Key references: Atlantic Council (2026), Daiwa Institute of Research, Oxford Energy Forum, METI/JOGMEC analyses.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section: Conclusions -->
+      <section id="section-conclusions" class="tab-content">
+        <div class="section-card p-6 sm:p-8">
+          <h2 class="text-2xl font-semibold text-academic-900 mb-4">7. Conclusions & Research Outlook</h2>
+          
+          <p class="text-academic-700 leading-relaxed mb-4">
+            The 2026 Strait of Hormuz disruption provides a rare high-frequency laboratory for studying the 
+            real and financial transmission of a large, geopolitically driven energy supply shock. 
+            Preliminary evidence points to significant but heterogeneous effects across regions, 
+            with Asia bearing a disproportionate share of the adjustment burden.
+          </p>
+
+          <p class="text-academic-700 leading-relaxed mb-6">
+            By combining a transparent macro narrative with rigorous time-series methods (SVAR + GARCH), 
+            this work aims to deliver both pedagogical clarity for the undergraduate course and a solid 
+            empirical foundation suitable for further development at the master’s research level.
+          </p>
+
+          <div class="bg-academic-900 text-white rounded-lg p-5">
+            <h3 class="font-medium mb-2">Next steps in the research pipeline</h3>
+            <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
+              <li>Finalise data construction and external instrument</li>
+              <li>Estimate and validate the core SVAR specification</li>
+              <li>Implement volatility models and robustness checks</li>
+              <li>Produce final impulse-response and volatility figures</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== METHODOLOGY MODE ==================== -->
+    <div id="mode-methodology" class="mode-panel">
+      <div class="section-card p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold text-academic-900 mb-2">Methodology & Statistical Transparency</h2>
+        <p class="text-academic-600 mb-8">Full disclosure of data, identification strategy, estimation procedures and planned robustness checks.</p>
+
+        <!-- Sub-navigation for methodology -->
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-academic-200 pb-4">
+          <button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('data')">Data</button>
+          <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('identification')">Identification</button>
+          <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('models')">Models</button>
+          <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('implementation')">Implementation</button>
+          <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('robustness')">Robustness</button>
+        </div>
+
+        <!-- Method: Data -->
+        <div id="method-data" class="method-content">
+          <h3 class="text-lg font-semibold text-academic-900 mb-3">Data Sources & Construction</h3>
+          <p class="text-academic-700 mb-4 text-sm leading-relaxed">
+            All series are obtained from publicly available sources to maximise replicability. 
+            High-frequency financial data and monthly macro series are aligned on a common calendar.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-academic-100 text-academic-700">
+                <tr>
+                  <th class="px-4 py-2 font-medium">Category</th>
+                  <th class="px-4 py-2 font-medium">Series</th>
+                  <th class="px-4 py-2 font-medium">Source</th>
+                  <th class="px-4 py-2 font-medium">Frequency</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-academic-100">
+                <tr><td class="px-4 py-2">Energy prices</td><td class="px-4 py-2">Brent, WTI, TTF, JKM</td><td class="px-4 py-2">EIA / market data</td><td class="px-4 py-2">Daily / Monthly</td></tr>
+                <tr><td class="px-4 py-2">Macro</td><td class="px-4 py-2">CPI, Industrial Production, GDP</td><td class="px-4 py-2">FRED, ECB, BOJ, national NSOs</td><td class="px-4 py-2">Monthly</td></tr>
+                <tr><td class="px-4 py-2">Financial</td><td class="px-4 py-2">Equity indices, VIX, corporate spreads</td><td class="px-4 py-2">Public market data</td><td class="px-4 py-2">Daily</td></tr>
+                <tr><td class="px-4 py-2">Shock proxy</td><td class="px-4 py-2">Hormuz transit volumes / narrative dates</td><td class="px-4 py-2">EIA, IEA, AIS data</td><td class="px-4 py-2">Daily / Event</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Method: Identification -->
+        <div id="method-identification" class="method-content hidden">
+          <h3 class="text-lg font-semibold text-academic-900 mb-3">Identification Strategy</h3>
+          <p class="text-academic-700 mb-4 text-sm leading-relaxed">
+            The core challenge is to isolate the exogenous component of the energy price movement attributable 
+            to the Hormuz disruption from endogenous demand-driven fluctuations.
+          </p>
+          <ul class="space-y-3 text-sm text-academic-700">
+            <li class="flex gap-2">
+              <span class="font-mono text-academic-accent font-medium">1.</span>
+              <span><strong>External instrument / proxy SVAR:</strong> Use high-frequency price changes around key geopolitical announcements or physical flow disruptions as an instrument for the energy-price shock (following the literature on oil-market identification).</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="font-mono text-academic-accent font-medium">2.</span>
+              <span><strong>Narrative / event-study approach:</strong> Define a clear event window around the onset of the sustained disruption (early March 2026) and estimate local projections.</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="font-mono text-academic-accent font-medium">3.</span>
+              <span><strong>Robustness:</strong> Compare results under alternative lag lengths, variable sets, and sample periods (pre- vs. post-shock).</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Method: Models -->
+        <div id="method-models" class="method-content hidden">
+          <h3 class="text-lg font-semibold text-academic-900 mb-3">Econometric Models</h3>
+          
+          <div class="space-y-6">
+            <div>
+              <h4 class="font-medium text-academic-900 mb-1">1. Structural VAR (core specification)</h4>
+              <p class="text-sm text-academic-700 mb-2">
+                A small-scale SVAR in the spirit of the oil-market literature (Kilian, Baumeister & Hamilton). 
+                Typical endogenous vector: [energy price, inflation, industrial production / activity, equity return, credit spread].
+              </p>
+              <div class="code-block text-xs">
+# Simplified representation
+Y_t = A_1 Y_{t-1} + ... + A_p Y_{t-p} + u_t
+u_t = B ε_t          # structural shocks
+# Identification via external instrument for the energy shock
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-academic-900 mb-1">2. GARCH-family models (volatility layer)</h4>
+              <p class="text-sm text-academic-700 mb-2">
+                Univariate GARCH(1,1), EGARCH and GJR-GARCH estimated on daily equity and energy-futures returns 
+                to quantify the increase in conditional volatility and asymmetric responses during the shock window.
+              </p>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-academic-900 mb-1">3. Local Projections (robustness / complementary)</h4>
+              <p class="text-sm text-academic-700">
+                Jordà local projections around the event date provide a flexible, non-parametric check 
+                on the impulse responses obtained from the SVAR.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Method: Implementation -->
+        <div id="method-implementation" class="method-content hidden">
+          <h3 class="text-lg font-semibold text-academic-900 mb-3">Implementation & Reproducibility</h3>
+          <p class="text-academic-700 mb-4 text-sm leading-relaxed">
+            All estimation is performed in Python. The repository is organised to separate data acquisition, 
+            cleaning, modelling and visualisation, facilitating full replication.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 text-sm">
+            <div class="bg-academic-50 rounded-lg p-4">
+              <h4 class="font-medium mb-2">Core libraries</h4>
+              <ul class="text-academic-700 space-y-1 font-mono text-xs">
+                <li>pandas / numpy</li>
+                <li>statsmodels</li>
+                <li>arch (GARCH)</li>
+                <li>matplotlib / seaborn</li>
+              </ul>
+            </div>
+            <div class="bg-academic-50 rounded-lg p-4">
+              <h4 class="font-medium mb-2">Repository structure</h4>
+              <ul class="text-academic-700 space-y-1 font-mono text-xs">
+                <li>data/raw & processed</li>
+                <li>notebooks/</li>
+                <li>src/ (reusable modules)</li>
+                <li>figures/ & tables/</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Method: Robustness -->
+        <div id="method-robustness" class="method-content hidden">
+          <h3 class="text-lg font-semibold text-academic-900 mb-3">Planned Robustness Checks</h3>
+          <ul class="space-y-2 text-sm text-academic-700">
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Alternative lag lengths and information criteria (AIC/BIC/HQ)</li>
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Different variable orderings and identification schemes</li>
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Sample-split analysis (pre-shock vs. full sample)</li>
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Exclusion of extreme outliers / winsorisation</li>
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Comparison of SVAR impulse responses with local-projection estimates</li>
+            <li class="flex gap-2"><span class="text-academic-accent">▸</span> Sensitivity of GARCH results to alternative distributions (Student-t, skewed-t)</li>
+          </ul>
+          <p class="mt-6 text-sm text-academic-600">
+            All robustness results will be reported in the technical annex of the final paper and made available 
+            in the repository for full transparency.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-academic-200 mt-12 py-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-academic-500">
+      <p>Facundo & Santilli Agustín · Estructura Económica Mundial y Argentina · Universidad Nacional de Mar del Plata · 2026</p>
+      <p class="mt-1">Research presentation site · Dual-mode interface (Presentation / Methodology Transparency)</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mode switching
+    function setMode(mode) {
+      document.querySelectorAll('.mode-panel').forEach(el => el.classList.remove('active'));
+      document.getElementById('mode-' + mode).classList.add('active');
+      
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.remove('bg-academic-accent', 'text-white');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('btn-' + mode);
+      activeBtn.classList.add('bg-academic-accent', 'text-white');
+      activeBtn.classList.remove('text-slate-300');
+    }
+
+    // Presentation section tabs
+    function showSection(id) {
+      document.querySelectorAll('#mode-presentation .tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      
+      document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Methodology sub-tabs
+    function showMethod(id) {
+      document.querySelectorAll('.method-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('method-' + id).classList.remove('hidden');
+      
+      document.querySelectorAll('.method-tab').forEach(btn => {
+        btn.classList.remove('bg-academic-accent', 'text-white');
+        btn.classList.add('bg-academic-100', 'text-academic-700');
+      });
+      event.target.classList.remove('bg-academic-100', 'text-academic-700');
+      event.target.classList.add('bg-academic-accent', 'text-white');
+    }
+
+    // Charts (illustrative placeholders)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Price chart
+      const ctx1 = document.getElementById('priceChart');
+      if (ctx1) {
+        new Chart(ctx1, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+              label: 'Brent (USD/bbl)',
+              data: [72, 75, 95, 118, 105, 92, 88],
+              borderColor: '#0ea5e9',
+              backgroundColor: 'rgba(14, 165, 233, 0.08)',
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
+              x: { grid: { display: false } }
+            }
+          }
+        });
+      }
+
+      // IRF chart
+      const ctx2 = document.getElementById('irfChart');
+      if (ctx2) {
+        new Chart(ctx2, {
+          type: 'line',
+          data: {
+            labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
+            datasets: [
+              {
+                label: 'Inflation',
+                data: [0, 0.15, 0.28, 0.32, 0.25, 0.18, 0.12, 0.08, 0.04],
+                borderColor: '#f43f5e',
+                tension: 0.3
+              },
+              {
+                label: 'Equity returns',
+                data: [0, -0.8, -1.2, -0.9, -0.5, -0.3, -0.15, -0.05, 0],
+                borderColor: '#0ea5e9',
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+              y: { grid: { color: '#f1f5f9' } },
+              x: { title: { display: true, text: 'Months after shock' }, grid: { display: false } }
+            }
+          }
+        });
+      }
+
+      // Volatility chart
+      const ctx3 = document.getElementById('volChart');
+      if (ctx3) {
+        new Chart(ctx3, {
+          type: 'line',
+          data: {
+            labels: Array.from({length: 60}, (_, i) => i),
+            datasets: [{
+              label: 'Conditional volatility',
+              data: Array.from({length: 60}, (_, i) => {
+                if (i < 25) return 0.8 + Math.random() * 0.3;
+                if (i < 40) return 1.8 + Math.random() * 0.6;
+                return 1.1 + Math.random() * 0.4;
+              }),
+              borderColor: '#8b5cf6',
+              backgroundColor: 'rgba(139, 92, 246, 0.1)',
+              fill: true,
+              tension: 0.2,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { grid: { color: '#f1f5f9' } },
+              x: { display: false }
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
