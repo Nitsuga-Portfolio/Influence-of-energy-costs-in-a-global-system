@@ -180,9 +180,11 @@ body{font-family:Inter,system-ui,sans-serif}
 
 <section id="section-conclusions" class="tab-content"><div class="section-card p-6 sm:p-8">
 <h2 class="text-2xl font-semibold mb-4">9. Conclusiones</h2>
-<p class="text-academic-700 mb-3">El shock asociado a la disrupción del Estrecho de Ormuz en 2026 ofrece un laboratorio poco frecuente para estudiar cómo un gran shock de oferta energética se transmite a través de la <strong>estructura económica mundial</strong>.</p>
-<p class="text-academic-700 mb-3">Tres hallazgos de estructura: (1) el impacto es asimétrico — Asia absorbe una proporción desproporcionada del ajuste; (2) las respuestas de política importan y difieren — amortiguación temporal en Argentina, stocks y diversificación en Asia, reservas profundas en Japón; (3) ser productor (Argentina) no inmuniza al consumidor si los precios internos siguen la lógica de paridad de importación.</p>
-<p class="text-academic-700">La econometría (SVAR + GARCH) aporta disciplina cuantitativa a esa narrativa; no la reemplaza.</p>
+<p class="text-academic-700 mb-3">Una disrupción en un solo punto del mapa —el Estrecho de Ormuz— repercute en precios, inflación, términos de intercambio y decisiones de política en todo el mundo. Eso es, en sentido estricto, el objeto de la <strong>estructura económica mundial</strong>: no eventos aislados, sino eslabones de una red de dependencias, flujos y respuestas nacionales.</p>
+<p class="text-academic-700 mb-3">Los países no enfrentan el mismo problema de la misma manera. La respuesta depende de su <strong>geografía</strong> (productor o importador neto; distancia al chokepoint), de su <strong>política energética</strong> (amortiguación de precios, liberación de stocks, diversificación de orígenes), de su <strong>perfilamiento internacional</strong> (aliados, acceso a crudo ruso u otras rutas, membresía en la AIE) y de su lugar en las <strong>cadenas de producción</strong> y de valor. China absorbe con escala e inventarios; India mitiga parcialmente con orígenes alternativos; Japón combina dependencia extrema con reservas profundas y previsión; Argentina, siendo productora, igual transmite el shock al consumidor y opta por amortiguación temporal (buffer YPF, postergación de impuestos, bioetanol).</p>
+<p class="text-academic-700 mb-3">Comparar Argentina con Asia no es un ejercicio de curiosidad regional: muestra que <em>ser productor no inmuniza</em> si los precios internos siguen la lógica de paridad de importación, y que las herramientas de política (corto plazo vs. resiliencia estructural) definen quién paga el ajuste y por cuánto tiempo.</p>
+<p class="text-academic-700 mb-3">Cuando el trabajo incorpore los resultados econométricos finales, esa comparación podrá anclarse en órdenes de magnitud estimados (respuestas de inflación, actividad y volatilidad). Hasta entonces, la evidencia descriptiva y de política ya alcanza para una conclusión de estructura: <strong>una acción en un chokepoint no es local; las respuestas sí lo son</strong>, y esa tensión entre global y nacional es el núcleo de la materia.</p>
+<p class="text-sm text-academic-500">La econometría (SVAR, GARCH, proyecciones locales) aporta disciplina cuantitativa a esta narrativa; no la reemplaza.</p>
 </div></section>
 
 <section id="section-references" class="tab-content"><div class="section-card p-6 sm:p-8">
@@ -217,7 +219,6 @@ body{font-family:Inter,system-ui,sans-serif}
 <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('data')">Datos</button>
 <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('why')">Por qué</button>
 </div>
-
 <div id="method-overview" class="method-content active">
 <h3 class="text-lg font-semibold mb-3">Cómo funciona la estrategia empírica</h3>
 <p class="text-sm text-academic-700 mb-4">Cuando el costo de la energía sube de golpe por un evento geopolítico, ¿qué les ocurre a la inflación, la actividad y los mercados? Usamos tres herramientas complementarias:</p>
@@ -228,120 +229,65 @@ body{font-family:Inter,system-ui,sans-serif}
 </div>
 <p class="text-sm text-academic-700 mt-4">La narrativa de estructura (Argentina, Asia, Japón) es el centro del trabajo. La econometría es el ancla cuantitativa que la disciplina, no el reemplazo.</p>
 </div>
-
 <div id="method-svar" class="method-content">
 <h3 class="text-lg font-semibold mb-3">VAR Estructural (SVAR)</h3>
-<div class="method-box">
-<h4>Qué es (en lenguaje sencillo)</h4>
-<p class="text-sm text-academic-700">Varias series económicas (precio del petróleo, inflación, actividad, retornos, spreads) se modelan juntas: cada una depende de su propio pasado y del pasado de las demás. La parte <em>estructural</em> agrega razonamiento económico o un instrumento externo para aislar un “shock de oferta energética” limpio, en lugar de una mezcla de muchas cosas ocurriendo a la vez.</p>
-</div>
-<div class="method-box">
-<h4>Componentes principales</h4>
+<div class="method-box"><h4>Qué es (en lenguaje sencillo)</h4>
+<p class="text-sm text-academic-700">Varias series económicas se modelan juntas. La parte estructural aísla un shock de oferta energética limpio con un instrumento externo.</p></div>
+<div class="method-box"><h4>Componentes principales</h4>
 <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
-<li><strong>Variables endógenas</strong> — las series del sistema (precio energía, inflación, actividad, etc.).</li>
-<li><strong>Rezagos</strong> — cuántos períodos pasados influyen (elegidos con criterios de información).</li>
-<li><strong>Identificación</strong> — instrumento externo (caída de tránsito por Ormuz o movimientos de precio alrededor de noticias geopolíticas) para aislar el shock energético.</li>
-<li><strong>Respuestas al impulso (IRF)</strong> — gráficos de cómo reaccionan inflación, actividad y mercados en los meses posteriores al shock.</li>
-</ul>
-</div>
+<li><strong>Variables endógenas</strong> — precio energía, inflación, actividad, etc.</li>
+<li><strong>Rezagos</strong> — elegidos con criterios de información.</li>
+<li><strong>Identificación</strong> — instrumento externo (tránsito Ormuz / noticias geopolíticas).</li>
+<li><strong>Respuestas al impulso (IRF)</strong> — reacción mes a mes.</li>
+</ul></div>
 <div class="method-box" style="background:#eff6ff;border-color:#bfdbfe">
-<h4>Ejemplo numérico ilustrativo (2 variables)</h4>
-<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> los coeficientes de abajo son <em>inventados con fines pedagógicos</em>. No son estimaciones del trabajo ni de un paper concreto; sirven solo para ver la forma de las ecuaciones.</p>
-<p class="text-sm text-academic-700 mb-2">Forma reducida (lo que estima primero la computadora):</p>
+<h4>Ejemplo numérico ilustrativo</h4>
+<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> coeficientes inventados con fines pedagógicos.</p>
 <div class="code-block text-xs mb-2">P<sub>t</sub> = 0.70·P<sub>t-1</sub> + 0.10·π<sub>t-1</sub> + e<sub>t</sub><sup>P</sup><br>π<sub>t</sub> = 0.25·P<sub>t-1</sub> + 0.50·π<sub>t-1</sub> + e<sub>t</sub><sup>π</sup></div>
-<p class="text-sm text-academic-700 mb-2">Los residuos e<sup>P</sup> y e<sup>π</sup> están correlacionados: no sabemos cuánto del movimiento de la inflación se debe al shock energético. Con el instrumento aislamos ε<sup>energía</sup> y calculamos la respuesta al impulso.</p>
-<p class="text-sm text-academic-700"><strong>Lectura práctica:</strong> un shock que eleva el precio del petróleo en X% tiende a elevar la inflación en Y puntos a los 3 meses (en la literatura, órdenes de magnitud típicos son ≈0,3–0,4 pp por un 10% sostenido en el precio del petróleo — FMI / Goldman Sachs).</p>
+<p class="text-sm text-academic-700">Con el instrumento aislamos ε<sup>energía</sup> y calculamos la IRF. Órdenes de magnitud típicos en la literatura: ≈0,3–0,4 pp de inflación por un 10% sostenido en el precio del petróleo (FMI / Goldman Sachs).</p>
 </div>
-<div class="method-box">
-<h4>Por qué lo usamos</h4>
-<p class="text-sm text-academic-700">Es el método de cabecera en la literatura moderna de shocks petroleros (Kilian; Baumeister & Hamilton). Permite una historia causal transparente y replicable con datos públicos.</p>
+<div class="method-box"><h4>Por qué lo usamos</h4>
+<p class="text-sm text-academic-700">Método de cabecera en shocks petroleros (Kilian; Baumeister & Hamilton). Historia causal transparente y replicable.</p></div>
 </div>
-</div>
-
 <div id="method-garch" class="method-content">
 <h3 class="text-lg font-semibold mb-3">Familia GARCH — medir la volatilidad</h3>
-<div class="method-box">
-<h4>Qué es (en lenguaje sencillo)</h4>
-<p class="text-sm text-academic-700">Los retornos financieros no son igual de riesgosos todos los días. Hay períodos de calma y de turbulencia. GARCH modela la varianza de los retornos como un proceso que depende de los shocks recientes y de su propio nivel reciente: cuantifica “cuán nervioso está el mercado” en cada momento.</p>
-</div>
-<div class="method-box">
-<h4>Componentes / variantes</h4>
-<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
-<li><strong>GARCH(1,1)</strong> — la volatilidad de hoy depende de la de ayer y del tamaño de la sorpresa de ayer.</li>
-<li><strong>EGARCH / GJR-GARCH</strong> — permiten que las malas noticias aumenten más la volatilidad que las buenas (efecto apalancamiento).</li>
-<li><strong>Volatilidad condicional</strong> — la serie diaria de riesgo que graficamos alrededor del evento de Ormuz.</li>
-</ul>
-</div>
+<div class="method-box"><h4>Qué es (en lenguaje sencillo)</h4>
+<p class="text-sm text-academic-700">GARCH modela la varianza de los retornos como un proceso que depende de los shocks recientes y de su propio nivel reciente: cuantifica “cuán nervioso está el mercado”.</p></div>
 <div class="method-box" style="background:#f5f3ff;border-color:#ddd6fe">
-<h4>Ejemplo numérico ilustrativo (GARCH(1,1))</h4>
-<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> ω, α, β y los valores de σ y ε de abajo son <em>inventados para enseñar la mecánica</em>. No son parámetros estimados del trabajo.</p>
-<div class="code-block text-xs mb-2">σ<sub>t</sub>² = ω + α · ε<sub>t-1</sub>² + β · σ<sub>t-1</sub>²</div>
-<p class="text-sm text-academic-700 mb-1">Donde: <strong>σ<sub>t</sub>²</strong> = varianza esperada hoy · <strong>ω</strong> = nivel base · <strong>ε<sub>t-1</sub>²</strong> = sorpresa de ayer al cuadrado · <strong>α</strong> = peso de la sorpresa · <strong>β</strong> = peso de la volatilidad de ayer (persistencia).</p>
-<div class="code-block text-xs mb-2">ω=0.0001 · α=0.10 · β=0.80<br>σ<sub>t-1</sub>²=0.0004 · ε<sub>t-1</sub>=−0.03 → ε²=0.0009<br>σ<sub>t</sub>² = 0.0001 + 0.10×0.0009 + 0.80×0.0004 = <strong>0.00051</strong></div>
-<p class="text-sm text-academic-700">La volatilidad esperada subió (de 0.0004 a 0.00051) porque hubo una sorpresa grande y negativa.</p>
+<h4>Ejemplo ilustrativo (GARCH(1,1))</h4>
+<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> valores inventados para enseñar la mecánica.</p>
+<div class="code-block text-xs mb-2">σ<sub>t</sub>² = ω + α · ε<sub>t-1</sub>² + β · σ<sub>t-1</sub>²<br>ω=0.0001 · α=0.10 · β=0.80<br>σ<sub>t-1</sub>²=0.0004 · ε²=0.0009 → σ<sub>t</sub>² = <strong>0.00051</strong></div>
 </div>
-<div class="method-box">
-<h4>Por qué lo usamos</h4>
-<p class="text-sm text-academic-700">El shock energético no solo mueve niveles de precios; cambia el riesgo. GARCH mide ese cambio de forma disciplinada.</p>
+<div class="method-box"><h4>Por qué lo usamos</h4>
+<p class="text-sm text-academic-700">El shock no solo mueve niveles; cambia el riesgo. GARCH mide ese cambio de forma disciplinada.</p></div>
 </div>
-</div>
-
 <div id="method-lp" class="method-content">
 <h3 class="text-lg font-semibold mb-3">Proyecciones Locales (Jordà)</h3>
-<div class="method-box">
-<h4>Qué es</h4>
-<p class="text-sm text-academic-700">En lugar de forzar toda la dinámica a través de un único VAR, se estima la respuesta de una variable en cada horizonte futuro con una regresión separada. Es más flexible y menos sensible a la estructura exacta de rezagos del VAR.</p>
-</div>
-<div class="method-box">
-<h4>Cómo lo usamos</h4>
-<p class="text-sm text-academic-700">Tomamos el inicio de la disrupción de Ormuz como evento, corremos proyecciones para inflación, actividad y retornos, y comparamos la trayectoria con la del SVAR. Si cuentan la misma historia, ganamos credibilidad.</p>
-</div>
+<div class="method-box"><h4>Qué es</h4>
+<p class="text-sm text-academic-700">Se estima la respuesta en cada horizonte futuro con una regresión separada. Más flexible y menos sensible a la estructura exacta de rezagos del VAR.</p></div>
 <div class="method-box" style="background:#ecfdf5;border-color:#a7f3d0">
 <h4>Ejemplo con valores numéricos</h4>
-<p class="text-sm text-academic-700 mb-2">Fórmula general para el horizonte <em>h</em>:</p>
 <div class="code-block text-xs mb-3">π<sub>t+h</sub> = α<sub>h</sub> + β<sub>h</sub> · Shock<sub>t</sub> + controles<sub>t</sub> + error</div>
 <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-sm text-amber-900">
-<strong>Origen de los números:</strong> los valores α<sub>3</sub>=0.40, β<sub>3</sub>=0.28, el coeficiente del control (0.15) y toda la secuencia de β<sub>h</sub> del gráfico son <strong>ilustrativos / hipotéticos</strong>. No provienen de una estimación con datos reales del trabajo ni de un paper citado. Se eligieron solo para mostrar, con números redondos y legibles, <em>cómo se lee</em> una regresión de proyecciones locales y <em>cómo se construye</em> el gráfico de respuestas.
+<strong>Origen de los números:</strong> α₃=0.40, β₃=0.28 y la secuencia de β<sub>h</sub> son <strong>ilustrativos / hipotéticos</strong>. No provienen de una estimación real del trabajo.
 </div>
-<p class="text-sm font-medium text-academic-800 mb-1">Caso concreto ilustrativo: h = 3</p>
-<div class="code-block text-xs mb-3">π<sub>t+3</sub> = 0.40 + 0.28 · Shock<sub>t</sub> + 0.15 · π<sub>t-1</sub> + error</div>
-<ul class="text-sm text-academic-700 space-y-2 list-disc list-inside mb-3">
-<li><strong>α<sub>3</sub> = 0.40</strong> — nivel base de inflación a 3 meses si Shock = 0.</li>
-<li><strong>β<sub>3</sub> = 0.28</strong> — si Shock = 1, la inflación a 3 meses es 0.28 pp más alta que sin el shock.</li>
-<li><strong>0.15 · π<sub>t-1</sub></strong> — control por persistencia de la inflación pasada.</li>
-</ul>
-<p class="text-sm font-medium text-academic-800 mb-1">Cálculo (con Shock=1 y π<sub>t-1</sub>=0.5)</p>
-<div class="code-block text-xs mb-3">π<sub>t+3</sub> ≈ 0.40 + 0.28×1 + 0.15×0.5 = <strong>0.755</strong><br>Sin shock ≈ 0.475 → diferencia = β<sub>3</sub> = <strong>0.28</strong></div>
-<p class="text-sm font-medium text-academic-800 mb-1">Secuencia ilustrativa de β<sub>h</sub></p>
-<div class="code-block text-xs mb-3">β<sub>0</sub>=0.02 · β<sub>1</sub>=0.12 · β<sub>2</sub>=0.22 · β<sub>3</sub>=0.28 · β<sub>4</sub>=0.24 · β<sub>5</sub>=0.16 · β<sub>6</sub>=0.10 · β<sub>7</sub>=0.05 · β<sub>8</sub>=0.02</div>
+<div class="code-block text-xs mb-3">π<sub>t+3</sub> = 0.40 + 0.28 · Shock<sub>t</sub> + 0.15 · π<sub>t-1</sub> + error<br>Con Shock=1 y π<sub>t-1</sub>=0.5 → π<sub>t+3</sub> ≈ <strong>0.755</strong></div>
 <canvas id="lpExampleChart" height="180"></canvas>
-<p class="text-xs text-academic-500 mt-2">Gráfico ilustrativo. No son resultados finales del trabajo.</p>
 </div>
 </div>
-
 <div id="method-data" class="method-content">
 <h3 class="text-lg font-semibold mb-3">Datos</h3>
-<p class="text-sm text-academic-700 mb-3">Series públicas periodizadas hasta junio de 2026 (sin proyecciones):</p>
-<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
-<li><strong>Energía / precios:</strong> EIA, IEA, Brent y benchmarks regionales.</li>
-<li><strong>Macro:</strong> FRED, BCE, BOJ.</li>
-<li><strong>Argentina:</strong> decretos, surtidor, YPF, Secretaría de Energía.</li>
-<li><strong>Asia:</strong> METI/JOGMEC, CREA, Oxford Energy Forum.</li>
-</ul>
+<p class="text-sm text-academic-700">Series públicas hasta junio 2026: EIA, IEA, FRED, BCE, BOJ, decretos y surtidor (AR), METI/JOGMEC, CREA.</p>
 </div>
-
 <div id="method-why" class="method-content">
 <h3 class="text-lg font-semibold mb-3">Por qué esta combinación</h3>
-<ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
-<li><strong>SVAR</strong> — narrativa causal y multiplicadores dinámicos.</li>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li><strong>SVAR</strong> — narrativa causal.</li>
 <li><strong>GARCH</strong> — dimensión de riesgo.</li>
-<li><strong>Proyecciones Locales</strong> — robustez independiente del VAR.</li>
+<li><strong>Proyecciones Locales</strong> — robustez.</li>
 </ul>
-<p class="text-sm text-academic-700 mt-3">Juntas anclan cuantitativamente una narrativa de estructura económica mundial sin que la técnica monopolice el relato.</p>
 </div>
-</div>
-</div>
-
+</div></div>
 </main>
 <footer class="border-t mt-12 py-6"><div class="max-w-6xl mx-auto px-4 text-center text-sm text-academic-500"><p>Facundo & Santilli Agustín · Estructura Económica Mundial y Argentina · UNMdP · 2026</p></div></footer>
 <script>
