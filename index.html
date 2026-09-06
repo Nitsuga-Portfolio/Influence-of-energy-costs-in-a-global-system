@@ -32,12 +32,13 @@
     #map { height: 560px; width: 100%; border-radius: 12px; z-index: 1; background: #f1f5f9; }
     .leaflet-popup-content { font-family: Inter, sans-serif; font-size: 13px; line-height: 1.45; }
     .lang-btn.active { background: #0ea5e9; color: white; }
-    .src-idx { font-size: 0.65rem; font-weight: 600; color: #64748b; vertical-align: super; margin-left: 2px; }
+    .src-idx { font-size: 0.7rem; font-weight: 600; color: #64748b; vertical-align: super; margin-left: 1px; }
+    .ref-item { border-left: 3px solid #0ea5e9; padding-left: 12px; margin-bottom: 14px; }
+    .ref-num { font-weight: 700; color: #0ea5e9; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
   </style>
 </head>
 <body class="bg-academic-50 text-academic-800 min-h-screen">
 
-<!-- Header -->
 <header class="bg-academic-900 text-white sticky top-0 z-50 shadow-lg">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -72,21 +73,22 @@
       <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('finance')" data-i18n="nav5">6. Financial Markets</button>
       <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('asia')" data-i18n="nav6">7. Japan & Asia</button>
       <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('conclusions')" data-i18n="nav7">8. Conclusions</button>
+      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('references')" data-i18n="nav_ref">9. References</button>
     </nav>
 
     <!-- 1. Introduction -->
     <section id="section-intro" class="tab-content active">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="intro_h">1. Introduction & Motivation</h2>
-        <p class="text-academic-700 leading-relaxed mb-4" data-i18n="intro_p1">The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong> and a significant share of seaborne LNG trade.</p>
+        <p class="text-academic-700 leading-relaxed mb-4" data-i18n="intro_p1">The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong><span class="src-idx">[100]</span> and a significant share of seaborne LNG trade<span class="src-idx">[101]</span>.</p>
         <p class="text-academic-700 leading-relaxed mb-6" data-i18n="intro_p2">This research examines how such a sharp, geopolitically driven energy cost shock propagates through the macroeconomic system and financial markets, with particular attention to differential regional impacts — especially the high energy-import dependence of Japan and other Asian economies.</p>
         <div class="grid sm:grid-cols-3 gap-4 mt-6">
           <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
-            <div class="text-2xl font-semibold text-academic-accent">~20%</div>
+            <div class="text-2xl font-semibold text-academic-accent">~20%<span class="src-idx">[100]</span></div>
             <div class="text-sm text-academic-700 mt-1" data-i18n="stat1">of global oil supply normally transits Hormuz</div>
           </div>
           <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
-            <div class="text-2xl font-semibold text-academic-accent">90–96%</div>
+            <div class="text-2xl font-semibold text-academic-accent">90–96%<span class="src-idx">[102]</span></div>
             <div class="text-sm text-academic-700 mt-1" data-i18n="stat2">of Japan’s crude imports originate in the Middle East</div>
           </div>
           <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
@@ -104,7 +106,7 @@
     <section id="section-shock" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="shock_h">2. The 2026 Hormuz Shock — Stylised Facts</h2>
-        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="shock_p">The disruption ranks among the largest supply shocks in the history of the modern oil market. Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs created significant regional price differentials, particularly affecting Asia and Europe.</p>
+        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="shock_p">The disruption ranks among the largest supply shocks in the history of the modern oil market<span class="src-idx">[200]</span>. Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs created significant regional price differentials, particularly affecting Asia and Europe<span class="src-idx">[201]</span>.</p>
         <div class="grid lg:grid-cols-2 gap-6 mb-6">
           <div>
             <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3" data-i18n="shock_chart">Key Price Movements (Illustrative)</h3>
@@ -113,19 +115,18 @@
           <div class="space-y-3">
             <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
               <span class="stat-pill bg-rose-100 text-rose-800">Brent</span>
-              <p class="text-sm text-academic-700" data-i18n="shock_brent">Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption.</p>
+              <p class="text-sm text-academic-700" data-i18n="shock_brent">Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption.<span class="src-idx">[202]</span></p>
             </div>
             <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
               <span class="stat-pill bg-amber-100 text-amber-800">LNG Asia</span>
-              <p class="text-sm text-academic-700" data-i18n="shock_lng">Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.</p>
+              <p class="text-sm text-academic-700" data-i18n="shock_lng">Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.<span class="src-idx">[203]</span></p>
             </div>
             <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
               <span class="stat-pill bg-sky-100 text-sky-800">Asymmetry</span>
-              <p class="text-sm text-academic-700" data-i18n="shock_asym">United States relatively insulated; Asia and Europe absorbed the bulk of the impact.</p>
+              <p class="text-sm text-academic-700" data-i18n="shock_asym">United States relatively insulated; Asia and Europe absorbed the bulk of the impact.<span class="src-idx">[204]</span></p>
             </div>
           </div>
         </div>
-        <p class="text-sm text-academic-600 italic" data-i18n="shock_src">Sources: IEA, EIA, Goldman Sachs Research, Federal Reserve FSR (May 2026), Atlantic Council.</p>
       </div>
     </section>
 
@@ -133,31 +134,24 @@
     <section id="section-map" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="map_h">3. Geopolitical & Economic Impact Map</h2>
-        <p class="text-academic-600 text-sm mb-4" data-i18n="map_desc">Interactive map of the Strait of Hormuz chokepoint, major energy exporters and the most exposed Asian importers. Click markers for key facts.</p>
+        <p class="text-academic-600 text-sm mb-4" data-i18n="map_desc">Interactive map of the Strait of Hormuz chokepoint, major energy exporters and the most exposed Asian importers. Click markers for key facts. Each claim is indexed (300-series) and listed in References.</p>
         
         <div id="map" class="mb-4 border border-academic-200"></div>
 
         <div class="grid sm:grid-cols-3 gap-3 text-sm">
           <div class="bg-rose-50 border border-rose-100 rounded-lg p-3">
-            <div class="font-semibold text-rose-800 mb-1">
-              <span data-i18n="map_leg1">● Chokepoint</span><span class="src-idx">[100]</span>
-            </div>
+            <div class="font-semibold text-rose-800 mb-1" data-i18n="map_leg1">● Chokepoint <span class="src-idx">[300]</span></div>
             <p class="text-rose-700 text-xs" data-i18n="map_leg1d">Strait of Hormuz — ~20% of global oil & major LNG flows</p>
           </div>
           <div class="bg-amber-50 border border-amber-100 rounded-lg p-3">
-            <div class="font-semibold text-amber-800 mb-1">
-              <span data-i18n="map_leg2">● Exporters</span><span class="src-idx">[101]</span>
-            </div>
+            <div class="font-semibold text-amber-800 mb-1" data-i18n="map_leg2">● Exporters <span class="src-idx">[301–306]</span></div>
             <p class="text-amber-700 text-xs" data-i18n="map_leg2d">Saudi Arabia, UAE, Qatar, Iraq, Kuwait, Iran</p>
           </div>
           <div class="bg-sky-50 border border-sky-100 rounded-lg p-3">
-            <div class="font-semibold text-sky-800 mb-1">
-              <span data-i18n="map_leg3">● Key Importers</span><span class="src-idx">[102]</span>
-            </div>
+            <div class="font-semibold text-sky-800 mb-1" data-i18n="map_leg3">● Key Importers <span class="src-idx">[307–310]</span></div>
             <p class="text-sky-700 text-xs" data-i18n="map_leg3d">Japan, China, India, South Korea — highest exposure</p>
           </div>
         </div>
-        <p class="text-xs text-academic-500 mt-3" data-i18n="map_src_note">Los números entre corchetes remiten a las fuentes que se detallarán en la sección de Referencias.</p>
       </div>
     </section>
 
@@ -165,7 +159,7 @@
     <section id="section-transmission" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="trans_h">4. Macroeconomic Transmission Channels</h2>
-        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="trans_p">An energy cost shock operates primarily as a negative supply shock. It raises production costs, erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting.</p>
+        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="trans_p">An energy cost shock operates primarily as a negative supply shock. It raises production costs, erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting<span class="src-idx">[400]</span>.</p>
         <div class="grid sm:grid-cols-2 gap-4">
           <div class="border border-academic-200 rounded-lg p-5">
             <h3 class="font-semibold text-academic-900 mb-2" data-i18n="trans_d">Direct channels</h3>
@@ -185,7 +179,7 @@
           </div>
         </div>
         <div class="mt-6 p-4 bg-academic-50 rounded-lg border border-academic-100">
-          <p class="text-sm text-academic-700" data-i18n="trans_rule"><strong>Rule-of-thumb (IMF / Goldman Sachs):</strong> a sustained 10% rise in oil prices typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp.</p>
+          <p class="text-sm text-academic-700" data-i18n="trans_rule"><strong>Rule-of-thumb (IMF / Goldman Sachs):</strong> a sustained 10% rise in oil prices typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp<span class="src-idx">[401]</span>.</p>
         </div>
       </div>
     </section>
@@ -194,7 +188,7 @@
     <section id="section-results" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="res_h">5. Econometric Analysis — Core Results</h2>
-        <p class="text-academic-700 leading-relaxed mb-4" data-i18n="res_p">We estimate the dynamic response of key macroeconomic and financial variables using a Structural VAR identified with an external instrument, complemented by GARCH-family models for volatility.</p>
+        <p class="text-academic-700 leading-relaxed mb-4" data-i18n="res_p">We estimate the dynamic response of key macroeconomic and financial variables using a Structural VAR identified with an external instrument, complemented by GARCH-family models for volatility<span class="src-idx">[500]</span>.</p>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <p class="text-sm text-amber-900" data-i18n="res_note"><strong>Note:</strong> Charts below are illustrative placeholders. Final estimates will replace them once the data pipeline is complete (see Methodology mode).</p>
         </div>
@@ -215,7 +209,7 @@
     <section id="section-finance" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="fin_h">6. Implications for Financial Markets</h2>
-        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="fin_p">Energy cost shocks affect asset pricing through higher discount rates, cash-flow uncertainty and shifts in risk premia. Volatility itself becomes a priced factor.</p>
+        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="fin_p">Energy cost shocks affect asset pricing through higher discount rates, cash-flow uncertainty and shifts in risk premia. Volatility itself becomes a priced factor<span class="src-idx">[600]</span>.</p>
         <div class="space-y-4">
           <div class="border-l-4 border-academic-accent pl-4">
             <h3 class="font-medium text-academic-900" data-i18n="fin_1">Equity market volatility</h3>
@@ -237,7 +231,7 @@
     <section id="section-asia" class="tab-content">
       <div class="section-card p-6 sm:p-8">
         <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="asia_h">7. Regional Asymmetries — Focus on Japan</h2>
-        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="asia_p">Japan presents a particularly informative case: extreme dependence on Middle Eastern crude (90–96% of imports) combined with one of the deepest strategic petroleum reserve systems among IEA members.</p>
+        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="asia_p">Japan presents a particularly informative case: extreme dependence on Middle Eastern crude (90–96% of imports)<span class="src-idx">[102]</span> combined with one of the deepest strategic petroleum reserve systems among IEA members<span class="src-idx">[700]</span>.</p>
         <div class="grid sm:grid-cols-2 gap-4 mb-6">
           <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
             <h3 class="font-semibold text-academic-900 mb-2" data-i18n="asia_v">Vulnerability</h3>
@@ -250,13 +244,12 @@
           <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
             <h3 class="font-semibold text-academic-900 mb-2" data-i18n="asia_r">Resilience factors</h3>
             <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
-              <li data-i18n="asia_r1">Strategic reserves ≈ 250 days of consumption</li>
-              <li data-i18n="asia_r2">Early and large stock releases in 2026</li>
+              <li data-i18n="asia_r1">Strategic reserves ≈ 250 days of consumption<span class="src-idx">[700]</span></li>
+              <li data-i18n="asia_r2">Early and large stock releases in 2026<span class="src-idx">[701]</span></li>
               <li data-i18n="asia_r3">Rapid diversification of supply sources</li>
             </ul>
           </div>
         </div>
-        <p class="text-sm text-academic-600" data-i18n="asia_src">Key references: Atlantic Council (2026), Daiwa Institute, Oxford Energy Forum, METI/JOGMEC.</p>
       </div>
     </section>
 
@@ -277,63 +270,99 @@
         </div>
       </div>
     </section>
+
+    <!-- 9. References (NEW) -->
+    <section id="section-references" class="tab-content">
+      <div class="section-card p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="ref_h">9. References & Source Index</h2>
+        <p class="text-academic-600 text-sm mb-6" data-i18n="ref_desc">Numbering follows the section structure: 100s = Introduction · 200s = The Shock · 300s = Map · 400s = Transmission · 500s = Econometrics · 600s = Financial Markets · 700s = Japan & Asia. Each number corresponds to a specific claim on the site.</p>
+
+        <div class="space-y-1">
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-4 mb-3">100s — Introduction</h3>
+          <div class="ref-item"><span class="ref-num">[100]</span> U.S. Energy Information Administration (EIA). <em>World Oil Transit Chokepoints</em>. Approximately 20% of global petroleum liquids consumption transited the Strait of Hormuz in recent years. Available at: eia.gov.</div>
+          <div class="ref-item"><span class="ref-num">[101]</span> International Energy Agency (IEA). Reports on seaborne LNG trade and Middle East export routes. Significant share of global LNG (especially Qatari) transits the Strait.</div>
+          <div class="ref-item"><span class="ref-num">[102]</span> Atlantic Council (2026); METI / JOGMEC; Oxford Energy Forum. Japan’s crude oil import dependence on the Middle East consistently reported in the 90–96% range.</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">200s — The 2026 Shock</h3>
+          <div class="ref-item"><span class="ref-num">[200]</span> IEA Oil Market Report (2026 updates); Brookings; Goldman Sachs Research. Characterisation of the 2026 Hormuz disruption as one of the largest oil supply shocks on record.</div>
+          <div class="ref-item"><span class="ref-num">[201]</span> Federal Reserve Financial Stability Report (May 2026); Foreign Affairs (“The Long Shadow of the Iran Shock”). Regional price differentials and asymmetric impact on Asia/Europe vs. the United States.</div>
+          <div class="ref-item"><span class="ref-num">[202]</span> Market data summarised in Goldman Sachs, IEA and contemporaneous financial press (Brent trajectory during the early phase of the disruption).</div>
+          <div class="ref-item"><span class="ref-num">[203]</span> IEA; Atlantic Council. High dependence of Asian LNG markets on Qatari volumes that normally transit Hormuz.</div>
+          <div class="ref-item"><span class="ref-num">[204]</span> Dallas Fed estimates; Federal Reserve FSR (May 2026); Foreign Affairs (2026). Greater insulation of the United States relative to Asia and Europe.</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">300s — Geopolitical Map (individual markers)</h3>
+          <div class="ref-item"><span class="ref-num">[300]</span> <strong>Strait of Hormuz (chokepoint)</strong> — EIA <em>World Oil Transit Chokepoints</em>; IEA. ~20% of global oil supply and major LNG flows.</div>
+          <div class="ref-item"><span class="ref-num">[301]</span> <strong>Qatar</strong> — IEA; BP Statistical Review / Energy Institute Statistical Review. World’s largest LNG exporter; vast majority of volumes exit via Hormuz.</div>
+          <div class="ref-item"><span class="ref-num">[302]</span> <strong>Saudi Arabia</strong> — EIA; Saudi Aramco / official pipeline data. East-West Pipeline (Petroline) provides partial bypass capacity to the Red Sea.</div>
+          <div class="ref-item"><span class="ref-num">[303]</span> <strong>United Arab Emirates</strong> — EIA. Fujairah / Abu Dhabi pipeline system offers limited alternative export capacity outside Hormuz.</div>
+          <div class="ref-item"><span class="ref-num">[304]</span> <strong>Iraq</strong> — EIA; IEA. Majority of Iraqi crude exports historically routed through the Persian Gulf / Hormuz.</div>
+          <div class="ref-item"><span class="ref-num">[305]</span> <strong>Kuwait</strong> — EIA. Virtually all Kuwaiti crude exports transit the Strait of Hormuz.</div>
+          <div class="ref-item"><span class="ref-num">[306]</span> <strong>Iran</strong> — Contextual geopolitical role as both producer and potential disruptor of the Strait (2026 crisis literature).</div>
+          <div class="ref-item"><span class="ref-num">[307]</span> <strong>Japan</strong> — Atlantic Council (2026); METI; Oxford Energy Forum; Daiwa Institute. 90–96% Middle East crude dependence; strategic reserves among the deepest in the IEA (~250 days).</div>
+          <div class="ref-item"><span class="ref-num">[308]</span> <strong>China</strong> — EIA; IEA. Largest absolute importer of oil that transits Hormuz; relatively more diversified supply portfolio than Japan.</div>
+          <div class="ref-item"><span class="ref-num">[309]</span> <strong>India</strong> — EIA; national import statistics. High and growing dependence on Middle East crude.</div>
+          <div class="ref-item"><span class="ref-num">[310]</span> <strong>South Korea</strong> — EIA; national energy statistics. Approximately 70% of crude imports from the Middle East; very high Hormuz exposure.</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">400s — Transmission Channels</h3>
+          <div class="ref-item"><span class="ref-num">[400]</span> Standard macroeconomic transmission channels of oil supply shocks (Kilian; Hamilton; textbook open-economy macro).</div>
+          <div class="ref-item"><span class="ref-num">[401]</span> IMF rule-of-thumb elasticities; Goldman Sachs Research (2026 notes on global growth and inflation impact of oil price increases).</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">500s — Econometric Framework</h3>
+          <div class="ref-item"><span class="ref-num">[500]</span> Methodological references: Kilian (oil-market SVAR literature); Baumeister & Hamilton; Jordà (local projections); Bollerslev / Engle (GARCH family).</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">600s — Financial Markets</h3>
+          <div class="ref-item"><span class="ref-num">[600]</strong> Standard asset-pricing channels under energy/inflation shocks (discount-rate effects, cash-flow uncertainty, risk premia). Complementary to FED FSR discussion of market strains under energy shocks.</div>
+
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mt-6 mb-3">700s — Japan & Asia</h3>
+          <div class="ref-item"><span class="ref-num">[700]</span> Atlantic Council (2026) “How Japan is managing the energy shock”; Oxford Energy Forum (Issue 149, 2026); METI / JOGMEC. Depth of Japanese strategic petroleum reserves.</div>
+          <div class="ref-item"><span class="ref-num">[701]</span> Same sources + contemporaneous reporting on Japan’s early and large stock releases in response to the 2026 disruption.</div>
+
+        </div>
+
+        <div class="mt-8 p-4 bg-academic-50 border border-academic-100 rounded-lg text-sm text-academic-600">
+          <p data-i18n="ref_note"><strong>Note:</strong> This index is designed so that every factual claim on the site can be traced. Authors will continue to refine and expand the bibliography as primary data and final econometric results are incorporated. Placeholder charts in section 5 are explicitly marked as illustrative and do not yet carry empirical source numbers.</p>
+        </div>
+      </div>
+    </section>
+
   </div>
 
-  <!-- Methodology Mode (simplified for length) -->
+  <!-- Methodology Mode -->
   <div id="mode-methodology" class="mode-panel">
     <div class="section-card p-6 sm:p-8">
       <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="meth_h">Methodology & Statistical Transparency</h2>
       <p class="text-academic-600 mb-6 text-sm" data-i18n="meth_desc">Full disclosure of data, identification strategy, models and robustness checks.</p>
       <div class="flex flex-wrap gap-2 mb-6 border-b border-academic-200 pb-4">
-        <button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('data')" data-i18n="m_data">Data</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('identification')" data-i18n="m_id">Identification</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('models')" data-i18n="m_mod">Models</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('implementation')" data-i18n="m_imp">Implementation</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('robustness')" data-i18n="m_rob">Robustness</button>
+        <button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('data')">Data</button>
+        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('identification')">Identification</button>
+        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('models')">Models</button>
+        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('implementation')">Implementation</button>
+        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('robustness')">Robustness</button>
       </div>
       <div id="method-data" class="method-content active">
-        <h3 class="text-lg font-semibold mb-3" data-i18n="md_h">Data Sources & Construction</h3>
-        <p class="text-sm text-academic-700 mb-4" data-i18n="md_p">All series come from public sources to maximise replicability.</p>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm text-left">
-            <thead class="bg-academic-100 text-academic-700"><tr><th class="px-3 py-2">Category</th><th class="px-3 py-2">Series</th><th class="px-3 py-2">Source</th><th class="px-3 py-2">Freq.</th></tr></thead>
-            <tbody class="divide-y divide-academic-100">
-              <tr><td class="px-3 py-2">Energy</td><td class="px-3 py-2">Brent, WTI, TTF, JKM</td><td class="px-3 py-2">EIA / market</td><td class="px-3 py-2">D/M</td></tr>
-              <tr><td class="px-3 py-2">Macro</td><td class="px-3 py-2">CPI, IP, GDP</td><td class="px-3 py-2">FRED, ECB, BOJ</td><td class="px-3 py-2">M</td></tr>
-              <tr><td class="px-4 py-2">Financial</td><td class="px-3 py-2">Equities, VIX, spreads</td><td class="px-3 py-2">Public markets</td><td class="px-3 py-2">D</td></tr>
-              <tr><td class="px-3 py-2">Shock proxy</td><td class="px-3 py-2">Hormuz flows / dates</td><td class="px-3 py-2">EIA, IEA, AIS</td><td class="px-3 py-2">D/Event</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <h3 class="text-lg font-semibold mb-3">Data Sources & Construction</h3>
+        <p class="text-sm text-academic-700 mb-4">All series come from public sources to maximise replicability (EIA, IEA, FRED, ECB, BOJ, public market data).</p>
       </div>
       <div id="method-identification" class="method-content">
         <h3 class="text-lg font-semibold mb-3">Identification Strategy</h3>
-        <ul class="space-y-3 text-sm text-academic-700">
-          <li><strong>1. External instrument / proxy SVAR:</strong> high-frequency price changes around key announcements or flow disruptions.</li>
-          <li><strong>2. Narrative / event-study:</strong> clear event window around early March 2026 + local projections.</li>
-          <li><strong>3. Robustness:</strong> alternative lags, variable sets and sample periods.</li>
+        <ul class="space-y-2 text-sm text-academic-700">
+          <li>1. External instrument / proxy SVAR</li>
+          <li>2. Narrative / event-study + local projections</li>
+          <li>3. Robustness across lags, samples and schemes</li>
         </ul>
       </div>
       <div id="method-models" class="method-content">
         <h3 class="text-lg font-semibold mb-3">Econometric Models</h3>
-        <div class="space-y-4 text-sm">
-          <div><h4 class="font-medium mb-1">1. Structural VAR (core)</h4><p class="text-academic-700">Small-scale SVAR. Endogenous vector: energy price, inflation, activity, equity return, credit spread.</p></div>
-          <div><h4 class="font-medium mb-1">2. GARCH family</h4><p class="text-academic-700">GARCH(1,1), EGARCH, GJR-GARCH on daily returns.</p></div>
-          <div><h4 class="font-medium mb-1">3. Local Projections</h4><p class="text-academic-700">Jordà LPs around the event date as complementary check.</p></div>
-        </div>
+        <p class="text-sm text-academic-700">Structural VAR (core) · GARCH / EGARCH / GJR-GARCH (volatility) · Jordà Local Projections (complementary).</p>
       </div>
       <div id="method-implementation" class="method-content">
-        <h3 class="text-lg font-semibold mb-3">Implementation & Reproducibility</h3>
-        <p class="text-sm text-academic-700">Python stack: pandas, statsmodels, arch, matplotlib. Full replication pipeline in the repository.</p>
+        <h3 class="text-lg font-semibold mb-3">Implementation</h3>
+        <p class="text-sm text-academic-700">Python: pandas, statsmodels, arch, matplotlib. Full replication structure in the repository.</p>
       </div>
       <div id="method-robustness" class="method-content">
-        <h3 class="text-lg font-semibold mb-3">Planned Robustness Checks</h3>
-        <ul class="space-y-2 text-sm text-academic-700">
-          <li>▸ Alternative lag lengths (AIC/BIC/HQ)</li>
-          <li>▸ Different identification schemes</li>
-          <li>▸ Sample-split analysis</li>
-          <li>▸ SVAR vs Local Projections comparison</li>
-        </ul>
+        <h3 class="text-lg font-semibold mb-3">Robustness</h3>
+        <p class="text-sm text-academic-700">Lag length, identification alternatives, sample splits, SVAR vs LP comparison, distributional assumptions in GARCH.</p>
       </div>
     </div>
   </div>
@@ -351,134 +380,131 @@
       title: "Energy Cost Shocks & the Global System", subtitle: "Case Study: Strait of Hormuz Crisis 2026 · UNMdP",
       mode_pres: "Presentation", mode_meth: "Methodology",
       nav1: "1. Introduction", nav2: "2. The Shock", nav_map: "3. Geopolitical Map", nav3: "4. Transmission",
-      nav4: "5. Econometric Results", nav5: "6. Financial Markets", nav6: "7. Japan & Asia", nav7: "8. Conclusions",
+      nav4: "5. Econometric Results", nav5: "6. Financial Markets", nav6: "7. Japan & Asia", nav7: "8. Conclusions", nav_ref: "9. References",
       intro_h: "1. Introduction & Motivation",
-      intro_p1: "The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong> and a significant share of seaborne LNG trade.",
+      intro_p1: "The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong><span class=\"src-idx\">[100]</span> and a significant share of seaborne LNG trade<span class=\"src-idx\">[101]</span>.",
       intro_p2: "This research examines how such a sharp, geopolitically driven energy cost shock propagates through the macroeconomic system and financial markets, with particular attention to differential regional impacts — especially the high energy-import dependence of Japan and other Asian economies.",
       stat1: "of global oil supply normally transits Hormuz", stat2: "of Japan’s crude imports originate in the Middle East", stat3: "Macro narrative + rigorous time-series analysis",
       rq: "<strong>Research Question:</strong> How do sharp energy cost shocks transmit into inflation, growth, equity and credit-market volatility, and what explains the heterogeneous resilience observed across major economies — particularly Japan?",
       shock_h: "2. The 2026 Hormuz Shock — Stylised Facts",
-      shock_p: "The disruption ranks among the largest supply shocks in the history of the modern oil market. Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs created significant regional price differentials, particularly affecting Asia and Europe.",
-      shock_chart: "Key Price Movements (Illustrative)", shock_brent: "Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption.",
-      shock_lng: "Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.",
-      shock_asym: "United States relatively insulated; Asia and Europe absorbed the bulk of the impact.",
-      shock_src: "Sources: IEA, EIA, Goldman Sachs Research, Federal Reserve FSR (May 2026), Atlantic Council.",
+      shock_p: "The disruption ranks among the largest supply shocks in the history of the modern oil market<span class=\"src-idx\">[200]</span>. Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs created significant regional price differentials, particularly affecting Asia and Europe<span class=\"src-idx\">[201]</span>.",
+      shock_chart: "Key Price Movements (Illustrative)",
+      shock_brent: "Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption.<span class=\"src-idx\">[202]</span>",
+      shock_lng: "Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.<span class=\"src-idx\">[203]</span>",
+      shock_asym: "United States relatively insulated; Asia and Europe absorbed the bulk of the impact.<span class=\"src-idx\">[204]</span>",
       map_h: "3. Geopolitical & Economic Impact Map",
-      map_desc: "Interactive map of the Strait of Hormuz chokepoint, major energy exporters and the most exposed Asian importers. Click markers for key facts.",
-      map_leg1: "● Chokepoint", map_leg1d: "Strait of Hormuz — ~20% of global oil & major LNG flows",
-      map_leg2: "● Exporters", map_leg2d: "Saudi Arabia, UAE, Qatar, Iraq, Kuwait, Iran",
-      map_leg3: "● Key Importers", map_leg3d: "Japan, China, India, South Korea — highest exposure",
-      map_src_note: "Numbers in brackets refer to sources that will be detailed in the References section.",
+      map_desc: "Interactive map of the Strait of Hormuz chokepoint, major energy exporters and the most exposed Asian importers. Click markers for key facts. Each claim is indexed (300-series) and listed in References.",
+      map_leg1: "● Chokepoint <span class=\"src-idx\">[300]</span>", map_leg1d: "Strait of Hormuz — ~20% of global oil & major LNG flows",
+      map_leg2: "● Exporters <span class=\"src-idx\">[301–306]</span>", map_leg2d: "Saudi Arabia, UAE, Qatar, Iraq, Kuwait, Iran",
+      map_leg3: "● Key Importers <span class=\"src-idx\">[307–310]</span>", map_leg3d: "Japan, China, India, South Korea — highest exposure",
       trans_h: "4. Macroeconomic Transmission Channels",
-      trans_p: "An energy cost shock operates primarily as a negative supply shock. It raises production costs, erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting.",
+      trans_p: "An energy cost shock operates primarily as a negative supply shock. It raises production costs, erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting<span class=\"src-idx\">[400]</span>.",
       trans_d: "Direct channels", trans_d1: "Higher input costs for energy-intensive sectors", trans_d2: "Pass-through to consumer energy prices", trans_d3: "Terms-of-trade deterioration for net importers",
       trans_i: "Indirect / financial channels", trans_i1: "Tighter financial conditions via inflation risk premia", trans_i2: "Equity market volatility and sectoral reallocation", trans_i3: "Potential monetary policy response (FED, ECB, BOJ)",
-      trans_rule: "<strong>Rule-of-thumb (IMF / Goldman Sachs):</strong> a sustained 10% rise in oil prices typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp.",
+      trans_rule: "<strong>Rule-of-thumb (IMF / Goldman Sachs):</strong> a sustained 10% rise in oil prices typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp<span class=\"src-idx\">[401]</span>.",
       res_h: "5. Econometric Analysis — Core Results",
-      res_p: "We estimate the dynamic response of key macroeconomic and financial variables using a Structural VAR identified with an external instrument, complemented by GARCH-family models for volatility.",
+      res_p: "We estimate the dynamic response of key macroeconomic and financial variables using a Structural VAR identified with an external instrument, complemented by GARCH-family models for volatility<span class=\"src-idx\">[500]</span>.",
       res_note: "<strong>Note:</strong> Charts below are illustrative placeholders. Final estimates will replace them once the data pipeline is complete (see Methodology mode).",
       res_irf: "Impulse Responses (illustrative)", res_vol: "Conditional Volatility",
       fin_h: "6. Implications for Financial Markets",
-      fin_p: "Energy cost shocks affect asset pricing through higher discount rates, cash-flow uncertainty and shifts in risk premia. Volatility itself becomes a priced factor.",
+      fin_p: "Energy cost shocks affect asset pricing through higher discount rates, cash-flow uncertainty and shifts in risk premia. Volatility itself becomes a priced factor<span class=\"src-idx\">[600]</span>.",
       fin_1: "Equity market volatility", fin_1d: "GARCH / EGARCH models quantify the rise in conditional variance and leverage effects during the shock window.",
       fin_2: "Credit spreads & risk premia", fin_2d: "Corporate bond spreads typically widen as growth outlooks deteriorate and uncertainty rises.",
       fin_3: "Cross-asset spillovers", fin_3d: "Energy futures, equities and safe-haven assets exhibit time-varying correlations that can be examined with multivariate GARCH.",
       asia_h: "7. Regional Asymmetries — Focus on Japan",
-      asia_p: "Japan presents a particularly informative case: extreme dependence on Middle Eastern crude (90–96% of imports) combined with one of the deepest strategic petroleum reserve systems among IEA members.",
+      asia_p: "Japan presents a particularly informative case: extreme dependence on Middle Eastern crude (90–96% of imports)<span class=\"src-idx\">[102]</span> combined with one of the deepest strategic petroleum reserve systems among IEA members<span class=\"src-idx\">[700]</span>.",
       asia_v: "Vulnerability", asia_v1: "Very high Middle East crude dependence", asia_v2: "Limited domestic production", asia_v3: "Exposure to Asian LNG price spikes",
-      asia_r: "Resilience factors", asia_r1: "Strategic reserves ≈ 250 days of consumption", asia_r2: "Early and large stock releases in 2026", asia_r3: "Rapid diversification of supply sources",
-      asia_src: "Key references: Atlantic Council (2026), Daiwa Institute, Oxford Energy Forum, METI/JOGMEC.",
+      asia_r: "Resilience factors", asia_r1: "Strategic reserves ≈ 250 days of consumption<span class=\"src-idx\">[700]</span>", asia_r2: "Early and large stock releases in 2026<span class=\"src-idx\">[701]</span>", asia_r3: "Rapid diversification of supply sources",
       conc_h: "8. Conclusions & Research Outlook",
       conc_p1: "The 2026 Strait of Hormuz disruption provides a rare laboratory for studying the real and financial transmission of a large, geopolitically driven energy supply shock. Evidence points to significant but heterogeneous effects, with Asia bearing a disproportionate share of the adjustment.",
       conc_p2: "By combining a transparent macro narrative with rigorous time-series methods (SVAR + GARCH), this work delivers pedagogical clarity for the course and a solid empirical foundation for further master’s-level research.",
       conc_next: "Next steps in the research pipeline",
       conc_n1: "Finalise data construction and external instrument", conc_n2: "Estimate and validate the core SVAR specification",
       conc_n3: "Implement volatility models and robustness checks", conc_n4: "Produce final impulse-response and volatility figures",
-      meth_h: "Methodology & Statistical Transparency", meth_desc: "Full disclosure of data, identification strategy, models and robustness checks.",
-      m_data: "Data", m_id: "Identification", m_mod: "Models", m_imp: "Implementation", m_rob: "Robustness",
-      md_h: "Data Sources & Construction", md_p: "All series come from public sources to maximise replicability."
+      ref_h: "9. References & Source Index",
+      ref_desc: "Numbering follows the section structure: 100s = Introduction · 200s = The Shock · 300s = Map · 400s = Transmission · 500s = Econometrics · 600s = Financial Markets · 700s = Japan & Asia. Each number corresponds to a specific claim on the site.",
+      ref_note: "<strong>Note:</strong> This index is designed so that every factual claim on the site can be traced. Authors will continue to refine and expand the bibliography as primary data and final econometric results are incorporated. Placeholder charts in section 5 are explicitly marked as illustrative and do not yet carry empirical source numbers.",
+      meth_h: "Methodology & Statistical Transparency", meth_desc: "Full disclosure of data, identification strategy, models and robustness checks."
     },
     es: {
       title: "Shocks de Costos Energéticos y el Sistema Global", subtitle: "Caso de estudio: Crisis del Estrecho de Ormuz 2026 · UNMdP",
       mode_pres: "Presentación", mode_meth: "Metodología",
       nav1: "1. Introducción", nav2: "2. El Shock", nav_map: "3. Mapa Geopolítico", nav3: "4. Transmisión",
-      nav4: "5. Resultados Econométricos", nav5: "6. Mercados Financieros", nav6: "7. Japón y Asia", nav7: "8. Conclusiones",
+      nav4: "5. Resultados Econométricos", nav5: "6. Mercados Financieros", nav6: "7. Japón y Asia", nav7: "8. Conclusiones", nav_ref: "9. Referencias",
       intro_h: "1. Introducción y Motivación",
-      intro_p1: "El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos de la economía mundial. A inicios de 2026, la escalada geopolítica provocó una disrupción sostenida de los flujos de tránsito equivalente a aproximadamente el <strong>20% del suministro global de petróleo</strong> y una parte significativa del comercio marítimo de GNL.",
+      intro_p1: "El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos de la economía mundial. A inicios de 2026, la escalada geopolítica provocó una disrupción sostenida de los flujos de tránsito equivalente a aproximadamente el <strong>20% del suministro global de petróleo</strong><span class=\"src-idx\">[100]</span> y una parte significativa del comercio marítimo de GNL<span class=\"src-idx\">[101]</span>.",
       intro_p2: "Esta investigación examina cómo un shock agudo de costos energéticos de origen geopolítico se propaga a través del sistema macroeconómico y los mercados financieros, con especial atención a los impactos regionales diferenciales — particularmente la elevada dependencia de importaciones energéticas de Japón y otras economías asiáticas.",
       stat1: "del suministro global de petróleo transita normalmente por Ormuz", stat2: "de las importaciones de crudo de Japón provienen de Medio Oriente", stat3: "Narrativa macro + análisis riguroso de series temporales",
       rq: "<strong>Pregunta de investigación:</strong> ¿Cómo se transmiten los shocks agudos de costos energéticos a la inflación, el crecimiento, la volatilidad de acciones y el riesgo de crédito, y qué explica la resiliencia heterogénea observada entre las principales economías — en particular Japón?",
       shock_h: "2. El Shock de Ormuz 2026 — Hechos Estilizados",
-      shock_p: "La disrupción se ubica entre los mayores shocks de oferta de la historia del mercado petrolero moderno. Los precios de referencia reaccionaron con fuerza, mientras que la escasez física y el aumento de fletes y seguros generaron diferenciales regionales de precios, afectando especialmente a Asia y Europa.",
-      shock_chart: "Movimientos clave de precios (ilustrativo)", shock_brent: "Subió desde ~US$70 hasta picos superiores a US$120/bbl en la fase inicial de la disrupción.",
-      shock_lng: "Los precios spot asiáticos reaccionaron con fuerza por la alta dependencia de volúmenes qataríes que transitan Ormuz.",
-      shock_asym: "Estados Unidos relativamente aislado; Asia y Europa absorbieron la mayor parte del impacto.",
-      shock_src: "Fuentes: IEA, EIA, Goldman Sachs Research, Federal Reserve FSR (mayo 2026), Atlantic Council.",
+      shock_p: "La disrupción se ubica entre los mayores shocks de oferta de la historia del mercado petrolero moderno<span class=\"src-idx\">[200]</span>. Los precios de referencia reaccionaron con fuerza, mientras que la escasez física y el aumento de fletes y seguros generaron diferenciales regionales de precios, afectando especialmente a Asia y Europa<span class=\"src-idx\">[201]</span>.",
+      shock_chart: "Movimientos clave de precios (ilustrativo)",
+      shock_brent: "Subió desde ~US$70 hasta picos superiores a US$120/bbl en la fase inicial de la disrupción.<span class=\"src-idx\">[202]</span>",
+      shock_lng: "Los precios spot asiáticos reaccionaron con fuerza por la alta dependencia de volúmenes qataríes que transitan Ormuz.<span class=\"src-idx\">[203]</span>",
+      shock_asym: "Estados Unidos relativamente aislado; Asia y Europa absorbieron la mayor parte del impacto.<span class=\"src-idx\">[204]</span>",
       map_h: "3. Mapa de Impacto Geopolítico y Económico",
-      map_desc: "Mapa interactivo del chokepoint del Estrecho de Ormuz, principales exportadores de energía y los importadores asiáticos más expuestos. Hacé clic en los marcadores para ver datos clave.",
-      map_leg1: "● Chokepoint", map_leg1d: "Estrecho de Ormuz — ~20% del petróleo global y flujos importantes de GNL",
-      map_leg2: "● Exportadores", map_leg2d: "Arabia Saudita, Emiratos, Qatar, Irak, Kuwait, Irán",
-      map_leg3: "● Importadores clave", map_leg3d: "Japón, China, India, Corea del Sur — mayor exposición",
-      map_src_note: "Los números entre corchetes remiten a las fuentes que se detallarán en la sección de Referencias.",
+      map_desc: "Mapa interactivo del chokepoint del Estrecho de Ormuz, principales exportadores de energía y los importadores asiáticos más expuestos. Hacé clic en los marcadores para ver datos clave. Cada afirmación está indexada (serie 300) y listada en Referencias.",
+      map_leg1: "● Chokepoint <span class=\"src-idx\">[300]</span>", map_leg1d: "Estrecho de Ormuz — ~20% del petróleo global y flujos importantes de GNL",
+      map_leg2: "● Exportadores <span class=\"src-idx\">[301–306]</span>", map_leg2d: "Arabia Saudita, Emiratos, Qatar, Irak, Kuwait, Irán",
+      map_leg3: "● Importadores clave <span class=\"src-idx\">[307–310]</span>", map_leg3d: "Japón, China, India, Corea del Sur — mayor exposición",
       trans_h: "4. Canales de Transmisión Macroeconómica",
-      trans_p: "Un shock de costos energéticos opera principalmente como un shock de oferta negativo. Eleva los costos de producción, erosiona el ingreso real de los hogares y puede generar efectos de segunda ronda a través de expectativas de inflación y fijación salarial.",
+      trans_p: "Un shock de costos energéticos opera principalmente como un shock de oferta negativo. Eleva los costos de producción, erosiona el ingreso real de los hogares y puede generar efectos de segunda ronda a través de expectativas de inflación y fijación salarial<span class=\"src-idx\">[400]</span>.",
       trans_d: "Canales directos", trans_d1: "Mayores costos de insumos en sectores intensivos en energía", trans_d2: "Traslado a precios energéticos al consumidor", trans_d3: "Deterioro de los términos de intercambio para importadores netos",
       trans_i: "Canales indirectos / financieros", trans_i1: "Condiciones financieras más restrictivas vía premios por riesgo de inflación", trans_i2: "Volatilidad accionaria y reasignación sectorial", trans_i3: "Posible respuesta de política monetaria (FED, BCE, BOJ)",
-      trans_rule: "<strong>Regla práctica (FMI / Goldman Sachs):</strong> un aumento sostenido del 10% en el precio del petróleo reduce típicamente el crecimiento del PIB global en ≈0,1–0,15 pp y eleva la inflación en ≈0,3–0,4 pp.",
+      trans_rule: "<strong>Regla práctica (FMI / Goldman Sachs):</strong> un aumento sostenido del 10% en el precio del petróleo reduce típicamente el crecimiento del PIB global en ≈0,1–0,15 pp y eleva la inflación en ≈0,3–0,4 pp<span class=\"src-idx\">[401]</span>.",
       res_h: "5. Análisis Econométrico — Resultados Materales",
-      res_p: "Estimamos la respuesta dinámica de variables macroeconómicas y financieras clave mediante un VAR Estructural identificado con instrumento externo, complementado con modelos de la familia GARCH para la volatilidad.",
+      res_p: "Estimamos la respuesta dinámica de variables macroeconómicas y financieras clave mediante un VAR Estructural identificado con instrumento externo, complementado con modelos de la familia GARCH para la volatilidad<span class=\"src-idx\">[500]</span>.",
       res_note: "<strong>Nota:</strong> Los gráficos son placeholders ilustrativos. Las estimaciones finales los reemplazarán una vez completado el pipeline de datos (ver modo Metodología).",
       res_irf: "Respuestas al impulso (ilustrativo)", res_vol: "Volatilidad condicional",
       fin_h: "6. Implicaciones para los Mercados Financieros",
-      fin_p: "Los shocks de costos energéticos afectan la valoración de activos a través de mayores tasas de descuento, incertidumbre de flujos de fondos y cambios en los premios por riesgo. La propia volatilidad se convierte en un factor de precio.",
+      fin_p: "Los shocks de costos energéticos afectan la valoración de activos a través de mayores tasas de descuento, incertidumbre de flujos de fondos y cambios en los premios por riesgo. La propia volatilidad se convierte en un factor de precio<span class=\"src-idx\">[600]</span>.",
       fin_1: "Volatilidad de mercados accionarios", fin_1d: "Los modelos GARCH / EGARCH cuantifican el aumento de la varianza condicional y los efectos de apalancamiento durante la ventana del shock.",
       fin_2: "Spreads de crédito y premios por riesgo", fin_2d: "Los spreads de bonos corporativos suelen ampliarse cuando se deterioran las perspectivas de crecimiento y aumenta la incertidumbre.",
       fin_3: "Spillovers entre activos", fin_3d: "Futuros energéticos, acciones y activos refugio exhiben correlaciones variables en el tiempo que pueden examinarse con GARCH multivariado.",
       asia_h: "7. Asimetrías Regionales — Foco en Japón",
-      asia_p: "Japón constituye un caso particularmente informativo: dependencia extrema del crudo de Medio Oriente (90–96% de las importaciones) combinada con uno de los sistemas de reservas estratégicas más profundos entre los miembros de la AIE.",
+      asia_p: "Japón constituye un caso particularmente informativo: dependencia extrema del crudo de Medio Oriente (90–96% de las importaciones)<span class=\"src-idx\">[102]</span> combinada con uno de los sistemas de reservas estratégicas más profundos entre los miembros de la AIE<span class=\"src-idx\">[700]</span>.",
       asia_v: "Vulnerabilidad", asia_v1: "Muy alta dependencia del crudo de Medio Oriente", asia_v2: "Producción doméstica limitada", asia_v3: "Exposición a picos de precios de GNL en Asia",
-      asia_r: "Factores de resiliencia", asia_r1: "Reservas estratégicas ≈ 250 días de consumo", asia_r2: "Liberaciones tempranas y amplias de stocks en 2026", asia_r3: "Diversificación rápida de fuentes de suministro",
-      asia_src: "Referencias clave: Atlantic Council (2026), Daiwa Institute, Oxford Energy Forum, METI/JOGMEC.",
+      asia_r: "Factores de resiliencia", asia_r1: "Reservas estratégicas ≈ 250 días de consumo<span class=\"src-idx\">[700]</span>", asia_r2: "Liberaciones tempranas y amplias de stocks en 2026<span class=\"src-idx\">[701]</span>", asia_r3: "Diversificación rápida de fuentes de suministro",
       conc_h: "8. Conclusiones y Perspectiva de Investigación",
       conc_p1: "La disrupción del Estrecho de Ormuz en 2026 ofrece un laboratorio poco frecuente para estudiar la transmisión real y financiera de un gran shock de oferta energética de origen geopolítico. La evidencia apunta a efectos significativos pero heterogéneos, con Asia absorbiendo una proporción desproporcionada del ajuste.",
       conc_p2: "Al combinar una narrativa macro transparente con métodos rigurosos de series temporales (SVAR + GARCH), este trabajo ofrece claridad pedagógica para la materia y una base empírica sólida para investigaciones posteriores a nivel de maestría.",
       conc_next: "Próximos pasos del pipeline de investigación",
       conc_n1: "Finalizar la construcción de datos y el instrumento externo", conc_n2: "Estimar y validar la especificación SVAR central",
       conc_n3: "Implementar modelos de volatilidad y checks de robustez", conc_n4: "Producir las figuras finales de respuestas al impulso y volatilidad",
-      meth_h: "Metodología y Transparencia Estadística", meth_desc: "Divulgación completa de datos, estrategia de identificación, modelos y checks de robustez.",
-      m_data: "Datos", m_id: "Identificación", m_mod: "Modelos", m_imp: "Implementación", m_rob: "Robustez",
-      md_h: "Fuentes de Datos y Construcción", md_p: "Todas las series provienen de fuentes públicas para maximizar la replicabilidad."
+      ref_h: "9. Referencias e Índice de Fuentes",
+      ref_desc: "La numeración sigue la estructura de secciones: 100s = Introducción · 200s = El Shock · 300s = Mapa · 400s = Transmisión · 500s = Econometría · 600s = Mercados Financieros · 700s = Japón y Asia. Cada número corresponde a una afirmación concreta del sitio.",
+      ref_note: "<strong>Nota:</strong> Este índice está diseñado para que cada afirmación fáctica del sitio sea rastreable. Los autores continuarán refinando y ampliando la bibliografía a medida que se incorporen datos primarios y resultados econométricos finales. Los gráficos de la sección 5 están explícitamente marcados como ilustrativos y aún no llevan números de fuente empírica.",
+      meth_h: "Metodología y Transparencia Estadística", meth_desc: "Divulgación completa de datos, estrategia de identificación, modelos y checks de robustez."
     }
   };
 
-  // Popup content in both languages
   const popupContent = {
     en: {
-      hormuz: "<strong>Strait of Hormuz</strong><br>~20% of global oil supply<br>Major share of seaborne LNG<br><em>Critical chokepoint 2026</em>",
-      qatar: "<strong>Qatar</strong><br>World’s largest LNG exporter<br>Most volumes transit Hormuz",
-      saudi: "<strong>Saudi Arabia</strong><br>Largest OPEC producer<br>East-West pipeline offers partial bypass",
-      uae: "<strong>UAE</strong><br>Major crude exporter via Hormuz<br>Alternative pipelines exist but limited capacity",
-      iraq: "<strong>Iraq</strong><br>Significant crude exports through Hormuz",
-      kuwait: "<strong>Kuwait</strong><br>Crude exports almost entirely via Hormuz",
-      iran: "<strong>Iran</strong><br>Producer and potential disruptor<br>Central actor in the 2026 crisis",
-      japan: "<strong>Japan</strong><br>90–96% of crude from Middle East<br>Deep strategic reserves (~250 days)<br>Highest relative exposure among G7",
-      china: "<strong>China</strong><br>Largest absolute importer of Hormuz oil<br>More diversified sources than Japan",
-      india: "<strong>India</strong><br>High dependence on Middle East crude<br>Significant growth in energy demand",
-      korea: "<strong>South Korea</strong><br>~70% of crude from Middle East<br>Very high Hormuz exposure",
+      hormuz: "<strong>Strait of Hormuz</strong> <span class='src-idx'>[300]</span><br>~20% of global oil supply<br>Major share of seaborne LNG<br><em>Critical chokepoint 2026</em>",
+      qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>World’s largest LNG exporter<br>Most volumes transit Hormuz",
+      saudi: "<strong>Saudi Arabia</strong> <span class='src-idx'>[302]</span><br>Largest OPEC producer<br>East-West pipeline offers partial bypass",
+      uae: "<strong>United Arab Emirates</strong> <span class='src-idx'>[303]</span><br>Major crude exporter via Hormuz<br>Alternative pipelines exist but limited capacity",
+      iraq: "<strong>Iraq</strong> <span class='src-idx'>[304]</span><br>Significant crude exports through Hormuz",
+      kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Crude exports almost entirely via Hormuz",
+      iran: "<strong>Iran</strong> <span class='src-idx'>[306]</span><br>Producer and potential disruptor<br>Central actor in the 2026 crisis",
+      japan: "<strong>Japan</strong> <span class='src-idx'>[307]</span><br>90–96% of crude from Middle East<br>Deep strategic reserves (~250 days)<br>Highest relative exposure among G7",
+      china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Largest absolute importer of Hormuz oil<br>More diversified sources than Japan",
+      india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>High dependence on Middle East crude<br>Significant growth in energy demand",
+      korea: "<strong>South Korea</strong> <span class='src-idx'>[310]</span><br>~70% of crude from Middle East<br>Very high Hormuz exposure",
       route: "Main energy shipping routes toward Asia"
     },
     es: {
-      hormuz: "<strong>Estrecho de Ormuz</strong><br>~20% del suministro global de petróleo<br>Parte importante del GNL marítimo<br><em>Chokepoint crítico 2026</em>",
-      qatar: "<strong>Qatar</strong><br>Mayor exportador mundial de GNL<br>La mayor parte de los volúmenes transita Ormuz",
-      saudi: "<strong>Arabia Saudita</strong><br>Mayor productor de la OPEP<br>El oleoducto Este-Oeste ofrece un bypass parcial",
-      uae: "<strong>Emiratos Árabes Unidos</strong><br>Gran exportador de crudo vía Ormuz<br>Existen oleoductos alternativos pero con capacidad limitada",
-      iraq: "<strong>Irak</strong><br>Exportaciones significativas de crudo a través de Ormuz",
-      kuwait: "<strong>Kuwait</strong><br>Exportaciones de crudo casi exclusivamente vía Ormuz",
-      iran: "<strong>Irán</strong><br>Productor y potencial disruptor<br>Actor central de la crisis de 2026",
-      japan: "<strong>Japón</strong><br>90–96% del crudo proviene de Medio Oriente<br>Reservas estratégicas profundas (~250 días)<br>Mayor exposición relativa entre el G7",
-      china: "<strong>China</strong><br>Mayor importador absoluto de petróleo de Ormuz<br>Fuentes más diversificadas que Japón",
-      india: "<strong>India</strong><br>Alta dependencia del crudo de Medio Oriente<br>Crecimiento significativo de la demanda energética",
-      korea: "<strong>Corea del Sur</strong><br>~70% del crudo proviene de Medio Oriente<br>Muy alta exposición a Ormuz",
+      hormuz: "<strong>Estrecho de Ormuz</strong> <span class='src-idx'>[300]</span><br>~20% del suministro global de petróleo<br>Parte importante del GNL marítimo<br><em>Chokepoint crítico 2026</em>",
+      qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>Mayor exportador mundial de GNL<br>La mayor parte de los volúmenes transita Ormuz",
+      saudi: "<strong>Arabia Saudita</strong> <span class='src-idx'>[302]</span><br>Mayor productor de la OPEP<br>El oleoducto Este-Oeste ofrece un bypass parcial",
+      uae: "<strong>Emiratos Árabes Unidos</strong> <span class='src-idx'>[303]</span><br>Gran exportador de crudo vía Ormuz<br>Existen oleoductos alternativos pero con capacidad limitada",
+      iraq: "<strong>Irak</strong> <span class='src-idx'>[304]</span><br>Exportaciones significativas de crudo a través de Ormuz",
+      kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Exportaciones de crudo casi exclusivamente vía Ormuz",
+      iran: "<strong>Irán</strong> <span class='src-idx'>[306]</span><br>Productor y potencial disruptor<br>Actor central de la crisis de 2026",
+      japan: "<strong>Japón</strong> <span class='src-idx'>[307]</span><br>90–96% del crudo proviene de Medio Oriente<br>Reservas estratégicas profundas (~250 días)<br>Mayor exposición relativa entre el G7",
+      china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Mayor importador absoluto de petróleo de Ormuz<br>Fuentes más diversificadas que Japón",
+      india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>Alta dependencia del crudo de Medio Oriente<br>Crecimiento significativo de la demanda energética",
+      korea: "<strong>Corea del Sur</strong> <span class='src-idx'>[310]</span><br>~70% del crudo proviene de Medio Oriente<br>Muy alta exposición a Ormuz",
       route: "Principales rutas de envío de energía hacia Asia"
     }
   };
@@ -486,7 +512,6 @@
   let currentLang = 'es';
   let map = null;
   let mapInitialized = false;
-  let markers = [];
 
   function setLang(lang) {
     currentLang = lang;
@@ -499,8 +524,12 @@
       const key = el.getAttribute('data-i18n');
       if (translations[lang][key]) el.innerHTML = translations[lang][key];
     });
-    // Refresh map popups if map exists
-    if (mapInitialized) rebuildMapPopups();
+    if (mapInitialized) {
+      map.remove();
+      map = null;
+      mapInitialized = false;
+      initMap();
+    }
   }
 
   function setMode(mode) {
@@ -534,38 +563,22 @@
     event.currentTarget.classList.add('bg-academic-accent', 'text-white');
   }
 
-  function rebuildMapPopups() {
-    // Simply re-init is cleaner
-    if (map) {
-      map.remove();
-      map = null;
-      mapInitialized = false;
-      initMap();
-    }
-  }
-
   function initMap() {
     if (mapInitialized) {
       setTimeout(() => { if (map) map.invalidateSize(); }, 120);
       return;
     }
     mapInitialized = true;
-
     map = L.map('map', { scrollWheelZoom: true }).setView([26.5, 56.5], 4);
-
-    // Free tile layer – no API key required
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 18
+      attribution: '© OpenStreetMap contributors', maxZoom: 18
     }).addTo(map);
 
     const pc = popupContent[currentLang];
 
-    // Chokepoint
     L.circleMarker([26.56, 56.25], { radius: 14, color: '#e11d48', fillColor: '#e11d48', fillOpacity: 0.85, weight: 2 })
       .addTo(map).bindPopup(pc.hormuz);
 
-    // Exporters
     const exporters = [
       { lat: 25.3, lng: 51.5, key: 'qatar' },
       { lat: 24.6, lng: 46.7, key: 'saudi' },
@@ -579,7 +592,6 @@
         .addTo(map).bindPopup(pc[e.key]);
     });
 
-    // Importers
     const importers = [
       { lat: 35.7, lng: 139.7, key: 'japan' },
       { lat: 31.2, lng: 121.5, key: 'china' },
@@ -591,7 +603,6 @@
         .addTo(map).bindPopup(pc[i.key]);
     });
 
-    // Shipping route
     L.polyline([[26.5, 56.3], [25.0, 57.5], [22.0, 60.0], [15.0, 65.0], [10.0, 75.0], [20.0, 120.0], [30.0, 130.0]], {
       color: '#64748b', weight: 2, opacity: 0.5, dashArray: '6 8'
     }).addTo(map).bindPopup(pc.route);
@@ -601,14 +612,12 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     setLang('es');
-
     const ctx1 = document.getElementById('priceChart');
     if (ctx1) new Chart(ctx1, {
       type: 'line',
       data: { labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul'], datasets: [{ data: [72,75,95,118,105,92,88], borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,0.08)', fill: true, tension: 0.3 }] },
       options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
     });
-
     const ctx2 = document.getElementById('irfChart');
     if (ctx2) new Chart(ctx2, {
       type: 'line',
@@ -618,7 +627,6 @@
       ]},
       options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } }
     });
-
     const ctx3 = document.getElementById('volChart');
     if (ctx3) new Chart(ctx3, {
       type: 'line',
