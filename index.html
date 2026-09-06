@@ -27,16 +27,15 @@
     .tab-content.active, .mode-panel.active, .method-content.active { display: block; }
     .nav-tab.active { background-color: #0ea5e9; color: white; font-weight: 600; }
     .section-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); }
-    .code-block { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 0.9rem 1.1rem; overflow-x: auto; }
     .stat-pill { display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
     #map { height: 560px; width: 100%; border-radius: 12px; z-index: 1; background: #f1f5f9; }
     .leaflet-popup-content { font-family: Inter, sans-serif; font-size: 13px; line-height: 1.45; }
     .lang-btn.active { background: #0ea5e9; color: white; }
     .src-idx { font-size: 0.7rem; font-weight: 600; color: #64748b; vertical-align: super; margin-left: 1px; }
-    .ref-item { border-left: 3px solid #0ea5e9; padding-left: 12px; margin-bottom: 14px; }
+    .ref-item { border-left: 3px solid #0ea5e9; padding-left: 12px; margin-bottom: 12px; }
     .ref-num { font-weight: 700; color: #0ea5e9; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-    .method-box { border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem; background: #f8fafc; }
-    .method-box h4 { font-weight: 600; color: #0f172a; margin-bottom: 0.5rem; }
+    .method-box { border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.1rem 1.25rem; margin-bottom: 1rem; background: #f8fafc; }
+    .method-box h4 { font-weight: 600; color: #0f172a; margin-bottom: 0.4rem; font-size: 0.95rem; }
   </style>
 </head>
 <body class="bg-academic-50 text-academic-800 min-h-screen">
@@ -45,8 +44,8 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <h1 class="text-lg font-semibold tracking-tight" data-i18n="title">Energy Cost Shocks & the Global System</h1>
-        <p class="text-sm text-slate-300" data-i18n="subtitle">Case Study: Strait of Hormuz Crisis 2026 · UNMdP</p>
+        <h1 class="text-lg font-semibold tracking-tight" data-i18n="title">Shocks de Costos Energéticos y el Sistema Global</h1>
+        <p class="text-sm text-slate-300" data-i18n="subtitle">Caso de estudio: Crisis del Estrecho de Ormuz 2026 · UNMdP</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="flex bg-academic-800 rounded-lg p-0.5">
@@ -54,8 +53,8 @@
           <button id="lang-en" onclick="setLang('en')" class="lang-btn px-3 py-1.5 rounded-md text-xs font-medium text-slate-300">EN</button>
         </div>
         <div class="flex bg-academic-800 rounded-lg p-0.5">
-          <button id="btn-presentation" onclick="setMode('presentation')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium bg-academic-accent text-white" data-i18n="mode_pres">Presentation</button>
-          <button id="btn-methodology" onclick="setMode('methodology')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium text-slate-300" data-i18n="mode_meth">Methodology</button>
+          <button id="btn-presentation" onclick="setMode('presentation')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium bg-academic-accent text-white" data-i18n="mode_pres">Presentación</button>
+          <button id="btn-methodology" onclick="setMode('methodology')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium text-slate-300" data-i18n="mode_meth">Metodología</button>
         </div>
       </div>
     </div>
@@ -64,221 +63,403 @@
 
 <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
 
-  <!-- ==================== PRESENTATION MODE ==================== -->
-  <div id="mode-presentation" class="mode-panel active">
-    <nav class="flex flex-wrap gap-2 mb-8">
-      <button class="nav-tab active px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('intro')" data-i18n="nav1">1. Introduction</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('shock')" data-i18n="nav2">2. The Shock</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('map')" data-i18n="nav_map">3. Geopolitical Map</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('transmission')" data-i18n="nav3">4. Transmission</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('results')" data-i18n="nav4">5. Econometric Results</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('finance')" data-i18n="nav5">6. Financial Markets</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('asia')" data-i18n="nav6">7. Japan & Asia</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('conclusions')" data-i18n="nav7">8. Conclusions</button>
-      <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('references')" data-i18n="nav_ref">9. References</button>
-    </nav>
+<!-- ==================== PRESENTATION MODE ==================== -->
+<div id="mode-presentation" class="mode-panel active">
 
-    <!-- Sections 1-8 remain structurally the same; only key i18n keys are kept for brevity in this update -->
-    <section id="section-intro" class="tab-content active">
-      <div class="section-card p-6 sm:p-8">
-        <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="intro_h">1. Introduction & Motivation</h2>
-        <p class="text-academic-700 leading-relaxed mb-4" data-i18n="intro_p1">The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong><span class="src-idx">[100]</span> and a significant share of seaborne LNG trade<span class="src-idx">[101]</span>.</p>
-        <p class="text-academic-700 leading-relaxed mb-6" data-i18n="intro_p2">This research examines how such a sharp, geopolitically driven energy cost shock propagates through the macroeconomic system and financial markets, with particular attention to differential regional impacts — especially the high energy-import dependence of Japan and other Asian economies.</p>
-        <div class="grid sm:grid-cols-3 gap-4 mt-6">
-          <div class="bg-academic-50 rounded-lg p-4 border border-academic-100"><div class="text-2xl font-semibold text-academic-accent">~20%<span class="src-idx">[100]</span></div><div class="text-sm text-academic-700 mt-1" data-i18n="stat1">of global oil supply normally transits Hormuz</div></div>
-          <div class="bg-academic-50 rounded-lg p-4 border border-academic-100"><div class="text-2xl font-semibold text-academic-accent">90–96%<span class="src-idx">[102]</span></div><div class="text-sm text-academic-700 mt-1" data-i18n="stat2">of Japan’s crude imports originate in the Middle East</div></div>
-          <div class="bg-academic-50 rounded-lg p-4 border border-academic-100"><div class="text-2xl font-semibold text-academic-accent">Dual layer</div><div class="text-sm text-academic-700 mt-1" data-i18n="stat3">Macro narrative + rigorous time-series analysis</div></div>
-        </div>
-      </div>
-    </section>
+  <nav class="flex flex-wrap gap-2 mb-8">
+    <button class="nav-tab active px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('intro')" data-i18n="nav1">1. Introducción</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('shock')" data-i18n="nav2">2. El Shock</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('map')" data-i18n="nav_map">3. Mapa Geopolítico</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('transmission')" data-i18n="nav3">4. Transmisión</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('results')" data-i18n="nav4">5. Resultados Econométricos</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('finance')" data-i18n="nav5">6. Mercados Financieros</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('asia')" data-i18n="nav6">7. Japón y Asia</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('conclusions')" data-i18n="nav7">8. Conclusiones</button>
+    <button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('references')" data-i18n="nav_ref">9. Referencias</button>
+  </nav>
 
-    <section id="section-shock" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="shock_h">2. The 2026 Hormuz Shock</h2><p class="text-academic-700" data-i18n="shock_p">Content as previously defined with source indexes [200]–[204].</p></div></section>
-
-    <section id="section-map" class="tab-content">
-      <div class="section-card p-6 sm:p-8">
-        <h2 class="text-2xl font-semibold mb-2" data-i18n="map_h">3. Geopolitical & Economic Impact Map</h2>
-        <p class="text-academic-600 text-sm mb-4" data-i18n="map_desc">Interactive map. Click markers for key facts. Indexed 300–310.</p>
-        <div id="map" class="mb-4 border border-academic-200"></div>
-        <div class="grid sm:grid-cols-3 gap-3 text-sm">
-          <div class="bg-rose-50 border border-rose-100 rounded-lg p-3"><div class="font-semibold text-rose-800" data-i18n="map_leg1">● Chokepoint [300]</div></div>
-          <div class="bg-amber-50 border border-amber-100 rounded-lg p-3"><div class="font-semibold text-amber-800" data-i18n="map_leg2">● Exporters [301–306]</div></div>
-          <div class="bg-sky-50 border border-sky-100 rounded-lg p-3"><div class="font-semibold text-sky-800" data-i18n="map_leg3">● Key Importers [307–310]</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="section-transmission" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="trans_h">4. Transmission Channels</h2><p data-i18n="trans_p">...</p></div></section>
-    <section id="section-results" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="res_h">5. Econometric Results</h2><p data-i18n="res_p">...</p><div class="grid lg:grid-cols-2 gap-6 mt-4"><canvas id="irfChart" height="220"></canvas><canvas id="volChart" height="220"></canvas></div></div></section>
-    <section id="section-finance" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="fin_h">6. Financial Markets</h2></div></section>
-    <section id="section-asia" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="asia_h">7. Japan & Asia</h2></div></section>
-    <section id="section-conclusions" class="tab-content"><div class="section-card p-6 sm:p-8"><h2 class="text-2xl font-semibold mb-4" data-i18n="conc_h">8. Conclusions</h2></div></section>
-
-    <!-- 9. References -->
-    <section id="section-references" class="tab-content">
-      <div class="section-card p-6 sm:p-8">
-        <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="ref_h">9. References & Source Index</h2>
-        <p class="text-academic-600 text-sm mb-6" data-i18n="ref_desc">Numbering follows sections: 100s Introduction · 200s Shock · 300s Map · 400s Transmission · 500s Econometrics · 600s Financial Markets · 700s Japan.</p>
-        <div id="references-content" class="space-y-1 text-sm"></div>
-        <div class="mt-8 p-4 bg-academic-50 border border-academic-100 rounded-lg text-sm text-academic-600">
-          <p data-i18n="ref_note"><strong>Note:</strong> Bibliographic titles remain in their original language. Structural phrases switch with the language toggle.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ==================== METHODOLOGY MODE (ENRICHED) ==================== -->
-  <div id="mode-methodology" class="mode-panel">
+  <!-- 1. Introducción -->
+  <section id="section-intro" class="tab-content active">
     <div class="section-card p-6 sm:p-8">
-      <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="meth_h">Methodology & Statistical Transparency</h2>
-      <p class="text-academic-600 mb-6 text-sm" data-i18n="meth_desc">Clear explanation of the methods, the information they use, and why they were chosen for this research.</p>
-
-      <div class="flex flex-wrap gap-2 mb-8 border-b border-academic-200 pb-4">
-        <button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('overview')" data-i18n="m_over">Overview</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('svar')" data-i18n="m_svar">SVAR</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('garch')" data-i18n="m_garch">GARCH</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('lp')" data-i18n="m_lp">Local Projections</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('data')" data-i18n="m_data">Data</button>
-        <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('why')" data-i18n="m_why">Why these methods</button>
-      </div>
-
-      <!-- Overview -->
-      <div id="method-overview" class="method-content active">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mo_h">How the empirical strategy works</h3>
-        <p class="text-academic-700 text-sm leading-relaxed mb-4" data-i18n="mo_p1">We want to answer a simple but important question: <em>when the cost of energy suddenly jumps because of a geopolitical event (the Hormuz disruption), what happens next to inflation, economic activity and financial markets?</em></p>
-        <p class="text-academic-700 text-sm leading-relaxed mb-4" data-i18n="mo_p2">To answer it rigorously we combine three complementary tools. Each one looks at the same reality from a different angle:</p>
-        <div class="grid sm:grid-cols-3 gap-3 text-sm">
-          <div class="method-box"><h4 data-i18n="mo_b1">SVAR</h4><p class="text-academic-600" data-i18n="mo_b1d">Measures the dynamic transmission of the energy shock to the real economy and asset prices.</p></div>
-          <div class="method-box"><h4 data-i18n="mo_b2">GARCH family</h4><p class="text-academic-600" data-i18n="mo_b2d">Measures how much and in what way market volatility increased during the shock.</p></div>
-          <div class="method-box"><h4 data-i18n="mo_b3">Local Projections</h4><p class="text-academic-600" data-i18n="mo_b3d">Checks whether the SVAR results are robust when we use a more flexible method.</p></div>
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="intro_h">1. Introducción y Motivación</h2>
+      <p class="text-academic-700 leading-relaxed mb-4" data-i18n="intro_p1">El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos de la economía mundial. A inicios de 2026, la escalada geopolítica provocó una disrupción sostenida de los flujos de tránsito equivalente a aproximadamente el <strong>20% del suministro global de petróleo</strong><span class="src-idx">[100]</span> y una parte significativa del comercio marítimo de GNL<span class="src-idx">[101]</span>.</p>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="intro_p2">Esta investigación examina cómo un shock agudo de costos energéticos de origen geopolítico se propaga a través del sistema macroeconómico y los mercados financieros, con especial atención a los impactos regionales diferenciales — particularmente la elevada dependencia de importaciones energéticas de Japón y otras economías asiáticas.</p>
+      <div class="grid sm:grid-cols-3 gap-4 mt-6">
+        <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+          <div class="text-2xl font-semibold text-academic-accent">~20%<span class="src-idx">[100]</span></div>
+          <div class="text-sm text-academic-700 mt-1" data-i18n="stat1">del suministro global de petróleo transita normalmente por Ormuz</div>
+        </div>
+        <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+          <div class="text-2xl font-semibold text-academic-accent">90–96%<span class="src-idx">[102]</span></div>
+          <div class="text-sm text-academic-700 mt-1" data-i18n="stat2">de las importaciones de crudo de Japón provienen de Medio Oriente</div>
+        </div>
+        <div class="bg-academic-50 rounded-lg p-4 border border-academic-100">
+          <div class="text-2xl font-semibold text-academic-accent">Dual layer</div>
+          <div class="text-sm text-academic-700 mt-1" data-i18n="stat3">Narrativa macro + análisis riguroso de series temporales</div>
         </div>
       </div>
-
-      <!-- SVAR -->
-      <div id="method-svar" class="method-content">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="ms_h">Structural VAR (SVAR) — the core model</h3>
-        
-        <div class="method-box">
-          <h4 data-i18n="ms_what">What it is (in plain language)</h4>
-          <p class="text-sm text-academic-700" data-i18n="ms_what_d">Imagine we have several economic series that move together over time: the price of oil, inflation, industrial production, stock returns and credit spreads. A VAR lets each series depend on its own recent past and on the recent past of the others. The “Structural” part means we add economic reasoning (or an external instrument) so that we can isolate a clean “energy supply shock” instead of a mixture of many things happening at once.</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ms_comp">Main components</h4>
-          <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
-            <li data-i18n="ms_c1"><strong>Endogenous variables</strong> — the series we model together (energy price, inflation, activity, equity returns, credit spreads).</li>
-            <li data-i18n="ms_c2"><strong>Lags</strong> — how many past periods we let influence the present (chosen with information criteria).</li>
-            <li data-i18n="ms_c3"><strong>Identification</strong> — the rules that turn statistical residuals into economically meaningful shocks. We use an external instrument: sharp price moves around geopolitical news or sudden drops in Hormuz transit volumes.</li>
-            <li data-i18n="ms_c4"><strong>Impulse responses</strong> — the main output: graphs that show how inflation, activity and markets react in the months after the energy shock.</li>
-          </ul>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ms_how">How we actually use it</h4>
-          <p class="text-sm text-academic-700 mb-2" data-i18n="ms_how_d">1. We collect monthly (or higher-frequency) data for the chosen variables.<br>
-2. We estimate the reduced-form VAR.<br>
-3. We identify the structural energy shock with the external instrument.<br>
-4. We compute impulse-response functions with confidence bands.<br>
-5. We read the economic story: how large and how persistent is the effect on inflation, growth and asset prices?</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ms_why">Why we chose it for this paper</h4>
-          <p class="text-sm text-academic-700" data-i18n="ms_why_d">It is the workhorse method in the modern oil-shock literature. It lets us tell a transparent causal story about transmission while remaining fully replicable with public data.</p>
-        </div>
-      </div>
-
-      <!-- GARCH -->
-      <div id="method-garch" class="method-content">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mg_h">GARCH family — measuring volatility</h3>
-        
-        <div class="method-box">
-          <h4 data-i18n="mg_what">What it is (in plain language)</h4>
-          <p class="text-sm text-academic-700" data-i18n="mg_what_d">Financial returns are not equally risky every day. Some periods are calm; others are turbulent. GARCH models the variance of returns as a process that depends on recent shocks and on its own recent level. In short: it quantifies “how nervous the market is” at each moment.</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="mg_comp">Main components / variants</h4>
-          <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
-            <li data-i18n="mg_c1"><strong>GARCH(1,1)</strong> — the classic version: today’s volatility depends on yesterday’s volatility and on the size of yesterday’s surprise.</li>
-            <li data-i18n="mg_c2"><strong>EGARCH / GJR-GARCH</strong> — allow bad news to increase volatility more than good news (leverage effect), which is common in equity markets.</li>
-            <li data-i18n="mg_c3"><strong>Conditional volatility series</strong> — the main output: a daily (or weekly) measure of risk that we can plot around the Hormuz event window.</li>
-          </ul>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="mg_how">How we actually use it</h4>
-          <p class="text-sm text-academic-700" data-i18n="mg_how_d">1. We take daily returns of equity indices and energy futures.<br>
-2. We estimate GARCH, EGARCH and GJR-GARCH.<br>
-3. We extract the fitted conditional volatility.<br>
-4. We examine whether volatility jumped, how large the jump was, and whether negative returns amplified it during the shock window.</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="mg_why">Why we chose it for this paper</h4>
-          <p class="text-sm text-academic-700" data-i18n="mg_why_d">The energy shock does not only move price levels; it changes risk. GARCH gives us a disciplined way to measure that change and links the macroeconomic story to the quantitative-finance angle of the research.</p>
-        </div>
-      </div>
-
-      <!-- Local Projections -->
-      <div id="method-lp" class="method-content">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="ml_h">Local Projections (Jordà)</h3>
-        
-        <div class="method-box">
-          <h4 data-i18n="ml_what">What it is (in plain language)</h4>
-          <p class="text-sm text-academic-700" data-i18n="ml_what_d">Instead of forcing all dynamics through a single VAR system, Local Projections estimate the response of a variable at each future horizon with a separate regression. They are more flexible and less sensitive to the exact lag structure of a VAR.</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ml_comp">Main components</h4>
-          <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
-            <li data-i18n="ml_c1"><strong>Event or shock date</strong> — the onset of the sustained Hormuz disruption.</li>
-            <li data-i18n="ml_c2"><strong>Horizon-specific regressions</strong> — one regression for the effect after 1 month, another for 2 months, etc.</li>
-            <li data-i18n="ml_c3"><strong>Controls</strong> — past values of the variables and other relevant factors.</li>
-            <li data-i18n="ml_c4"><strong>Impulse-response style graphs</strong> — easy to compare visually with the SVAR results.</li>
-          </ul>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ml_how">How we actually use it</h4>
-          <p class="text-sm text-academic-700" data-i18n="ml_how_d">We treat the beginning of the major disruption as an event, run the sequence of local projections for inflation, activity and asset returns, and plot the resulting path. If this path tells the same economic story as the SVAR, our conclusions gain credibility.</p>
-        </div>
-
-        <div class="method-box">
-          <h4 data-i18n="ml_why">Why we chose it for this paper</h4>
-          <p class="text-sm text-academic-700" data-i18n="ml_why_d">It is an excellent robustness tool. It protects us against the criticism that “the results only appear because of a particular VAR specification”.</p>
-        </div>
-      </div>
-
-      <!-- Data -->
-      <div id="method-data" class="method-content">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="md_h">Data we use</h3>
-        <p class="text-sm text-academic-700 mb-4" data-i18n="md_p">All series are publicly available so that any reader can replicate the exercise.</p>
-        <div class="overflow-x-auto text-sm">
-          <table class="w-full text-left">
-            <thead class="bg-academic-100"><tr><th class="px-3 py-2">Category</th><th class="px-3 py-2">Examples</th><th class="px-3 py-2">Source</th><th class="px-3 py-2">Freq.</th></tr></thead>
-            <tbody class="divide-y">
-              <tr><td class="px-3 py-2">Energy prices</td><td class="px-3 py-2">Brent, WTI, TTF, JKM</td><td class="px-3 py-2">EIA / markets</td><td class="px-3 py-2">D / M</td></tr>
-              <tr><td class="px-3 py-2">Macro</td><td class="px-3 py-2">CPI, industrial production, GDP</td><td class="px-3 py-2">FRED, ECB, BOJ</td><td class="px-3 py-2">M</td></tr>
-              <tr><td class="px-3 py-2">Financial</td><td class="px-3 py-2">Equity indices, VIX, credit spreads</td><td class="px-3 py-2">Public market data</td><td class="px-3 py-2">D</td></tr>
-              <tr><td class="px-3 py-2">Shock proxy</td><td class="px-3 py-2">Hormuz transit volumes / event dates</td><td class="px-3 py-2">EIA, IEA, AIS</td><td class="px-3 py-2">D / Event</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Why -->
-      <div id="method-why" class="method-content">
-        <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mw_h">Why this combination</h3>
-        <p class="text-sm text-academic-700 leading-relaxed mb-3" data-i18n="mw_p1">The three methods are complementary:</p>
-        <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside mb-4">
-          <li data-i18n="mw_l1"><strong>SVAR</strong> gives us the main causal narrative and the dynamic multipliers we need for the macroeconomic story.</li>
-          <li data-i18n="mw_l2"><strong>GARCH</strong> adds the risk dimension that matters for financial markets and for the quantitative-finance angle of the work.</li>
-          <li data-i18n="mw_l3"><strong>Local Projections</strong> act as an independent check, increasing the transparency and credibility of the results.</li>
-        </ul>
-        <p class="text-sm text-academic-700 leading-relaxed" data-i18n="mw_p2">Together they allow a dual presentation: a clear, accessible story for the course (surface) and a rigorous, replicable empirical core that can later support master’s-level research (submerged base).</p>
+      <div class="mt-8 p-4 bg-sky-50 border border-sky-100 rounded-lg">
+        <p class="text-sm text-sky-900" data-i18n="rq"><strong>Pregunta de investigación:</strong> ¿Cómo se transmiten los shocks agudos de costos energéticos a la inflación, el crecimiento, la volatilidad de acciones y el riesgo de crédito, y qué explica la resiliencia heterogénea observada entre las principales economías — en particular Japón?</p>
       </div>
     </div>
+  </section>
+
+  <!-- 2. El Shock -->
+  <section id="section-shock" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="shock_h">2. El Shock de Ormuz 2026 — Hechos Estilizados</h2>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="shock_p">La disrupción se ubica entre los mayores shocks de oferta de la historia del mercado petrolero moderno<span class="src-idx">[200]</span>. Los precios de referencia reaccionaron con fuerza, mientras que la escasez física y el aumento de fletes y seguros generaron diferenciales regionales de precios, afectando especialmente a Asia y Europa<span class="src-idx">[201]</span>.</p>
+      <div class="grid lg:grid-cols-2 gap-6 mb-6">
+        <div>
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3" data-i18n="shock_chart">Movimientos clave de precios (ilustrativo)</h3>
+          <canvas id="priceChart" height="220"></canvas>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+            <span class="stat-pill bg-rose-100 text-rose-800">Brent</span>
+            <p class="text-sm text-academic-700" data-i18n="shock_brent">Subió desde ~US$70 hasta picos superiores a US$120/bbl en la fase inicial de la disrupción.<span class="src-idx">[202]</span></p>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+            <span class="stat-pill bg-amber-100 text-amber-800">LNG Asia</span>
+            <p class="text-sm text-academic-700" data-i18n="shock_lng">Los precios spot asiáticos reaccionaron con fuerza por la alta dependencia de volúmenes qataríes que transitan Ormuz.<span class="src-idx">[203]</span></p>
+          </div>
+          <div class="flex items-start gap-3 p-3 bg-academic-50 rounded-lg">
+            <span class="stat-pill bg-sky-100 text-sky-800">Asimetría</span>
+            <p class="text-sm text-academic-700" data-i18n="shock_asym">Estados Unidos relativamente aislado; Asia y Europa absorbieron la mayor parte del impacto.<span class="src-idx">[204]</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Mapa -->
+  <section id="section-map" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="map_h">3. Mapa de Impacto Geopolítico y Económico</h2>
+      <p class="text-academic-600 text-sm mb-4" data-i18n="map_desc">Mapa interactivo del chokepoint del Estrecho de Ormuz, principales exportadores de energía y los importadores asiáticos más expuestos. Hacé clic en los marcadores para ver datos clave. Cada afirmación está indexada (serie 300) y listada en Referencias.</p>
+      <div id="map" class="mb-4 border border-academic-200"></div>
+      <div class="grid sm:grid-cols-3 gap-3 text-sm">
+        <div class="bg-rose-50 border border-rose-100 rounded-lg p-3">
+          <div class="font-semibold text-rose-800 mb-1" data-i18n="map_leg1">● Chokepoint <span class="src-idx">[300]</span></div>
+          <p class="text-rose-700 text-xs" data-i18n="map_leg1d">Estrecho de Ormuz — ~20% del petróleo global y flujos importantes de GNL</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-100 rounded-lg p-3">
+          <div class="font-semibold text-amber-800 mb-1" data-i18n="map_leg2">● Exportadores <span class="src-idx">[301–306]</span></div>
+          <p class="text-amber-700 text-xs" data-i18n="map_leg2d">Arabia Saudita, Emiratos, Qatar, Irak, Kuwait, Irán</p>
+        </div>
+        <div class="bg-sky-50 border border-sky-100 rounded-lg p-3">
+          <div class="font-semibold text-sky-800 mb-1" data-i18n="map_leg3">● Importadores clave <span class="src-idx">[307–310]</span></div>
+          <p class="text-sky-700 text-xs" data-i18n="map_leg3d">Japón, China, India, Corea del Sur — mayor exposición</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Transmisión -->
+  <section id="section-transmission" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="trans_h">4. Canales de Transmisión Macroeconómica</h2>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="trans_p">Un shock de costos energéticos opera principalmente como un shock de oferta negativo. Eleva los costos de producción, erosiona el ingreso real de los hogares y puede generar efectos de segunda ronda a través de expectativas de inflación y fijación salarial<span class="src-idx">[400]</span>.</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="border border-academic-200 rounded-lg p-5">
+          <h3 class="font-semibold text-academic-900 mb-2" data-i18n="trans_d">Canales directos</h3>
+          <ul class="text-sm text-academic-700 space-y-1.5 list-disc list-inside">
+            <li data-i18n="trans_d1">Mayores costos de insumos en sectores intensivos en energía</li>
+            <li data-i18n="trans_d2">Traslado a precios energéticos al consumidor</li>
+            <li data-i18n="trans_d3">Deterioro de los términos de intercambio para importadores netos</li>
+          </ul>
+        </div>
+        <div class="border border-academic-200 rounded-lg p-5">
+          <h3 class="font-semibold text-academic-900 mb-2" data-i18n="trans_i">Canales indirectos / financieros</h3>
+          <ul class="text-sm text-academic-700 space-y-1.5 list-disc list-inside">
+            <li data-i18n="trans_i1">Condiciones financieras más restrictivas vía premios por riesgo de inflación</li>
+            <li data-i18n="trans_i2">Volatilidad accionaria y reasignación sectorial</li>
+            <li data-i18n="trans_i3">Posible respuesta de política monetaria (FED, BCE, BOJ)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 p-4 bg-academic-50 rounded-lg border border-academic-100">
+        <p class="text-sm text-academic-700" data-i18n="trans_rule"><strong>Regla práctica (FMI / Goldman Sachs):</strong> un aumento sostenido del 10% en el precio del petróleo reduce típicamente el crecimiento del PIB global en ≈0,1–0,15 pp y eleva la inflación en ≈0,3–0,4 pp<span class="src-idx">[401]</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Resultados Econométricos -->
+  <section id="section-results" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="res_h">5. Análisis Econométrico — Resultados Centrales</h2>
+      <p class="text-academic-700 leading-relaxed mb-4" data-i18n="res_p">Estimamos la respuesta dinámica de variables macroeconómicas y financieras clave mediante un VAR Estructural identificado con instrumento externo, complementado con modelos de la familia GARCH para la volatilidad<span class="src-idx">[500]</span>.</p>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+        <p class="text-sm text-amber-900" data-i18n="res_note"><strong>Nota:</strong> Los gráficos son placeholders ilustrativos. Las estimaciones finales los reemplazarán una vez completado el pipeline de datos (ver modo Metodología).</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3" data-i18n="res_irf">Respuestas al impulso (ilustrativo)</h3>
+          <canvas id="irfChart" height="240"></canvas>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-academic-700 uppercase tracking-wide mb-3" data-i18n="res_vol">Volatilidad condicional</h3>
+          <canvas id="volChart" height="240"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Mercados Financieros -->
+  <section id="section-finance" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="fin_h">6. Implicaciones para los Mercados Financieros</h2>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="fin_p">Los shocks de costos energéticos afectan la valoración de activos a través de mayores tasas de descuento, incertidumbre de flujos de fondos y cambios en los premios por riesgo. La propia volatilidad se convierte en un factor de precio<span class="src-idx">[600]</span>.</p>
+      <div class="space-y-4">
+        <div class="border-l-4 border-academic-accent pl-4">
+          <h3 class="font-medium text-academic-900" data-i18n="fin_1">Volatilidad de mercados accionarios</h3>
+          <p class="text-sm text-academic-700 mt-1" data-i18n="fin_1d">Los modelos GARCH / EGARCH cuantifican el aumento de la varianza condicional y los efectos de apalancamiento durante la ventana del shock.</p>
+        </div>
+        <div class="border-l-4 border-academic-accent pl-4">
+          <h3 class="font-medium text-academic-900" data-i18n="fin_2">Spreads de crédito y premios por riesgo</h3>
+          <p class="text-sm text-academic-700 mt-1" data-i18n="fin_2d">Los spreads de bonos corporativos suelen ampliarse cuando se deterioran las perspectivas de crecimiento y aumenta la incertidumbre.</p>
+        </div>
+        <div class="border-l-4 border-academic-accent pl-4">
+          <h3 class="font-medium text-academic-900" data-i18n="fin_3">Spillovers entre activos</h3>
+          <p class="text-sm text-academic-700 mt-1" data-i18n="fin_3d">Futuros energéticos, acciones y activos refugio exhiben correlaciones variables en el tiempo que pueden examinarse con GARCH multivariado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Japón y Asia -->
+  <section id="section-asia" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="asia_h">7. Asimetrías Regionales — Foco en Japón</h2>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="asia_p">Japón constituye un caso particularmente informativo: dependencia extrema del crudo de Medio Oriente (90–96% de las importaciones)<span class="src-idx">[102]</span> combinada con uno de los sistemas de reservas estratégicas más profundos entre los miembros de la AIE<span class="src-idx">[700]</span>.</p>
+      <div class="grid sm:grid-cols-2 gap-4 mb-6">
+        <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
+          <h3 class="font-semibold text-academic-900 mb-2" data-i18n="asia_v">Vulnerabilidad</h3>
+          <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+            <li data-i18n="asia_v1">Muy alta dependencia del crudo de Medio Oriente</li>
+            <li data-i18n="asia_v2">Producción doméstica limitada</li>
+            <li data-i18n="asia_v3">Exposición a picos de precios de GNL en Asia</li>
+          </ul>
+        </div>
+        <div class="bg-academic-50 rounded-lg p-5 border border-academic-100">
+          <h3 class="font-semibold text-academic-900 mb-2" data-i18n="asia_r">Factores de resiliencia</h3>
+          <ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+            <li data-i18n="asia_r1">Reservas estratégicas ≈ 250 días de consumo<span class="src-idx">[700]</span></li>
+            <li data-i18n="asia_r2">Liberaciones tempranas y amplias de stocks en 2026<span class="src-idx">[701]</span></li>
+            <li data-i18n="asia_r3">Diversificación rápida de fuentes de suministro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Conclusiones -->
+  <section id="section-conclusions" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-4" data-i18n="conc_h">8. Conclusiones y Perspectiva de Investigación</h2>
+      <p class="text-academic-700 leading-relaxed mb-4" data-i18n="conc_p1">La disrupción del Estrecho de Ormuz en 2026 ofrece un laboratorio poco frecuente para estudiar la transmisión real y financiera de un gran shock de oferta energética de origen geopolítico. La evidencia apunta a efectos significativos pero heterogéneos, con Asia absorbiendo una proporción desproporcionada del ajuste.</p>
+      <p class="text-academic-700 leading-relaxed mb-6" data-i18n="conc_p2">Al combinar una narrativa macro transparente con métodos rigurosos de series temporales (SVAR + GARCH), este trabajo ofrece claridad pedagógica para la materia y una base empírica sólida para investigaciones posteriores a nivel de maestría.</p>
+      <div class="bg-academic-900 text-white rounded-lg p-5">
+        <h3 class="font-medium mb-2" data-i18n="conc_next">Próximos pasos del pipeline de investigación</h3>
+        <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
+          <li data-i18n="conc_n1">Finalizar la construcción de datos y el instrumento externo</li>
+          <li data-i18n="conc_n2">Estimar y validar la especificación SVAR central</li>
+          <li data-i18n="conc_n3">Implementar modelos de volatilidad y checks de robustez</li>
+          <li data-i18n="conc_n4">Producir las figuras finales de respuestas al impulso y volatilidad</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Referencias -->
+  <section id="section-references" class="tab-content">
+    <div class="section-card p-6 sm:p-8">
+      <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="ref_h">9. Referencias e Índice de Fuentes</h2>
+      <p class="text-academic-600 text-sm mb-6" data-i18n="ref_desc">La numeración sigue la estructura de secciones: 100s = Introducción · 200s = El Shock · 300s = Mapa · 400s = Transmisión · 500s = Econometría · 600s = Mercados Financieros · 700s = Japón y Asia.</p>
+
+      <div class="space-y-1 text-sm">
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-4 mb-2">100s — Introducción</h3>
+        <div class="ref-item"><span class="ref-num">[100]</span> U.S. Energy Information Administration (EIA). <em>World Oil Transit Chokepoints</em>. Aproximadamente el 20% del consumo mundial de líquidos petroleros transitó el Estrecho de Ormuz en años recientes.</div>
+        <div class="ref-item"><span class="ref-num">[101]</span> International Energy Agency (IEA). Informes sobre comercio marítimo de GNL y rutas de exportación de Medio Oriente.</div>
+        <div class="ref-item"><span class="ref-num">[102]</span> Atlantic Council (2026); METI / JOGMEC; Oxford Energy Forum. Dependencia de Japón del crudo de Medio Oriente reportada consistentemente en el rango 90–96%.</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">200s — El Shock 2026</h3>
+        <div class="ref-item"><span class="ref-num">[200]</span> IEA Oil Market Report (actualizaciones 2026); Brookings; Goldman Sachs Research. Caracterización de la disrupción de Ormuz 2026 como uno de los mayores shocks de oferta petrolera registrados.</div>
+        <div class="ref-item"><span class="ref-num">[201]</span> Federal Reserve Financial Stability Report (mayo 2026); Foreign Affairs. Diferenciales regionales de precios e impacto asimétrico Asia/Europa vs. Estados Unidos.</div>
+        <div class="ref-item"><span class="ref-num">[202]</span> Datos de mercado resumidos en Goldman Sachs, IEA y prensa financiera contemporánea (trayectoria del Brent).</div>
+        <div class="ref-item"><span class="ref-num">[203]</span> IEA; Atlantic Council. Alta dependencia de los mercados asiáticos de GNL respecto de volúmenes qataríes que transitan Ormuz.</div>
+        <div class="ref-item"><span class="ref-num">[204]</span> Dallas Fed; Federal Reserve FSR (mayo 2026). Mayor aislamiento relativo de Estados Unidos.</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">300s — Mapa (marcadores individuales)</h3>
+        <div class="ref-item"><span class="ref-num">[300]</span> <strong>Estrecho de Ormuz</strong> — EIA <em>World Oil Transit Chokepoints</em>; IEA. ~20% del suministro global de petróleo y flujos importantes de GNL.</div>
+        <div class="ref-item"><span class="ref-num">[301]</span> <strong>Qatar</strong> — IEA; Energy Institute Statistical Review. Mayor exportador mundial de GNL; la mayor parte de los volúmenes sale vía Ormuz.</div>
+        <div class="ref-item"><span class="ref-num">[302]</span> <strong>Arabia Saudita</strong> — EIA; datos de Saudi Aramco. El oleoducto Este-Oeste (Petroline) ofrece capacidad parcial de bypass hacia el Mar Rojo.</div>
+        <div class="ref-item"><span class="ref-num">[303]</span> <strong>Emiratos Árabes Unidos</strong> — EIA. Sistema de oleoductos Fujairah/Abu Dhabi ofrece capacidad alternativa limitada fuera de Ormuz.</div>
+        <div class="ref-item"><span class="ref-num">[304]</span> <strong>Irak</strong> — EIA; IEA. La mayoría de las exportaciones de crudo iraquí se han enrutado históricamente a través del Golfo Pérsico / Ormuz.</div>
+        <div class="ref-item"><span class="ref-num">[305]</span> <strong>Kuwait</strong> — EIA. Prácticamente todas las exportaciones de crudo kuwaití transitan el Estrecho de Ormuz.</div>
+        <div class="ref-item"><span class="ref-num">[306]</span> <strong>Irán</strong> — Rol geopolítico contextual como productor y potencial disruptor del Estrecho (literatura de la crisis 2026).</div>
+        <div class="ref-item"><span class="ref-num">[307]</span> <strong>Japón</strong> — Atlantic Council (2026); METI; Oxford Energy Forum; Daiwa Institute. Dependencia 90–96% del crudo de Medio Oriente; reservas estratégicas entre las más profundas de la AIE (~250 días).</div>
+        <div class="ref-item"><span class="ref-num">[308]</span> <strong>China</strong> — EIA; IEA. Mayor importador absoluto de petróleo que transita Ormuz; cartera de suministro relativamente más diversificada que Japón.</div>
+        <div class="ref-item"><span class="ref-num">[309]</span> <strong>India</strong> — EIA; estadísticas nacionales de importación. Alta y creciente dependencia del crudo de Medio Oriente.</div>
+        <div class="ref-item"><span class="ref-num">[310]</span> <strong>Corea del Sur</strong> — EIA; estadísticas energéticas nacionales. Aproximadamente 70% del crudo importado desde Medio Oriente.</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">400s — Transmisión</h3>
+        <div class="ref-item"><span class="ref-num">[400]</span> Canales macroeconómicos estándar de transmisión de shocks de oferta petrolera (Kilian; Hamilton; macroeconomía de economía abierta).</div>
+        <div class="ref-item"><span class="ref-num">[401]</span> Elasticidades de regla práctica del FMI; Goldman Sachs Research (notas 2026 sobre impacto en crecimiento global e inflación).</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">500s — Marco econométrico</h3>
+        <div class="ref-item"><span class="ref-num">[500]</span> Referencias metodológicas: Kilian (literatura SVAR de mercado petrolero); Baumeister & Hamilton; Jordà (proyecciones locales); Bollerslev / Engle (familia GARCH).</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">600s — Mercados financieros</h3>
+        <div class="ref-item"><span class="ref-num">[600]</span> Canales estándar de valoración de activos bajo shocks energéticos/inflacionarios (efectos de tasa de descuento, incertidumbre de flujos, premios por riesgo).</div>
+
+        <h3 class="text-xs font-semibold text-academic-500 uppercase tracking-wide mt-5 mb-2">700s — Japón y Asia</h3>
+        <div class="ref-item"><span class="ref-num">[700]</span> Atlantic Council (2026) “How Japan is managing the energy shock”; Oxford Energy Forum (Issue 149, 2026); METI / JOGMEC. Profundidad de las reservas estratégicas japonesas.</div>
+        <div class="ref-item"><span class="ref-num">[701]</span> Mismas fuentes + reportes contemporáneos sobre liberaciones tempranas y amplias de stocks por parte de Japón en respuesta a la disrupción de 2026.</div>
+      </div>
+
+      <div class="mt-8 p-4 bg-academic-50 border border-academic-100 rounded-lg text-sm text-academic-600">
+        <p data-i18n="ref_note"><strong>Nota:</strong> Este índice está diseñado para que cada afirmación fáctica del sitio sea rastreable. Los títulos bibliográficos permanecen en su idioma original. Las frases estructurales cambian con el selector de idioma.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== METHODOLOGY MODE ==================== -->
+<div id="mode-methodology" class="mode-panel">
+  <div class="section-card p-6 sm:p-8">
+    <h2 class="text-2xl font-semibold text-academic-900 mb-2" data-i18n="meth_h">Metodología y Transparencia Estadística</h2>
+    <p class="text-academic-600 mb-6 text-sm" data-i18n="meth_desc">Explicación clara de los métodos, la información que utilizan y por qué se eligieron para esta investigación.</p>
+
+    <div class="flex flex-wrap gap-2 mb-8 border-b border-academic-200 pb-4">
+      <button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('overview')" data-i18n="m_over">Panorama</button>
+      <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('svar')" data-i18n="m_svar">SVAR</button>
+      <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('garch')" data-i18n="m_garch">GARCH</button>
+      <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('lp')" data-i18n="m_lp">Proyecciones Locales</button>
+      <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('data')" data-i18n="m_data">Datos</button>
+      <button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100 text-academic-700" onclick="showMethod('why')" data-i18n="m_why">Por qué estos métodos</button>
+    </div>
+
+    <!-- Overview -->
+    <div id="method-overview" class="method-content active">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mo_h">Cómo funciona la estrategia empírica</h3>
+      <p class="text-academic-700 text-sm leading-relaxed mb-4" data-i18n="mo_p1">Queremos responder una pregunta simple pero importante: <em>cuando el costo de la energía sube de golpe por un evento geopolítico (la disrupción de Ormuz), ¿qué les ocurre después a la inflación, a la actividad económica y a los mercados financieros?</em></p>
+      <p class="text-academic-700 text-sm leading-relaxed mb-4" data-i18n="mo_p2">Para responderla con rigor combinamos tres herramientas complementarias. Cada una mira la misma realidad desde un ángulo distinto:</p>
+      <div class="grid sm:grid-cols-3 gap-3 text-sm">
+        <div class="method-box"><h4 data-i18n="mo_b1">SVAR</h4><p class="text-academic-600" data-i18n="mo_b1d">Mide la transmisión dinámica del shock energético a la economía real y a los precios de los activos.</p></div>
+        <div class="method-box"><h4 data-i18n="mo_b2">Familia GARCH</h4><p class="text-academic-600" data-i18n="mo_b2d">Mide cuánto y de qué forma aumentó la volatilidad de los mercados durante el shock.</p></div>
+        <div class="method-box"><h4 data-i18n="mo_b3">Proyecciones Locales</h4><p class="text-academic-600" data-i18n="mo_b3d">Verifica si los resultados del SVAR son robustos cuando usamos un método más flexible.</p></div>
+      </div>
+    </div>
+
+    <!-- SVAR -->
+    <div id="method-svar" class="method-content">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="ms_h">VAR Estructural (SVAR) — el modelo central</h3>
+      <div class="method-box">
+        <h4 data-i18n="ms_what">Qué es (en lenguaje sencillo)</h4>
+        <p class="text-sm text-academic-700" data-i18n="ms_what_d">Imaginemos que tenemos varias series económicas que se mueven juntas en el tiempo: el precio del petróleo, la inflación, la producción industrial, los retornos bursátiles y los spreads de crédito. Un VAR permite que cada serie dependa de su propio pasado reciente y del pasado reciente de las demás. La parte “Estructural” significa que agregamos razonamiento económico (o un instrumento externo) para poder aislar un “shock de oferta energética” limpio en lugar de una mezcla de muchas cosas ocurriendo al mismo tiempo.</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ms_comp">Componentes principales</h4>
+        <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
+          <li data-i18n="ms_c1"><strong>Variables endógenas</strong> — las series que modelamos juntas (precio de la energía, inflación, actividad, retornos accionarios, spreads de crédito).</li>
+          <li data-i18n="ms_c2"><strong>Rezagos</strong> — cuántos períodos pasados dejamos que influyan en el presente (se eligen con criterios de información).</li>
+          <li data-i18n="ms_c3"><strong>Identificación</strong> — las reglas que convierten residuos estadísticos en shocks con sentido económico. Usamos un instrumento externo: movimientos bruscos de precios alrededor de noticias geopolíticas o caídas súbitas de los volúmenes de tránsito por Ormuz.</li>
+          <li data-i18n="ms_c4"><strong>Respuestas al impulso</strong> — el resultado principal: gráficos que muestran cómo reaccionan la inflación, la actividad y los mercados en los meses posteriores al shock energético.</li>
+        </ul>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ms_how">Cómo lo usamos en la práctica</h4>
+        <p class="text-sm text-academic-700" data-i18n="ms_how_d">1. Recopilamos datos mensuales (o de mayor frecuencia) de las variables elegidas.<br>2. Estimamos el VAR en forma reducida.<br>3. Identificamos el shock estructural de energía con el instrumento externo.<br>4. Calculamos las funciones de respuesta al impulso con bandas de confianza.<br>5. Leemos la historia económica: ¿qué tan grande y persistente es el efecto sobre inflación, crecimiento y precios de activos?</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ms_why">Por qué lo elegimos para este trabajo</h4>
+        <p class="text-sm text-academic-700" data-i18n="ms_why_d">Es el método de cabecera en la literatura moderna de shocks petroleros. Nos permite contar una historia causal transparente sobre la transmisión y, al mismo tiempo, mantener todo replicable con datos públicos.</p>
+      </div>
+    </div>
+
+    <!-- GARCH -->
+    <div id="method-garch" class="method-content">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mg_h">Familia GARCH — medir la volatilidad</h3>
+      <div class="method-box">
+        <h4 data-i18n="mg_what">Qué es (en lenguaje sencillo)</h4>
+        <p class="text-sm text-academic-700" data-i18n="mg_what_d">Los retornos financieros no son igual de riesgosos todos los días. Hay períodos de calma y períodos de turbulencia. GARCH modela la varianza de los retornos como un proceso que depende de los shocks recientes y de su propio nivel reciente. En pocas palabras: cuantifica “cuán nervioso está el mercado” en cada momento.</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="mg_comp">Componentes principales / variantes</h4>
+        <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
+          <li data-i18n="mg_c1"><strong>GARCH(1,1)</strong> — la versión clásica: la volatilidad de hoy depende de la volatilidad de ayer y del tamaño de la sorpresa de ayer.</li>
+          <li data-i18n="mg_c2"><strong>EGARCH / GJR-GARCH</strong> — permiten que las malas noticias aumenten más la volatilidad que las buenas (efecto apalancamiento), algo frecuente en los mercados de acciones.</li>
+          <li data-i18n="mg_c3"><strong>Serie de volatilidad condicional</strong> — el resultado principal: una medida diaria de riesgo que podemos graficar alrededor de la ventana del evento de Ormuz.</li>
+        </ul>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="mg_how">Cómo lo usamos en la práctica</h4>
+        <p class="text-sm text-academic-700" data-i18n="mg_how_d">1. Tomamos retornos diarios de índices accionarios y de futuros energéticos.<br>2. Estimamos GARCH, EGARCH y GJR-GARCH.<br>3. Extraemos la volatilidad condicional ajustada.<br>4. Examinamos si la volatilidad saltó, cuán grande fue el salto y si los retornos negativos lo amplificaron durante la ventana del shock.</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="mg_why">Por qué lo elegimos para este trabajo</h4>
+        <p class="text-sm text-academic-700" data-i18n="mg_why_d">El shock energético no solo mueve los niveles de precios; también cambia el riesgo. GARCH nos da una forma disciplinada de medir ese cambio y conecta la historia macroeconómica con el ángulo de finanzas cuantitativas de la investigación.</p>
+      </div>
+    </div>
+
+    <!-- Local Projections -->
+    <div id="method-lp" class="method-content">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="ml_h">Proyecciones Locales (Jordà)</h3>
+      <div class="method-box">
+        <h4 data-i18n="ml_what">Qué es (en lenguaje sencillo)</h4>
+        <p class="text-sm text-academic-700" data-i18n="ml_what_d">En lugar de forzar toda la dinámica a través de un único sistema VAR, las Proyecciones Locales estiman la respuesta de una variable en cada horizonte futuro con una regresión separada. Son más flexibles y menos sensibles a la estructura exacta de rezagos de un VAR.</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ml_comp">Componentes principales</h4>
+        <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside">
+          <li data-i18n="ml_c1"><strong>Fecha del evento o shock</strong> — el inicio de la disrupción sostenida de Ormuz.</li>
+          <li data-i18n="ml_c2"><strong>Regresiones por horizonte</strong> — una regresión para el efecto después de 1 mes, otra para 2 meses, etc.</li>
+          <li data-i18n="ml_c3"><strong>Controles</strong> — valores pasados de las variables y otros factores relevantes.</li>
+          <li data-i18n="ml_c4"><strong>Gráficos tipo respuesta al impulso</strong> — fáciles de comparar visualmente con los resultados del SVAR.</li>
+        </ul>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ml_how">Cómo lo usamos en la práctica</h4>
+        <p class="text-sm text-academic-700" data-i18n="ml_how_d">Tratamos el comienzo de la disrupción mayor como un evento, corremos la secuencia de proyecciones locales para inflación, actividad y retornos de activos, y graficamos la trayectoria resultante. Si esta trayectoria cuenta la misma historia económica que el SVAR, nuestras conclusiones ganan credibilidad.</p>
+      </div>
+      <div class="method-box">
+        <h4 data-i18n="ml_why">Por qué lo elegimos para este trabajo</h4>
+        <p class="text-sm text-academic-700" data-i18n="ml_why_d">Es una excelente herramienta de robustez. Nos protege de la crítica de que “los resultados solo aparecen por una especificación particular del VAR”.</p>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div id="method-data" class="method-content">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="md_h">Datos que utilizamos</h3>
+      <p class="text-sm text-academic-700 mb-4" data-i18n="md_p">Todas las series son de acceso público para que cualquier lector pueda replicar el ejercicio.</p>
+      <div class="overflow-x-auto text-sm">
+        <table class="w-full text-left">
+          <thead class="bg-academic-100"><tr><th class="px-3 py-2">Categoría</th><th class="px-3 py-2">Ejemplos</th><th class="px-3 py-2">Fuente</th><th class="px-3 py-2">Frec.</th></tr></thead>
+          <tbody class="divide-y">
+            <tr><td class="px-3 py-2">Precios energía</td><td class="px-3 py-2">Brent, WTI, TTF, JKM</td><td class="px-3 py-2">EIA / mercados</td><td class="px-3 py-2">D / M</td></tr>
+            <tr><td class="px-3 py-2">Macro</td><td class="px-3 py-2">IPC, producción industrial, PIB</td><td class="px-3 py-2">FRED, BCE, BOJ</td><td class="px-3 py-2">M</td></tr>
+            <tr><td class="px-3 py-2">Financiero</td><td class="px-3 py-2">Índices accionarios, VIX, spreads</td><td class="px-3 py-2">Datos de mercado públicos</td><td class="px-3 py-2">D</td></tr>
+            <tr><td class="px-3 py-2">Proxy del shock</td><td class="px-3 py-2">Volúmenes de tránsito por Ormuz / fechas de evento</td><td class="px-3 py-2">EIA, IEA, AIS</td><td class="px-3 py-2">D / Evento</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Why -->
+    <div id="method-why" class="method-content">
+      <h3 class="text-lg font-semibold text-academic-900 mb-3" data-i18n="mw_h">Por qué esta combinación</h3>
+      <p class="text-sm text-academic-700 leading-relaxed mb-3" data-i18n="mw_p1">Los tres métodos son complementarios:</p>
+      <ul class="text-sm text-academic-700 space-y-2 list-disc list-inside mb-4">
+        <li data-i18n="mw_l1"><strong>SVAR</strong> nos da la narrativa causal principal y los multiplicadores dinámicos que necesitamos para la historia macroeconómica.</li>
+        <li data-i18n="mw_l2"><strong>GARCH</strong> agrega la dimensión de riesgo que importa para los mercados financieros y para el ángulo de finanzas cuantitativas del trabajo.</li>
+        <li data-i18n="mw_l3"><strong>Proyecciones Locales</strong> actúan como un control independiente, aumentando la transparencia y la credibilidad de los resultados.</li>
+      </ul>
+      <p class="text-sm text-academic-700 leading-relaxed" data-i18n="mw_p2">Juntos permiten una presentación dual: una historia clara y accesible para la materia (superficie) y un núcleo empírico riguroso y replicable que luego puede sostener investigación a nivel de maestría (base sumergida).</p>
+    </div>
   </div>
+</div>
+
 </main>
 
 <footer class="border-t border-academic-200 mt-12 py-6">
@@ -288,215 +469,311 @@
 </footer>
 
 <script>
-  // Simplified i18n + map + charts (core functionality preserved)
-  const translations = {
-    en: {
-      title: "Energy Cost Shocks & the Global System", subtitle: "Case Study: Strait of Hormuz Crisis 2026 · UNMdP",
-      mode_pres: "Presentation", mode_meth: "Methodology",
-      nav1: "1. Introduction", nav2: "2. The Shock", nav_map: "3. Geopolitical Map", nav3: "4. Transmission",
-      nav4: "5. Econometric Results", nav5: "6. Financial Markets", nav6: "7. Japan & Asia", nav7: "8. Conclusions", nav_ref: "9. References",
-      intro_h: "1. Introduction & Motivation", stat1: "of global oil supply normally transits Hormuz", stat2: "of Japan’s crude imports originate in the Middle East", stat3: "Macro narrative + rigorous time-series analysis",
-      intro_p1: "The Strait of Hormuz constitutes one of the most critical energy chokepoints... <strong>20% of global oil supply</strong><span class='src-idx'>[100]</span>...",
-      intro_p2: "This research examines how such a sharp energy cost shock propagates...",
-      shock_h: "2. The 2026 Hormuz Shock", map_h: "3. Geopolitical & Economic Impact Map", map_desc: "Interactive map. Click markers. Indexed 300–310.",
-      map_leg1: "● Chokepoint [300]", map_leg2: "● Exporters [301–306]", map_leg3: "● Key Importers [307–310]",
-      trans_h: "4. Transmission Channels", res_h: "5. Econometric Results", fin_h: "6. Financial Markets", asia_h: "7. Japan & Asia", conc_h: "8. Conclusions",
-      ref_h: "9. References & Source Index", ref_desc: "Numbering follows sections: 100s Introduction · 200s Shock · 300s Map · 400s Transmission · 500s Econometrics · 600s Financial Markets · 700s Japan.",
-      ref_note: "<strong>Note:</strong> Bibliographic titles remain in their original language. Structural phrases switch with the language toggle.",
-      meth_h: "Methodology & Statistical Transparency", meth_desc: "Clear explanation of the methods, the information they use, and why they were chosen for this research.",
-      m_over: "Overview", m_svar: "SVAR", m_garch: "GARCH", m_lp: "Local Projections", m_data: "Data", m_why: "Why these methods",
-      mo_h: "How the empirical strategy works",
-      mo_p1: "We want to answer a simple but important question: <em>when the cost of energy suddenly jumps because of a geopolitical event (the Hormuz disruption), what happens next to inflation, economic activity and financial markets?</em>",
-      mo_p2: "To answer it rigorously we combine three complementary tools. Each one looks at the same reality from a different angle:",
-      mo_b1: "SVAR", mo_b1d: "Measures the dynamic transmission of the energy shock to the real economy and asset prices.",
-      mo_b2: "GARCH family", mo_b2d: "Measures how much and in what way market volatility increased during the shock.",
-      mo_b3: "Local Projections", mo_b3d: "Checks whether the SVAR results are robust when we use a more flexible method.",
-      ms_h: "Structural VAR (SVAR) — the core model", ms_what: "What it is (in plain language)",
-      ms_what_d: "Imagine we have several economic series that move together over time: the price of oil, inflation, industrial production, stock returns and credit spreads. A VAR lets each series depend on its own recent past and on the recent past of the others. The “Structural” part means we add economic reasoning (or an external instrument) so that we can isolate a clean “energy supply shock” instead of a mixture of many things happening at once.",
-      ms_comp: "Main components", ms_c1: "<strong>Endogenous variables</strong> — the series we model together (energy price, inflation, activity, equity returns, credit spreads).",
-      ms_c2: "<strong>Lags</strong> — how many past periods we let influence the present (chosen with information criteria).",
-      ms_c3: "<strong>Identification</strong> — the rules that turn statistical residuals into economically meaningful shocks. We use an external instrument: sharp price moves around geopolitical news or sudden drops in Hormuz transit volumes.",
-      ms_c4: "<strong>Impulse responses</strong> — the main output: graphs that show how inflation, activity and markets react in the months after the energy shock.",
-      ms_how: "How we actually use it", ms_how_d: "1. We collect monthly (or higher-frequency) data for the chosen variables.<br>2. We estimate the reduced-form VAR.<br>3. We identify the structural energy shock with the external instrument.<br>4. We compute impulse-response functions with confidence bands.<br>5. We read the economic story: how large and how persistent is the effect on inflation, growth and asset prices?",
-      ms_why: "Why we chose it for this paper", ms_why_d: "It is the workhorse method in the modern oil-shock literature. It lets us tell a transparent causal story about transmission while remaining fully replicable with public data.",
-      mg_h: "GARCH family — measuring volatility", mg_what: "What it is (in plain language)",
-      mg_what_d: "Financial returns are not equally risky every day. Some periods are calm; others are turbulent. GARCH models the variance of returns as a process that depends on recent shocks and on its own recent level. In short: it quantifies “how nervous the market is” at each moment.",
-      mg_comp: "Main components / variants",
-      mg_c1: "<strong>GARCH(1,1)</strong> — the classic version: today’s volatility depends on yesterday’s volatility and on the size of yesterday’s surprise.",
-      mg_c2: "<strong>EGARCH / GJR-GARCH</strong> — allow bad news to increase volatility more than good news (leverage effect), which is common in equity markets.",
-      mg_c3: "<strong>Conditional volatility series</strong> — the main output: a daily measure of risk that we can plot around the Hormuz event window.",
-      mg_how: "How we actually use it", mg_how_d: "1. We take daily returns of equity indices and energy futures.<br>2. We estimate GARCH, EGARCH and GJR-GARCH.<br>3. We extract the fitted conditional volatility.<br>4. We examine whether volatility jumped, how large the jump was, and whether negative returns amplified it during the shock window.",
-      mg_why: "Why we chose it for this paper", mg_why_d: "The energy shock does not only move price levels; it changes risk. GARCH gives us a disciplined way to measure that change and links the macroeconomic story to the quantitative-finance angle of the research.",
-      ml_h: "Local Projections (Jordà)", ml_what: "What it is (in plain language)",
-      ml_what_d: "Instead of forcing all dynamics through a single VAR system, Local Projections estimate the response of a variable at each future horizon with a separate regression. They are more flexible and less sensitive to the exact lag structure of a VAR.",
-      ml_comp: "Main components",
-      ml_c1: "<strong>Event or shock date</strong> — the onset of the sustained Hormuz disruption.",
-      ml_c2: "<strong>Horizon-specific regressions</strong> — one regression for the effect after 1 month, another for 2 months, etc.",
-      ml_c3: "<strong>Controls</strong> — past values of the variables and other relevant factors.",
-      ml_c4: "<strong>Impulse-response style graphs</strong> — easy to compare visually with the SVAR results.",
-      ml_how: "How we actually use it", ml_how_d: "We treat the beginning of the major disruption as an event, run the sequence of local projections for inflation, activity and asset returns, and plot the resulting path. If this path tells the same economic story as the SVAR, our conclusions gain credibility.",
-      ml_why: "Why we chose it for this paper", ml_why_d: "It is an excellent robustness tool. It protects us against the criticism that “the results only appear because of a particular VAR specification”.",
-      md_h: "Data we use", md_p: "All series are publicly available so that any reader can replicate the exercise.",
-      mw_h: "Why this combination",
-      mw_p1: "The three methods are complementary:",
-      mw_l1: "<strong>SVAR</strong> gives us the main causal narrative and the dynamic multipliers we need for the macroeconomic story.",
-      mw_l2: "<strong>GARCH</strong> adds the risk dimension that matters for financial markets and for the quantitative-finance angle of the work.",
-      mw_l3: "<strong>Local Projections</strong> act as an independent check, increasing the transparency and credibility of the results.",
-      mw_p2: "Together they allow a dual presentation: a clear, accessible story for the course (surface) and a rigorous, replicable empirical core that can later support master’s-level research (submerged base)."
-    },
-    es: {
-      title: "Shocks de Costos Energéticos y el Sistema Global", subtitle: "Caso de estudio: Crisis del Estrecho de Ormuz 2026 · UNMdP",
-      mode_pres: "Presentación", mode_meth: "Metodología",
-      nav1: "1. Introducción", nav2: "2. El Shock", nav_map: "3. Mapa Geopolítico", nav3: "4. Transmisión",
-      nav4: "5. Resultados Econométricos", nav5: "6. Mercados Financieros", nav6: "7. Japón y Asia", nav7: "8. Conclusiones", nav_ref: "9. Referencias",
-      intro_h: "1. Introducción y Motivación", stat1: "del suministro global de petróleo transita normalmente por Ormuz", stat2: "de las importaciones de crudo de Japón provienen de Medio Oriente", stat3: "Narrativa macro + análisis riguroso de series temporales",
-      intro_p1: "El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos... <strong>20% del suministro global de petróleo</strong><span class='src-idx'>[100]</span>...",
-      intro_p2: "Esta investigación examina cómo un shock agudo de costos energéticos se propaga...",
-      shock_h: "2. El Shock de Ormuz 2026", map_h: "3. Mapa de Impacto Geopolítico y Económico", map_desc: "Mapa interactivo. Hacé clic en los marcadores. Indexado 300–310.",
-      map_leg1: "● Chokepoint [300]", map_leg2: "● Exportadores [301–306]", map_leg3: "● Importadores clave [307–310]",
-      trans_h: "4. Canales de Transmisión", res_h: "5. Resultados Econométricos", fin_h: "6. Mercados Financieros", asia_h: "7. Japón y Asia", conc_h: "8. Conclusiones",
-      ref_h: "9. Referencias e Índice de Fuentes", ref_desc: "La numeración sigue las secciones: 100s Introducción · 200s Shock · 300s Mapa · 400s Transmisión · 500s Econometría · 600s Mercados Financieros · 700s Japón.",
-      ref_note: "<strong>Nota:</strong> Los títulos bibliográficos permanecen en su idioma original. Las frases estructurales cambian con el selector de idioma.",
-      meth_h: "Metodología y Transparencia Estadística", meth_desc: "Explicación clara de los métodos, la información que utilizan y por qué se eligieron para esta investigación.",
-      m_over: "Panorama", m_svar: "SVAR", m_garch: "GARCH", m_lp: "Proyecciones Locales", m_data: "Datos", m_why: "Por qué estos métodos",
-      mo_h: "Cómo funciona la estrategia empírica",
-      mo_p1: "Queremos responder una pregunta simple pero importante: <em>cuando el costo de la energía sube de golpe por un evento geopolítico (la disrupción de Ormuz), ¿qué les ocurre después a la inflación, a la actividad económica y a los mercados financieros?</em>",
-      mo_p2: "Para responderla con rigor combinamos tres herramientas complementarias. Cada una mira la misma realidad desde un ángulo distinto:",
-      mo_b1: "SVAR", mo_b1d: "Mide la transmisión dinámica del shock energético a la economía real y a los precios de los activos.",
-      mo_b2: "Familia GARCH", mo_b2d: "Mide cuánto y de qué forma aumentó la volatilidad de los mercados durante el shock.",
-      mo_b3: "Proyecciones Locales", mo_b3d: "Verifica si los resultados del SVAR son robustos cuando usamos un método más flexible.",
-      ms_h: "VAR Estructural (SVAR) — el modelo central", ms_what: "Qué es (en lenguaje sencillo)",
-      ms_what_d: "Imaginemos que tenemos varias series económicas que se mueven juntas en el tiempo: el precio del petróleo, la inflación, la producción industrial, los retornos bursátiles y los spreads de crédito. Un VAR permite que cada serie dependa de su propio pasado reciente y del pasado reciente de las demás. La parte “Estructural” significa que agregamos razonamiento económico (o un instrumento externo) para poder aislar un “shock de oferta energética” limpio en lugar de una mezcla de muchas cosas ocurriendo al mismo tiempo.",
-      ms_comp: "Componentes principales",
-      ms_c1: "<strong>Variables endógenas</strong> — las series que modelamos juntas (precio de la energía, inflación, actividad, retornos accionarios, spreads de crédito).",
-      ms_c2: "<strong>Rezagos</strong> — cuántos períodos pasados dejamos que influyan en el presente (se eligen con criterios de información).",
-      ms_c3: "<strong>Identificación</strong> — las reglas que convierten residuos estadísticos en shocks con sentido económico. Usamos un instrumento externo: movimientos bruscos de precios alrededor de noticias geopolíticas o caídas súbitas de los volúmenes de tránsito por Ormuz.",
-      ms_c4: "<strong>Respuestas al impulso</strong> — el resultado principal: gráficos que muestran cómo reaccionan la inflación, la actividad y los mercados en los meses posteriores al shock energético.",
-      ms_how: "Cómo lo usamos en la práctica",
-      ms_how_d: "1. Recopilamos datos mensuales (o de mayor frecuencia) de las variables elegidas.<br>2. Estimamos el VAR en forma reducida.<br>3. Identificamos el shock estructural de energía con el instrumento externo.<br>4. Calculamos las funciones de respuesta al impulso con bandas de confianza.<br>5. Leemos la historia económica: ¿qué tan grande y persistente es el efecto sobre inflación, crecimiento y precios de activos?",
-      ms_why: "Por qué lo elegimos para este trabajo",
-      ms_why_d: "Es el método de cabecera en la literatura moderna de shocks petroleros. Nos permite contar una historia causal transparente sobre la transmisión y, al mismo tiempo, mantener todo replicable con datos públicos.",
-      mg_h: "Familia GARCH — medir la volatilidad", mg_what: "Qué es (en lenguaje sencillo)",
-      mg_what_d: "Los retornos financieros no son igual de riesgosos todos los días. Hay períodos de calma y períodos de turbulencia. GARCH modela la varianza de los retornos como un proceso que depende de los shocks recientes y de su propio nivel reciente. En pocas palabras: cuantifica “cuán nervioso está el mercado” en cada momento.",
-      mg_comp: "Componentes principales / variantes",
-      mg_c1: "<strong>GARCH(1,1)</strong> — la versión clásica: la volatilidad de hoy depende de la volatilidad de ayer y del tamaño de la sorpresa de ayer.",
-      mg_c2: "<strong>EGARCH / GJR-GARCH</strong> — permiten que las malas noticias aumenten más la volatilidad que las buenas (efecto apalancamiento), algo frecuente en los mercados de acciones.",
-      mg_c3: "<strong>Serie de volatilidad condicional</strong> — el resultado principal: una medida diaria de riesgo que podemos graficar alrededor de la ventana del evento de Ormuz.",
-      mg_how: "Cómo lo usamos en la práctica",
-      mg_how_d: "1. Tomamos retornos diarios de índices accionarios y de futuros energéticos.<br>2. Estimamos GARCH, EGARCH y GJR-GARCH.<br>3. Extraemos la volatilidad condicional ajustada.<br>4. Examinamos si la volatilidad saltó, cuán grande fue el salto y si los retornos negativos lo amplificaron durante la ventana del shock.",
-      mg_why: "Por qué lo elegimos para este trabajo",
-      mg_why_d: "El shock energético no solo mueve los niveles de precios; también cambia el riesgo. GARCH nos da una forma disciplinada de medir ese cambio y conecta la historia macroeconómica con el ángulo de finanzas cuantitativas de la investigación.",
-      ml_h: "Proyecciones Locales (Jordà)", ml_what: "Qué es (en lenguaje sencillo)",
-      ml_what_d: "En lugar de forzar toda la dinámica a través de un único sistema VAR, las Proyecciones Locales estiman la respuesta de una variable en cada horizonte futuro con una regresión separada. Son más flexibles y menos sensibles a la estructura exacta de rezagos de un VAR.",
-      ml_comp: "Componentes principales",
-      ml_c1: "<strong>Fecha del evento o shock</strong> — el inicio de la disrupción sostenida de Ormuz.",
-      ml_c2: "<strong>Regresiones por horizonte</strong> — una regresión para el efecto después de 1 mes, otra para 2 meses, etc.",
-      ml_c3: "<strong>Controles</strong> — valores pasados de las variables y otros factores relevantes.",
-      ml_c4: "<strong>Gráficos tipo respuesta al impulso</strong> — fáciles de comparar visualmente con los resultados del SVAR.",
-      ml_how: "Cómo lo usamos en la práctica",
-      ml_how_d: "Tratamos el comienzo de la disrupción mayor como un evento, corremos la secuencia de proyecciones locales para inflación, actividad y retornos de activos, y graficamos la trayectoria resultante. Si esta trayectoria cuenta la misma historia económica que el SVAR, nuestras conclusiones ganan credibilidad.",
-      ml_why: "Por qué lo elegimos para este trabajo",
-      ml_why_d: "Es una excelente herramienta de robustez. Nos protege de la crítica de que “los resultados solo aparecen por una especificación particular del VAR”.",
-      md_h: "Datos que utilizamos", md_p: "Todas las series son de acceso público para que cualquier lector pueda replicar el ejercicio.",
-      mw_h: "Por qué esta combinación",
-      mw_p1: "Los tres métodos son complementarios:",
-      mw_l1: "<strong>SVAR</strong> nos da la narrativa causal principal y los multiplicadores dinámicos que necesitamos para la historia macroeconómica.",
-      mw_l2: "<strong>GARCH</strong> agrega la dimensión de riesgo que importa para los mercados financieros y para el ángulo de finanzas cuantitativas del trabajo.",
-      mw_l3: "<strong>Proyecciones Locales</strong> actúan como un control independiente, aumentando la transparencia y la credibilidad de los resultados.",
-      mw_p2: "Juntos permiten una presentación dual: una historia clara y accesible para la materia (superficie) y un núcleo empírico riguroso y replicable que luego puede sostener investigación a nivel de maestría (base sumergida)."
-    }
-  };
-
-  const popupContent = {
-    en: {
-      hormuz: "<strong>Strait of Hormuz</strong> <span class='src-idx'>[300]</span><br>~20% of global oil supply<br>Major share of seaborne LNG",
-      qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>World’s largest LNG exporter<br>Most volumes transit Hormuz",
-      saudi: "<strong>Saudi Arabia</strong> <span class='src-idx'>[302]</span><br>East-West pipeline offers partial bypass",
-      uae: "<strong>UAE</strong> <span class='src-idx'>[303]</span><br>Alternative pipelines exist but limited capacity",
-      iraq: "<strong>Iraq</strong> <span class='src-idx'>[304]</span><br>Significant crude exports through Hormuz",
-      kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Crude exports almost entirely via Hormuz",
-      iran: "<strong>Iran</strong> <span class='src-idx'>[306]</span><br>Central actor in the 2026 crisis",
-      japan: "<strong>Japan</strong> <span class='src-idx'>[307]</span><br>90–96% of crude from Middle East<br>~250 days of strategic reserves",
-      china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Largest absolute importer of Hormuz oil",
-      india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>High dependence on Middle East crude",
-      korea: "<strong>South Korea</strong> <span class='src-idx'>[310]</span><br>~70% of crude from Middle East"
-    },
-    es: {
-      hormuz: "<strong>Estrecho de Ormuz</strong> <span class='src-idx'>[300]</span><br>~20% del suministro global de petróleo<br>Parte importante del GNL marítimo",
-      qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>Mayor exportador mundial de GNL<br>La mayor parte de los volúmenes transita Ormuz",
-      saudi: "<strong>Arabia Saudita</strong> <span class='src-idx'>[302]</span><br>El oleoducto Este-Oeste ofrece un bypass parcial",
-      uae: "<strong>EAU</strong> <span class='src-idx'>[303]</span><br>Existen oleoductos alternativos pero con capacidad limitada",
-      iraq: "<strong>Irak</strong> <span class='src-idx'>[304]</span><br>Exportaciones significativas de crudo a través de Ormuz",
-      kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Exportaciones de crudo casi exclusivamente vía Ormuz",
-      iran: "<strong>Irán</strong> <span class='src-idx'>[306]</span><br>Actor central de la crisis de 2026",
-      japan: "<strong>Japón</strong> <span class='src-idx'>[307]</span><br>90–96% del crudo de Medio Oriente<br>~250 días de reservas estratégicas",
-      china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Mayor importador absoluto de petróleo de Ormuz",
-      india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>Alta dependencia del crudo de Medio Oriente",
-      korea: "<strong>Corea del Sur</strong> <span class='src-idx'>[310]</span><br>~70% del crudo de Medio Oriente"
-    }
-  };
-
-  let currentLang = 'es', map = null, mapInitialized = false;
-
-  function setLang(lang) {
-    currentLang = lang;
-    document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-    document.getElementById('lang-es').classList.toggle('text-slate-300', lang !== 'es');
-    document.getElementById('lang-en').classList.toggle('text-slate-300', lang !== 'en');
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) el.innerHTML = translations[lang][key];
-    });
-    if (mapInitialized) { map.remove(); map = null; mapInitialized = false; initMap(); }
+const translations = {
+  en: {
+    title: "Energy Cost Shocks & the Global System", subtitle: "Case Study: Strait of Hormuz Crisis 2026 · UNMdP",
+    mode_pres: "Presentation", mode_meth: "Methodology",
+    nav1: "1. Introduction", nav2: "2. The Shock", nav_map: "3. Geopolitical Map", nav3: "4. Transmission",
+    nav4: "5. Econometric Results", nav5: "6. Financial Markets", nav6: "7. Japan & Asia", nav7: "8. Conclusions", nav_ref: "9. References",
+    intro_h: "1. Introduction & Motivation",
+    intro_p1: "The Strait of Hormuz constitutes one of the most critical energy chokepoints in the global economy. In early 2026, geopolitical escalation led to a sustained disruption of transit flows equivalent to approximately <strong>20% of global oil supply</strong><span class='src-idx'>[100]</span> and a significant share of seaborne LNG trade<span class='src-idx'>[101]</span>.",
+    intro_p2: "This research examines how such a sharp, geopolitically driven energy cost shock propagates through the macroeconomic system and financial markets, with particular attention to differential regional impacts — especially the high energy-import dependence of Japan and other Asian economies.",
+    stat1: "of global oil supply normally transits Hormuz", stat2: "of Japan’s crude imports originate in the Middle East", stat3: "Macro narrative + rigorous time-series analysis",
+    rq: "<strong>Research Question:</strong> How do sharp energy cost shocks transmit into inflation, growth, equity and credit-market volatility, and what explains the heterogeneous resilience observed across major economies — particularly Japan?",
+    shock_h: "2. The 2026 Hormuz Shock — Stylised Facts",
+    shock_p: "The disruption ranks among the largest supply shocks in the history of the modern oil market<span class='src-idx'>[200]</span>. Benchmark prices reacted sharply, while physical shortages and elevated freight/insurance costs created significant regional price differentials, particularly affecting Asia and Europe<span class='src-idx'>[201]</span>.",
+    shock_chart: "Key Price Movements (Illustrative)",
+    shock_brent: "Rose from ~$70 to peaks above $120/bbl in the early phase of the disruption.<span class='src-idx'>[202]</span>",
+    shock_lng: "Asian spot prices reacted strongly due to high dependence on Qatari volumes transiting Hormuz.<span class='src-idx'>[203]</span>",
+    shock_asym: "United States relatively insulated; Asia and Europe absorbed the bulk of the impact.<span class='src-idx'>[204]</span>",
+    map_h: "3. Geopolitical & Economic Impact Map",
+    map_desc: "Interactive map of the Strait of Hormuz chokepoint, major energy exporters and the most exposed Asian importers. Click markers for key facts. Each claim is indexed (300-series) and listed in References.",
+    map_leg1: "● Chokepoint <span class='src-idx'>[300]</span>", map_leg1d: "Strait of Hormuz — ~20% of global oil & major LNG flows",
+    map_leg2: "● Exporters <span class='src-idx'>[301–306]</span>", map_leg2d: "Saudi Arabia, UAE, Qatar, Iraq, Kuwait, Iran",
+    map_leg3: "● Key Importers <span class='src-idx'>[307–310]</span>", map_leg3d: "Japan, China, India, South Korea — highest exposure",
+    trans_h: "4. Macroeconomic Transmission Channels",
+    trans_p: "An energy cost shock operates primarily as a negative supply shock. It raises production costs, erodes real household income, and can trigger second-round effects via inflation expectations and wage-setting<span class='src-idx'>[400]</span>.",
+    trans_d: "Direct channels", trans_d1: "Higher input costs for energy-intensive sectors", trans_d2: "Pass-through to consumer energy prices", trans_d3: "Terms-of-trade deterioration for net importers",
+    trans_i: "Indirect / financial channels", trans_i1: "Tighter financial conditions via inflation risk premia", trans_i2: "Equity market volatility and sectoral reallocation", trans_i3: "Potential monetary policy response (FED, ECB, BOJ)",
+    trans_rule: "<strong>Rule-of-thumb (IMF / Goldman Sachs):</strong> a sustained 10% rise in oil prices typically reduces global GDP growth by ≈0.1–0.15 pp and raises inflation by ≈0.3–0.4 pp<span class='src-idx'>[401]</span>.",
+    res_h: "5. Econometric Analysis — Core Results",
+    res_p: "We estimate the dynamic response of key macroeconomic and financial variables using a Structural VAR identified with an external instrument, complemented by GARCH-family models for volatility<span class='src-idx'>[500]</span>.",
+    res_note: "<strong>Note:</strong> Charts below are illustrative placeholders. Final estimates will replace them once the data pipeline is complete (see Methodology mode).",
+    res_irf: "Impulse Responses (illustrative)", res_vol: "Conditional Volatility",
+    fin_h: "6. Implications for Financial Markets",
+    fin_p: "Energy cost shocks affect asset pricing through higher discount rates, cash-flow uncertainty and shifts in risk premia. Volatility itself becomes a priced factor<span class='src-idx'>[600]</span>.",
+    fin_1: "Equity market volatility", fin_1d: "GARCH / EGARCH models quantify the rise in conditional variance and leverage effects during the shock window.",
+    fin_2: "Credit spreads & risk premia", fin_2d: "Corporate bond spreads typically widen as growth outlooks deteriorate and uncertainty rises.",
+    fin_3: "Cross-asset spillovers", fin_3d: "Energy futures, equities and safe-haven assets exhibit time-varying correlations that can be examined with multivariate GARCH.",
+    asia_h: "7. Regional Asymmetries — Focus on Japan",
+    asia_p: "Japan presents a particularly informative case: extreme dependence on Middle Eastern crude (90–96% of imports)<span class='src-idx'>[102]</span> combined with one of the deepest strategic petroleum reserve systems among IEA members<span class='src-idx'>[700]</span>.",
+    asia_v: "Vulnerability", asia_v1: "Very high Middle East crude dependence", asia_v2: "Limited domestic production", asia_v3: "Exposure to Asian LNG price spikes",
+    asia_r: "Resilience factors", asia_r1: "Strategic reserves ≈ 250 days of consumption<span class='src-idx'>[700]</span>", asia_r2: "Early and large stock releases in 2026<span class='src-idx'>[701]</span>", asia_r3: "Rapid diversification of supply sources",
+    conc_h: "8. Conclusions & Research Outlook",
+    conc_p1: "The 2026 Strait of Hormuz disruption provides a rare laboratory for studying the real and financial transmission of a large, geopolitically driven energy supply shock. Evidence points to significant but heterogeneous effects, with Asia bearing a disproportionate share of the adjustment.",
+    conc_p2: "By combining a transparent macro narrative with rigorous time-series methods (SVAR + GARCH), this work delivers pedagogical clarity for the course and a solid empirical foundation for further master’s-level research.",
+    conc_next: "Next steps in the research pipeline",
+    conc_n1: "Finalise data construction and external instrument", conc_n2: "Estimate and validate the core SVAR specification",
+    conc_n3: "Implement volatility models and robustness checks", conc_n4: "Produce final impulse-response and volatility figures",
+    ref_h: "9. References & Source Index",
+    ref_desc: "Numbering follows the section structure: 100s = Introduction · 200s = The Shock · 300s = Map · 400s = Transmission · 500s = Econometrics · 600s = Financial Markets · 700s = Japan & Asia.",
+    ref_note: "<strong>Note:</strong> This index is designed so that every factual claim on the site can be traced. Bibliographic titles remain in their original language. Structural phrases switch with the language toggle.",
+    meth_h: "Methodology & Statistical Transparency", meth_desc: "Clear explanation of the methods, the information they use, and why they were chosen for this research.",
+    m_over: "Overview", m_svar: "SVAR", m_garch: "GARCH", m_lp: "Local Projections", m_data: "Data", m_why: "Why these methods",
+    mo_h: "How the empirical strategy works",
+    mo_p1: "We want to answer a simple but important question: <em>when the cost of energy suddenly jumps because of a geopolitical event (the Hormuz disruption), what happens next to inflation, economic activity and financial markets?</em>",
+    mo_p2: "To answer it rigorously we combine three complementary tools. Each one looks at the same reality from a different angle:",
+    mo_b1: "SVAR", mo_b1d: "Measures the dynamic transmission of the energy shock to the real economy and asset prices.",
+    mo_b2: "GARCH family", mo_b2d: "Measures how much and in what way market volatility increased during the shock.",
+    mo_b3: "Local Projections", mo_b3d: "Checks whether the SVAR results are robust when we use a more flexible method.",
+    ms_h: "Structural VAR (SVAR) — the core model", ms_what: "What it is (in plain language)",
+    ms_what_d: "Imagine we have several economic series that move together over time: the price of oil, inflation, industrial production, stock returns and credit spreads. A VAR lets each series depend on its own recent past and on the recent past of the others. The “Structural” part means we add economic reasoning (or an external instrument) so that we can isolate a clean “energy supply shock” instead of a mixture of many things happening at once.",
+    ms_comp: "Main components",
+    ms_c1: "<strong>Endogenous variables</strong> — the series we model together (energy price, inflation, activity, equity returns, credit spreads).",
+    ms_c2: "<strong>Lags</strong> — how many past periods we let influence the present (chosen with information criteria).",
+    ms_c3: "<strong>Identification</strong> — the rules that turn statistical residuals into economically meaningful shocks. We use an external instrument: sharp price moves around geopolitical news or sudden drops in Hormuz transit volumes.",
+    ms_c4: "<strong>Impulse responses</strong> — the main output: graphs that show how inflation, activity and markets react in the months after the energy shock.",
+    ms_how: "How we actually use it",
+    ms_how_d: "1. We collect monthly (or higher-frequency) data for the chosen variables.<br>2. We estimate the reduced-form VAR.<br>3. We identify the structural energy shock with the external instrument.<br>4. We compute impulse-response functions with confidence bands.<br>5. We read the economic story: how large and how persistent is the effect on inflation, growth and asset prices?",
+    ms_why: "Why we chose it for this paper", ms_why_d: "It is the workhorse method in the modern oil-shock literature. It lets us tell a transparent causal story about transmission while remaining fully replicable with public data.",
+    mg_h: "GARCH family — measuring volatility", mg_what: "What it is (in plain language)",
+    mg_what_d: "Financial returns are not equally risky every day. Some periods are calm; others are turbulent. GARCH models the variance of returns as a process that depends on recent shocks and on its own recent level. In short: it quantifies “how nervous the market is” at each moment.",
+    mg_comp: "Main components / variants",
+    mg_c1: "<strong>GARCH(1,1)</strong> — the classic version: today’s volatility depends on yesterday’s volatility and on the size of yesterday’s surprise.",
+    mg_c2: "<strong>EGARCH / GJR-GARCH</strong> — allow bad news to increase volatility more than good news (leverage effect), which is common in equity markets.",
+    mg_c3: "<strong>Conditional volatility series</strong> — the main output: a daily measure of risk that we can plot around the Hormuz event window.",
+    mg_how: "How we actually use it",
+    mg_how_d: "1. We take daily returns of equity indices and energy futures.<br>2. We estimate GARCH, EGARCH and GJR-GARCH.<br>3. We extract the fitted conditional volatility.<br>4. We examine whether volatility jumped, how large the jump was, and whether negative returns amplified it during the shock window.",
+    mg_why: "Why we chose it for this paper", mg_why_d: "The energy shock does not only move price levels; it changes risk. GARCH gives us a disciplined way to measure that change and links the macroeconomic story to the quantitative-finance angle of the research.",
+    ml_h: "Local Projections (Jordà)", ml_what: "What it is (in plain language)",
+    ml_what_d: "Instead of forcing all dynamics through a single VAR system, Local Projections estimate the response of a variable at each future horizon with a separate regression. They are more flexible and less sensitive to the exact lag structure of a VAR.",
+    ml_comp: "Main components",
+    ml_c1: "<strong>Event or shock date</strong> — the onset of the sustained Hormuz disruption.",
+    ml_c2: "<strong>Horizon-specific regressions</strong> — one regression for the effect after 1 month, another for 2 months, etc.",
+    ml_c3: "<strong>Controls</strong> — past values of the variables and other relevant factors.",
+    ml_c4: "<strong>Impulse-response style graphs</strong> — easy to compare visually with the SVAR results.",
+    ml_how: "How we actually use it",
+    ml_how_d: "We treat the beginning of the major disruption as an event, run the sequence of local projections for inflation, activity and asset returns, and plot the resulting path. If this path tells the same economic story as the SVAR, our conclusions gain credibility.",
+    ml_why: "Why we chose it for this paper", ml_why_d: "It is an excellent robustness tool. It protects us against the criticism that “the results only appear because of a particular VAR specification”.",
+    md_h: "Data we use", md_p: "All series are publicly available so that any reader can replicate the exercise.",
+    mw_h: "Why this combination",
+    mw_p1: "The three methods are complementary:",
+    mw_l1: "<strong>SVAR</strong> gives us the main causal narrative and the dynamic multipliers we need for the macroeconomic story.",
+    mw_l2: "<strong>GARCH</strong> adds the risk dimension that matters for financial markets and for the quantitative-finance angle of the work.",
+    mw_l3: "<strong>Local Projections</strong> act as an independent check, increasing the transparency and credibility of the results.",
+    mw_p2: "Together they allow a dual presentation: a clear, accessible story for the course (surface) and a rigorous, replicable empirical core that can later support master’s-level research (submerged base)."
+  },
+  es: {
+    title: "Shocks de Costos Energéticos y el Sistema Global", subtitle: "Caso de estudio: Crisis del Estrecho de Ormuz 2026 · UNMdP",
+    mode_pres: "Presentación", mode_meth: "Metodología",
+    nav1: "1. Introducción", nav2: "2. El Shock", nav_map: "3. Mapa Geopolítico", nav3: "4. Transmisión",
+    nav4: "5. Resultados Econométricos", nav5: "6. Mercados Financieros", nav6: "7. Japón y Asia", nav7: "8. Conclusiones", nav_ref: "9. Referencias",
+    intro_h: "1. Introducción y Motivación",
+    intro_p1: "El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos de la economía mundial. A inicios de 2026, la escalada geopolítica provocó una disrupción sostenida de los flujos de tránsito equivalente a aproximadamente el <strong>20% del suministro global de petróleo</strong><span class='src-idx'>[100]</span> y una parte significativa del comercio marítimo de GNL<span class='src-idx'>[101]</span>.",
+    intro_p2: "Esta investigación examina cómo un shock agudo de costos energéticos de origen geopolítico se propaga a través del sistema macroeconómico y los mercados financieros, con especial atención a los impactos regionales diferenciales — particularmente la elevada dependencia de importaciones energéticas de Japón y otras economías asiáticas.",
+    stat1: "del suministro global de petróleo transita normalmente por Ormuz", stat2: "de las importaciones de crudo de Japón provienen de Medio Oriente", stat3: "Narrativa macro + análisis riguroso de series temporales",
+    rq: "<strong>Pregunta de investigación:</strong> ¿Cómo se transmiten los shocks agudos de costos energéticos a la inflación, el crecimiento, la volatilidad de acciones y el riesgo de crédito, y qué explica la resiliencia heterogénea observada entre las principales economías — en particular Japón?",
+    shock_h: "2. El Shock de Ormuz 2026 — Hechos Estilizados",
+    shock_p: "La disrupción se ubica entre los mayores shocks de oferta de la historia del mercado petrolero moderno<span class='src-idx'>[200]</span>. Los precios de referencia reaccionaron con fuerza, mientras que la escasez física y el aumento de fletes y seguros generaron diferenciales regionales de precios, afectando especialmente a Asia y Europa<span class='src-idx'>[201]</span>.",
+    shock_chart: "Movimientos clave de precios (ilustrativo)",
+    shock_brent: "Subió desde ~US$70 hasta picos superiores a US$120/bbl en la fase inicial de la disrupción.<span class='src-idx'>[202]</span>",
+    shock_lng: "Los precios spot asiáticos reaccionaron con fuerza por la alta dependencia de volúmenes qataríes que transitan Ormuz.<span class='src-idx'>[203]</span>",
+    shock_asym: "Estados Unidos relativamente aislado; Asia y Europa absorbieron la mayor parte del impacto.<span class='src-idx'>[204]</span>",
+    map_h: "3. Mapa de Impacto Geopolítico y Económico",
+    map_desc: "Mapa interactivo del chokepoint del Estrecho de Ormuz, principales exportadores de energía y los importadores asiáticos más expuestos. Hacé clic en los marcadores para ver datos clave. Cada afirmación está indexada (serie 300) y listada en Referencias.",
+    map_leg1: "● Chokepoint <span class='src-idx'>[300]</span>", map_leg1d: "Estrecho de Ormuz — ~20% del petróleo global y flujos importantes de GNL",
+    map_leg2: "● Exportadores <span class='src-idx'>[301–306]</span>", map_leg2d: "Arabia Saudita, Emiratos, Qatar, Irak, Kuwait, Irán",
+    map_leg3: "● Importadores clave <span class='src-idx'>[307–310]</span>", map_leg3d: "Japón, China, India, Corea del Sur — mayor exposición",
+    trans_h: "4. Canales de Transmisión Macroeconómica",
+    trans_p: "Un shock de costos energéticos opera principalmente como un shock de oferta negativo. Eleva los costos de producción, erosiona el ingreso real de los hogares y puede generar efectos de segunda ronda a través de expectativas de inflación y fijación salarial<span class='src-idx'>[400]</span>.",
+    trans_d: "Canales directos", trans_d1: "Mayores costos de insumos en sectores intensivos en energía", trans_d2: "Traslado a precios energéticos al consumidor", trans_d3: "Deterioro de los términos de intercambio para importadores netos",
+    trans_i: "Canales indirectos / financieros", trans_i1: "Condiciones financieras más restrictivas vía premios por riesgo de inflación", trans_i2: "Volatilidad accionaria y reasignación sectorial", trans_i3: "Posible respuesta de política monetaria (FED, BCE, BOJ)",
+    trans_rule: "<strong>Regla práctica (FMI / Goldman Sachs):</strong> un aumento sostenido del 10% en el precio del petróleo reduce típicamente el crecimiento del PIB global en ≈0,1–0,15 pp y eleva la inflación en ≈0,3–0,4 pp<span class='src-idx'>[401]</span>.",
+    res_h: "5. Análisis Econométrico — Resultados Centrales",
+    res_p: "Estimamos la respuesta dinámica de variables macroeconómicas y financieras clave mediante un VAR Estructural identificado con instrumento externo, complementado con modelos de la familia GARCH para la volatilidad<span class='src-idx'>[500]</span>.",
+    res_note: "<strong>Nota:</strong> Los gráficos son placeholders ilustrativos. Las estimaciones finales los reemplazarán una vez completado el pipeline de datos (ver modo Metodología).",
+    res_irf: "Respuestas al impulso (ilustrativo)", res_vol: "Volatilidad condicional",
+    fin_h: "6. Implicaciones para los Mercados Financieros",
+    fin_p: "Los shocks de costos energéticos afectan la valoración de activos a través de mayores tasas de descuento, incertidumbre de flujos de fondos y cambios en los premios por riesgo. La propia volatilidad se convierte en un factor de precio<span class='src-idx'>[600]</span>.",
+    fin_1: "Volatilidad de mercados accionarios", fin_1d: "Los modelos GARCH / EGARCH cuantifican el aumento de la varianza condicional y los efectos de apalancamiento durante la ventana del shock.",
+    fin_2: "Spreads de crédito y premios por riesgo", fin_2d: "Los spreads de bonos corporativos suelen ampliarse cuando se deterioran las perspectivas de crecimiento y aumenta la incertidumbre.",
+    fin_3: "Spillovers entre activos", fin_3d: "Futuros energéticos, acciones y activos refugio exhiben correlaciones variables en el tiempo que pueden examinarse con GARCH multivariado.",
+    asia_h: "7. Asimetrías Regionales — Foco en Japón",
+    asia_p: "Japón constituye un caso particularmente informativo: dependencia extrema del crudo de Medio Oriente (90–96% de las importaciones)<span class='src-idx'>[102]</span> combinada con uno de los sistemas de reservas estratégicas más profundos entre los miembros de la AIE<span class='src-idx'>[700]</span>.",
+    asia_v: "Vulnerabilidad", asia_v1: "Muy alta dependencia del crudo de Medio Oriente", asia_v2: "Producción doméstica limitada", asia_v3: "Exposición a picos de precios de GNL en Asia",
+    asia_r: "Factores de resiliencia", asia_r1: "Reservas estratégicas ≈ 250 días de consumo<span class='src-idx'>[700]</span>", asia_r2: "Liberaciones tempranas y amplias de stocks en 2026<span class='src-idx'>[701]</span>", asia_r3: "Diversificación rápida de fuentes de suministro",
+    conc_h: "8. Conclusiones y Perspectiva de Investigación",
+    conc_p1: "La disrupción del Estrecho de Ormuz en 2026 ofrece un laboratorio poco frecuente para estudiar la transmisión real y financiera de un gran shock de oferta energética de origen geopolítico. La evidencia apunta a efectos significativos pero heterogéneos, con Asia absorbiendo una proporción desproporcionada del ajuste.",
+    conc_p2: "Al combinar una narrativa macro transparente con métodos rigurosos de series temporales (SVAR + GARCH), este trabajo ofrece claridad pedagógica para la materia y una base empírica sólida para investigaciones posteriores a nivel de maestría.",
+    conc_next: "Próximos pasos del pipeline de investigación",
+    conc_n1: "Finalizar la construcción de datos y el instrumento externo", conc_n2: "Estimar y validar la especificación SVAR central",
+    conc_n3: "Implementar modelos de volatilidad y checks de robustez", conc_n4: "Producir las figuras finales de respuestas al impulso y volatilidad",
+    ref_h: "9. Referencias e Índice de Fuentes",
+    ref_desc: "La numeración sigue la estructura de secciones: 100s = Introducción · 200s = El Shock · 300s = Mapa · 400s = Transmisión · 500s = Econometría · 600s = Mercados Financieros · 700s = Japón y Asia.",
+    ref_note: "<strong>Nota:</strong> Este índice está diseñado para que cada afirmación fáctica del sitio sea rastreable. Los títulos bibliográficos permanecen en su idioma original. Las frases estructurales cambian con el selector de idioma.",
+    meth_h: "Metodología y Transparencia Estadística", meth_desc: "Explicación clara de los métodos, la información que utilizan y por qué se eligieron para esta investigación.",
+    m_over: "Panorama", m_svar: "SVAR", m_garch: "GARCH", m_lp: "Proyecciones Locales", m_data: "Datos", m_why: "Por qué estos métodos",
+    mo_h: "Cómo funciona la estrategia empírica",
+    mo_p1: "Queremos responder una pregunta simple pero importante: <em>cuando el costo de la energía sube de golpe por un evento geopolítico (la disrupción de Ormuz), ¿qué les ocurre después a la inflación, a la actividad económica y a los mercados financieros?</em>",
+    mo_p2: "Para responderla con rigor combinamos tres herramientas complementarias. Cada una mira la misma realidad desde un ángulo distinto:",
+    mo_b1: "SVAR", mo_b1d: "Mide la transmisión dinámica del shock energético a la economía real y a los precios de los activos.",
+    mo_b2: "Familia GARCH", mo_b2d: "Mide cuánto y de qué forma aumentó la volatilidad de los mercados durante el shock.",
+    mo_b3: "Proyecciones Locales", mo_b3d: "Verifica si los resultados del SVAR son robustos cuando usamos un método más flexible.",
+    ms_h: "VAR Estructural (SVAR) — el modelo central", ms_what: "Qué es (en lenguaje sencillo)",
+    ms_what_d: "Imaginemos que tenemos varias series económicas que se mueven juntas en el tiempo: el precio del petróleo, la inflación, la producción industrial, los retornos bursátiles y los spreads de crédito. Un VAR permite que cada serie dependa de su propio pasado reciente y del pasado reciente de las demás. La parte “Estructural” significa que agregamos razonamiento económico (o un instrumento externo) para poder aislar un “shock de oferta energética” limpio en lugar de una mezcla de muchas cosas ocurriendo al mismo tiempo.",
+    ms_comp: "Componentes principales",
+    ms_c1: "<strong>Variables endógenas</strong> — las series que modelamos juntas (precio de la energía, inflación, actividad, retornos accionarios, spreads de crédito).",
+    ms_c2: "<strong>Rezagos</strong> — cuántos períodos pasados dejamos que influyan en el presente (se eligen con criterios de información).",
+    ms_c3: "<strong>Identificación</strong> — las reglas que convierten residuos estadísticos en shocks con sentido económico. Usamos un instrumento externo: movimientos bruscos de precios alrededor de noticias geopolíticas o caídas súbitas de los volúmenes de tránsito por Ormuz.",
+    ms_c4: "<strong>Respuestas al impulso</strong> — el resultado principal: gráficos que muestran cómo reaccionan la inflación, la actividad y los mercados en los meses posteriores al shock energético.",
+    ms_how: "Cómo lo usamos en la práctica",
+    ms_how_d: "1. Recopilamos datos mensuales (o de mayor frecuencia) de las variables elegidas.<br>2. Estimamos el VAR en forma reducida.<br>3. Identificamos el shock estructural de energía con el instrumento externo.<br>4. Calculamos las funciones de respuesta al impulso con bandas de confianza.<br>5. Leemos la historia económica: ¿qué tan grande y persistente es el efecto sobre inflación, crecimiento y precios de activos?",
+    ms_why: "Por qué lo elegimos para este trabajo", ms_why_d: "Es el método de cabecera en la literatura moderna de shocks petroleros. Nos permite contar una historia causal transparente sobre la transmisión y, al mismo tiempo, mantener todo replicable con datos públicos.",
+    mg_h: "Familia GARCH — medir la volatilidad", mg_what: "Qué es (en lenguaje sencillo)",
+    mg_what_d: "Los retornos financieros no son igual de riesgosos todos los días. Hay períodos de calma y períodos de turbulencia. GARCH modela la varianza de los retornos como un proceso que depende de los shocks recientes y de su propio nivel reciente. En pocas palabras: cuantifica “cuán nervioso está el mercado” en cada momento.",
+    mg_comp: "Componentes principales / variantes",
+    mg_c1: "<strong>GARCH(1,1)</strong> — la versión clásica: la volatilidad de hoy depende de la volatilidad de ayer y del tamaño de la sorpresa de ayer.",
+    mg_c2: "<strong>EGARCH / GJR-GARCH</strong> — permiten que las malas noticias aumenten más la volatilidad que las buenas (efecto apalancamiento), algo frecuente en los mercados de acciones.",
+    mg_c3: "<strong>Serie de volatilidad condicional</strong> — el resultado principal: una medida diaria de riesgo que podemos graficar alrededor de la ventana del evento de Ormuz.",
+    mg_how: "Cómo lo usamos en la práctica",
+    mg_how_d: "1. Tomamos retornos diarios de índices accionarios y de futuros energéticos.<br>2. Estimamos GARCH, EGARCH y GJR-GARCH.<br>3. Extraemos la volatilidad condicional ajustada.<br>4. Examinamos si la volatilidad saltó, cuán grande fue el salto y si los retornos negativos lo amplificaron durante la ventana del shock.",
+    mg_why: "Por qué lo elegimos para este trabajo", mg_why_d: "El shock energético no solo mueve los niveles de precios; también cambia el riesgo. GARCH nos da una forma disciplinada de medir ese cambio y conecta la historia macroeconómica con el ángulo de finanzas cuantitativas de la investigación.",
+    ml_h: "Proyecciones Locales (Jordà)", ml_what: "Qué es (en lenguaje sencillo)",
+    ml_what_d: "En lugar de forzar toda la dinámica a través de un único sistema VAR, las Proyecciones Locales estiman la respuesta de una variable en cada horizonte futuro con una regresión separada. Son más flexibles y menos sensibles a la estructura exacta de rezagos de un VAR.",
+    ml_comp: "Componentes principales",
+    ml_c1: "<strong>Fecha del evento o shock</strong> — el inicio de la disrupción sostenida de Ormuz.",
+    ml_c2: "<strong>Regresiones por horizonte</strong> — una regresión para el efecto después de 1 mes, otra para 2 meses, etc.",
+    ml_c3: "<strong>Controles</strong> — valores pasados de las variables y otros factores relevantes.",
+    ml_c4: "<strong>Gráficos tipo respuesta al impulso</strong> — fáciles de comparar visualmente con los resultados del SVAR.",
+    ml_how: "Cómo lo usamos en la práctica",
+    ml_how_d: "Tratamos el comienzo de la disrupción mayor como un evento, corremos la secuencia de proyecciones locales para inflación, actividad y retornos de activos, y graficamos la trayectoria resultante. Si esta trayectoria cuenta la misma historia económica que el SVAR, nuestras conclusiones ganan credibilidad.",
+    ml_why: "Por qué lo elegimos para este trabajo", ml_why_d: "Es una excelente herramienta de robustez. Nos protege de la crítica de que “los resultados solo aparecen por una especificación particular del VAR”.",
+    md_h: "Datos que utilizamos", md_p: "Todas las series son de acceso público para que cualquier lector pueda replicar el ejercicio.",
+    mw_h: "Por qué esta combinación",
+    mw_p1: "Los tres métodos son complementarios:",
+    mw_l1: "<strong>SVAR</strong> nos da la narrativa causal principal y los multiplicadores dinámicos que necesitamos para la historia macroeconómica.",
+    mw_l2: "<strong>GARCH</strong> agrega la dimensión de riesgo que importa para los mercados financieros y para el ángulo de finanzas cuantitativas del trabajo.",
+    mw_l3: "<strong>Proyecciones Locales</strong> actúan como un control independiente, aumentando la transparencia y la credibilidad de los resultados.",
+    mw_p2: "Juntos permiten una presentación dual: una historia clara y accesible para la materia (superficie) y un núcleo empírico riguroso y replicable que luego puede sostener investigación a nivel de maestría (base sumergida)."
   }
+};
 
-  function setMode(mode) {
-    document.querySelectorAll('.mode-panel').forEach(el => el.classList.remove('active'));
-    document.getElementById('mode-' + mode).classList.add('active');
-    document.querySelectorAll('.mode-btn').forEach(btn => { btn.classList.remove('bg-academic-accent', 'text-white'); btn.classList.add('text-slate-300'); });
-    const b = document.getElementById('btn-' + mode); b.classList.add('bg-academic-accent', 'text-white'); b.classList.remove('text-slate-300');
+const popupContent = {
+  en: {
+    hormuz: "<strong>Strait of Hormuz</strong> <span class='src-idx'>[300]</span><br>~20% of global oil supply<br>Major share of seaborne LNG",
+    qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>World’s largest LNG exporter<br>Most volumes transit Hormuz",
+    saudi: "<strong>Saudi Arabia</strong> <span class='src-idx'>[302]</span><br>East-West pipeline offers partial bypass",
+    uae: "<strong>UAE</strong> <span class='src-idx'>[303]</span><br>Alternative pipelines exist but limited capacity",
+    iraq: "<strong>Iraq</strong> <span class='src-idx'>[304]</span><br>Significant crude exports through Hormuz",
+    kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Crude exports almost entirely via Hormuz",
+    iran: "<strong>Iran</strong> <span class='src-idx'>[306]</span><br>Central actor in the 2026 crisis",
+    japan: "<strong>Japan</strong> <span class='src-idx'>[307]</span><br>90–96% of crude from Middle East<br>~250 days of strategic reserves",
+    china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Largest absolute importer of Hormuz oil",
+    india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>High dependence on Middle East crude",
+    korea: "<strong>South Korea</strong> <span class='src-idx'>[310]</span><br>~70% of crude from Middle East"
+  },
+  es: {
+    hormuz: "<strong>Estrecho de Ormuz</strong> <span class='src-idx'>[300]</span><br>~20% del suministro global de petróleo<br>Parte importante del GNL marítimo",
+    qatar: "<strong>Qatar</strong> <span class='src-idx'>[301]</span><br>Mayor exportador mundial de GNL<br>La mayor parte de los volúmenes transita Ormuz",
+    saudi: "<strong>Arabia Saudita</strong> <span class='src-idx'>[302]</span><br>El oleoducto Este-Oeste ofrece un bypass parcial",
+    uae: "<strong>EAU</strong> <span class='src-idx'>[303]</span><br>Existen oleoductos alternativos pero con capacidad limitada",
+    iraq: "<strong>Irak</strong> <span class='src-idx'>[304]</span><br>Exportaciones significativas de crudo a través de Ormuz",
+    kuwait: "<strong>Kuwait</strong> <span class='src-idx'>[305]</span><br>Exportaciones de crudo casi exclusivamente vía Ormuz",
+    iran: "<strong>Irán</strong> <span class='src-idx'>[306]</span><br>Actor central de la crisis de 2026",
+    japan: "<strong>Japón</strong> <span class='src-idx'>[307]</span><br>90–96% del crudo de Medio Oriente<br>~250 días de reservas estratégicas",
+    china: "<strong>China</strong> <span class='src-idx'>[308]</span><br>Mayor importador absoluto de petróleo de Ormuz",
+    india: "<strong>India</strong> <span class='src-idx'>[309]</span><br>Alta dependencia del crudo de Medio Oriente",
+    korea: "<strong>Corea del Sur</strong> <span class='src-idx'>[310]</span><br>~70% del crudo de Medio Oriente"
   }
+};
 
-  function showSection(id) {
-    document.querySelectorAll('#mode-presentation .tab-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('section-' + id).classList.add('active');
-    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    if (id === 'map') setTimeout(initMap, 80);
-  }
+let currentLang = 'es', map = null, mapInitialized = false;
 
-  function showMethod(id) {
-    document.querySelectorAll('.method-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('method-' + id).classList.add('active');
-    document.querySelectorAll('.method-tab').forEach(btn => { btn.classList.remove('bg-academic-accent', 'text-white'); btn.classList.add('bg-academic-100', 'text-academic-700'); });
-    event.currentTarget.classList.remove('bg-academic-100', 'text-academic-700');
-    event.currentTarget.classList.add('bg-academic-accent', 'text-white');
-  }
-
-  function initMap() {
-    if (mapInitialized) { setTimeout(() => { if (map) map.invalidateSize(); }, 120); return; }
-    mapInitialized = true;
-    map = L.map('map', { scrollWheelZoom: true }).setView([26.5, 56.5], 4);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 18 }).addTo(map);
-    const pc = popupContent[currentLang];
-    L.circleMarker([26.56, 56.25], { radius: 14, color: '#e11d48', fillColor: '#e11d48', fillOpacity: 0.85, weight: 2 }).addTo(map).bindPopup(pc.hormuz);
-    [{lat:25.3,lng:51.5,key:'qatar'},{lat:24.6,lng:46.7,key:'saudi'},{lat:24.7,lng:54.0,key:'uae'},{lat:33.3,lng:44.4,key:'iraq'},{lat:29.3,lng:48.0,key:'kuwait'},{lat:32.0,lng:53.0,key:'iran'}].forEach(e => {
-      L.circleMarker([e.lat, e.lng], { radius: 8, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.9, weight: 1 }).addTo(map).bindPopup(pc[e.key]);
-    });
-    [{lat:35.7,lng:139.7,key:'japan'},{lat:31.2,lng:121.5,key:'china'},{lat:19.1,lng:72.9,key:'india'},{lat:37.5,lng:127.0,key:'korea'}].forEach(i => {
-      L.circleMarker([i.lat, i.lng], { radius: 9, color: '#0284c7', fillColor: '#0ea5e9', fillOpacity: 0.9, weight: 1 }).addTo(map).bindPopup(pc[i.key]);
-    });
-    setTimeout(() => map.invalidateSize(), 250);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    setLang('es');
-    // minimal charts
-    const c1 = document.getElementById('irfChart'); if (c1) new Chart(c1, { type:'line', data:{ labels:['0','1','2','3','4','5','6'], datasets:[{label:'Inflation',data:[0,0.15,0.28,0.32,0.25,0.18,0.1],borderColor:'#f43f5e',tension:0.3},{label:'Equity',data:[0,-0.8,-1.1,-0.7,-0.4,-0.2,0],borderColor:'#0ea5e9',tension:0.3}]}, options:{responsive:true,plugins:{legend:{position:'bottom'}}} });
-    const c2 = document.getElementById('volChart'); if (c2) new Chart(c2, { type:'line', data:{ labels:Array.from({length:40},(_,i)=>i), datasets:[{data:Array.from({length:40},(_,i)=>i<15?0.9+Math.random()*0.3:i<28?1.9+Math.random()*0.5:1.1+Math.random()*0.3),borderColor:'#8b5cf6',fill:true,backgroundColor:'rgba(139,92,246,0.1)',pointRadius:0,tension:0.2}]}, options:{responsive:true,plugins:{legend:{display:false}}} });
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('text-slate-300', lang !== 'es');
+  document.getElementById('lang-en').classList.toggle('text-slate-300', lang !== 'en');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) el.innerHTML = translations[lang][key];
   });
+  if (mapInitialized) { map.remove(); map = null; mapInitialized = false; initMap(); }
+}
+
+function setMode(mode) {
+  document.querySelectorAll('.mode-panel').forEach(el => el.classList.remove('active'));
+  document.getElementById('mode-' + mode).classList.add('active');
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.remove('bg-academic-accent', 'text-white');
+    btn.classList.add('text-slate-300');
+  });
+  const b = document.getElementById('btn-' + mode);
+  b.classList.add('bg-academic-accent', 'text-white');
+  b.classList.remove('text-slate-300');
+}
+
+function showSection(id) {
+  document.querySelectorAll('#mode-presentation .tab-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  if (id === 'map') setTimeout(initMap, 80);
+}
+
+function showMethod(id) {
+  document.querySelectorAll('.method-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('method-' + id).classList.add('active');
+  document.querySelectorAll('.method-tab').forEach(btn => {
+    btn.classList.remove('bg-academic-accent', 'text-white');
+    btn.classList.add('bg-academic-100', 'text-academic-700');
+  });
+  event.currentTarget.classList.remove('bg-academic-100', 'text-academic-700');
+  event.currentTarget.classList.add('bg-academic-accent', 'text-white');
+}
+
+function initMap() {
+  if (mapInitialized) { setTimeout(() => { if (map) map.invalidateSize(); }, 120); return; }
+  mapInitialized = true;
+  map = L.map('map', { scrollWheelZoom: true }).setView([26.5, 56.5], 4);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 18 }).addTo(map);
+  const pc = popupContent[currentLang];
+  L.circleMarker([26.56, 56.25], { radius: 14, color: '#e11d48', fillColor: '#e11d48', fillOpacity: 0.85, weight: 2 }).addTo(map).bindPopup(pc.hormuz);
+  [{lat:25.3,lng:51.5,key:'qatar'},{lat:24.6,lng:46.7,key:'saudi'},{lat:24.7,lng:54.0,key:'uae'},{lat:33.3,lng:44.4,key:'iraq'},{lat:29.3,lng:48.0,key:'kuwait'},{lat:32.0,lng:53.0,key:'iran'}].forEach(e => {
+    L.circleMarker([e.lat, e.lng], { radius: 8, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.9, weight: 1 }).addTo(map).bindPopup(pc[e.key]);
+  });
+  [{lat:35.7,lng:139.7,key:'japan'},{lat:31.2,lng:121.5,key:'china'},{lat:19.1,lng:72.9,key:'india'},{lat:37.5,lng:127.0,key:'korea'}].forEach(i => {
+    L.circleMarker([i.lat, i.lng], { radius: 9, color: '#0284c7', fillColor: '#0ea5e9', fillOpacity: 0.9, weight: 1 }).addTo(map).bindPopup(pc[i.key]);
+  });
+  setTimeout(() => map.invalidateSize(), 250);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLang('es');
+  const ctx1 = document.getElementById('priceChart');
+  if (ctx1) new Chart(ctx1, {
+    type: 'line',
+    data: { labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul'], datasets: [{ data: [72,75,95,118,105,92,88], borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,0.08)', fill: true, tension: 0.3 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+  });
+  const ctx2 = document.getElementById('irfChart');
+  if (ctx2) new Chart(ctx2, {
+    type: 'line',
+    data: { labels: ['0','1','2','3','4','5','6','7','8'], datasets: [
+      { label: 'Inflación', data: [0,0.15,0.28,0.32,0.25,0.18,0.12,0.08,0.04], borderColor: '#f43f5e', tension: 0.3 },
+      { label: 'Equity', data: [0,-0.8,-1.2,-0.9,-0.5,-0.3,-0.15,-0.05,0], borderColor: '#0ea5e9', tension: 0.3 }
+    ]},
+    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+  });
+  const ctx3 = document.getElementById('volChart');
+  if (ctx3) new Chart(ctx3, {
+    type: 'line',
+    data: { labels: Array.from({length:50},(_,i)=>i), datasets: [{ data: Array.from({length:50},(_,i)=> i<20 ? 0.9+Math.random()*0.25 : i<35 ? 1.9+Math.random()*0.5 : 1.15+Math.random()*0.3), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.12)', fill: true, tension: 0.2, pointRadius: 0 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false } } }
+  });
+});
 </script>
 </body>
 </html>
