@@ -15,7 +15,7 @@ The work examines the transmission of energy cost shocks — triggered by the 20
 The project is deliberately structured under the **“Iceberg Strategy”**:
 
 - **Surface layer** (course-facing narrative): clear, accessible macroeconomic and geopolitical analysis suitable for traditional economics faculty.
-- **Submerged base** (quant/thesis layer): rigorous time-series econometrics, volatility modelling and reproducible Python pipelines that will later feed a MEXT Research Plan in Quantitative Finance.
+- **Submerged base** (quant/thesis layer): rigorous time-series econometrics, volatility modelling and reproducible Python pipelines that will later feed a research paper in Quantitative Finance.
 
 ---
 
@@ -92,7 +92,7 @@ All specifications will use publicly available high-frequency and monthly series
 - **Course**: Estructura Económica Mundial y Argentina (Cód. 946) – 2º cuatrimestre 2026  
 - **Instructors**: Claudia Beatriz Malamud & Rosana Renata Zuanetti  
 - **Institution**: Universidad Nacional de Mar del Plata – Departamento de Economía  
-- **Strategic goal**: Empirical foundation for a future MEXT Research Plan in Quantitative Finance (Japan).
+- **Strategic goal**: Empirical foundation for a future application in a master's degree Quantitative Finance
 
 ---
 
