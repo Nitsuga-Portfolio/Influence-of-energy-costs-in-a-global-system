@@ -1,1 +1,281 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Energy Cost Shocks · Hormuz 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui'],mono:['JetBrains Mono','monospace']},colors:{academic:{50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',700:'#334155',800:'#1e293b',900:'#0f172a',accent:'#0ea5e9'}}}}}</script>
+<style>
+body{font-family:Inter,system-ui,sans-serif}
+.tab-content,.mode-panel,.method-content{display:none}
+.tab-content.active,.mode-panel.active,.method-content.active{display:block}
+.nav-tab.active{background:#0ea5e9;color:#fff;font-weight:600}
+.section-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+#map{height:560px;width:100%;border-radius:12px;z-index:1;background:#f1f5f9}
+.lang-btn.active{background:#0ea5e9;color:#fff}
+.src-idx{font-size:.7rem;font-weight:600;color:#64748b;vertical-align:super}
+.ref-item{border-left:3px solid #0ea5e9;padding-left:12px;margin-bottom:12px}
+.ref-num{font-weight:700;color:#0ea5e9;font-family:JetBrains Mono,monospace;font-size:.85rem}
+.method-box{border:1px solid #e2e8f0;border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:1rem;background:#f8fafc}
+.method-box h4{font-weight:600;color:#0f172a;margin-bottom:.4rem;font-size:.95rem}
+.code-block{font-family:JetBrains Mono,monospace;font-size:.8rem;background:#0f172a;color:#e2e8f0;border-radius:8px;padding:.9rem 1.1rem;overflow-x:auto}
+</style>
+</head>
+<body class="bg-academic-50 text-academic-800 min-h-screen">
+<header class="bg-academic-900 text-white sticky top-0 z-50 shadow-lg">
+<div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+<div><h1 class="text-lg font-semibold" data-i18n="title">Shocks de Costos Energéticos y el Sistema Global</h1>
+<p class="text-sm text-slate-300" data-i18n="subtitle">Caso de estudio: Crisis del Estrecho de Ormuz 2026 · UNMdP</p></div>
+<div class="flex items-center gap-3">
+<div class="flex bg-academic-800 rounded-lg p-0.5">
+<button id="lang-es" onclick="setLang('es')" class="lang-btn active px-3 py-1.5 rounded-md text-xs font-medium">ES</button>
+<button id="lang-en" onclick="setLang('en')" class="lang-btn px-3 py-1.5 rounded-md text-xs font-medium text-slate-300">EN</button>
+</div>
+<div class="flex bg-academic-800 rounded-lg p-0.5">
+<button id="btn-presentation" onclick="setMode('presentation')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium bg-academic-accent text-white" data-i18n="mode_pres">Presentación</button>
+<button id="btn-methodology" onclick="setMode('methodology')" class="mode-btn px-3 py-1.5 rounded-md text-xs font-medium text-slate-300" data-i18n="mode_meth">Metodología</button>
+</div></div></div></header>
+<main class="max-w-6xl mx-auto px-4 py-8">
+
+<div id="mode-presentation" class="mode-panel active">
+<nav class="flex flex-wrap gap-2 mb-8">
+<button class="nav-tab active px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('intro')">1. Introducción</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('shock')">2. El Shock</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('map')">3. Mapa</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('transmission')">4. Transmisión</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('results')">5. Econometría</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('argentina')">6. Argentina</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('asia')">7. China e India</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('japan')">8. Japón</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('conclusions')">9. Conclusiones</button>
+<button class="nav-tab px-3 py-2 rounded-lg text-sm bg-white border border-academic-200" onclick="showSection('references')">10. Referencias</button>
+</nav>
+
+<section id="section-intro" class="tab-content active"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">1. Introducción y Motivación</h2>
+<p class="text-academic-700 leading-relaxed mb-4">El Estrecho de Ormuz constituye uno de los chokepoints energéticos más críticos. A inicios de 2026, la escalada geopolítica provocó una disrupción equivalente a aproximadamente el <strong>20% del suministro global de petróleo</strong><span class="src-idx">[100]</span> y una parte significativa del GNL marítimo<span class="src-idx">[101]</span>.</p>
+<p class="text-academic-700 mb-6">Esta investigación examina cómo un shock agudo de costos energéticos se propaga a través de la estructura económica mundial — canales de transmisión, respuestas de política y asimetrías regionales — con un eslabón explícito en Argentina y un foco especial en Japón, la economía desarrollada más dependiente del crudo de Medio Oriente.</p>
+<div class="grid sm:grid-cols-3 gap-4">
+<div class="bg-academic-50 rounded-lg p-4 border"><div class="text-2xl font-semibold text-academic-accent">~20%<span class="src-idx">[100]</span></div><div class="text-sm mt-1">del petróleo global transita por Ormuz</div></div>
+<div class="bg-academic-50 rounded-lg p-4 border"><div class="text-2xl font-semibold text-academic-accent">90–96%<span class="src-idx">[102]</span></div><div class="text-sm mt-1">del crudo japonés proviene de Medio Oriente</div></div>
+<div class="bg-academic-50 rounded-lg p-4 border"><div class="text-2xl font-semibold text-academic-accent">AR + Asia</div><div class="text-sm mt-1">Estructura, políticas y dependencia diferencial</div></div>
+</div></div></section>
+
+<section id="section-shock" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">2. El Shock de Ormuz 2026 — Hechos (hasta junio 2026)</h2>
+<p class="text-academic-700 mb-4">Trabajamos con evidencia observada hasta junio de 2026, sin proyecciones. La disrupción se ubica entre los mayores shocks de oferta del mercado petrolero moderno<span class="src-idx">[200]</span>. Asia absorbió la mayor parte del impacto físico y de precios<span class="src-idx">[201]</span>.</p>
+<canvas id="priceChart" height="200"></canvas>
+<p class="text-sm text-academic-600 mt-3">Serie ilustrativa de precios de referencia (placeholder).</p>
+</div></section>
+
+<section id="section-map" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-2">3. Mapa de Impacto Geopolítico y Económico</h2>
+<p class="text-sm text-academic-600 mb-4">Mapa interactivo. Clic en marcadores. Índices 300–310.</p>
+<div id="map" class="mb-4 border border-academic-200"></div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-rose-50 border border-rose-100 rounded-lg p-3"><div class="font-semibold text-rose-800">● Chokepoint [300]</div></div>
+<div class="bg-amber-50 border border-amber-100 rounded-lg p-3"><div class="font-semibold text-amber-800">● Exportadores [301–306]</div></div>
+<div class="bg-sky-50 border border-sky-100 rounded-lg p-3"><div class="font-semibold text-sky-800">● Importadores [307–310]</div></div>
+</div></div></section>
+
+<section id="section-transmission" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">4. Canales de Transmisión a la Economía Mundial</h2>
+<p class="text-academic-700 mb-4">Un shock de costos energéticos opera como un <strong>shock de oferta negativo</strong>. Eleva costos de producción, erosiona el ingreso real y puede generar efectos de segunda ronda vía expectativas de inflación<span class="src-idx">[400]</span>.</p>
+<div class="bg-academic-50 border border-academic-200 rounded-xl p-5 mb-6 font-mono text-sm leading-relaxed">
+<div class="text-center font-semibold text-academic-900 mb-3">Shock Ormuz → precio de la energía ↑</div>
+<div class="grid sm:grid-cols-2 gap-3 text-academic-700">
+<div class="bg-white rounded-lg p-3 border">① <strong>Costos</strong><br>Insumos ↑ → inflación de productores → precios al consumidor</div>
+<div class="bg-white rounded-lg p-3 border">② <strong>Ingreso real</strong><br>Poder de compra ↓ → demanda agregada ↓</div>
+<div class="bg-white rounded-lg p-3 border">③ <strong>Términos de intercambio</strong><br>Importadores netos: déficit externo ↑</div>
+<div class="bg-white rounded-lg p-3 border">④ <strong>Financiero / política</strong><br>Volatilidad, premios por riesgo; respuesta monetaria y fiscal</div>
+</div></div>
+<p class="text-sm text-academic-700 mb-2"><strong>Regla práctica (FMI / Goldman Sachs):</strong> un aumento sostenido del 10% en el precio del petróleo ≈ −0,1 a −0,15 pp de crecimiento global y ≈ +0,3 a +0,4 pp de inflación<span class="src-idx">[401]</span>.</p>
+<p class="text-sm text-academic-700">El impacto es <strong>asimétrico</strong>: Asia concentra la mayor parte de los flujos vía Ormuz.</p>
+</div></section>
+
+<section id="section-results" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">5. Ancla Econométrica (breve)</h2>
+<p class="mb-3 text-academic-700">Como soporte cuantitativo —no como centro del relato— estimamos respuestas dinámicas con SVAR y GARCH<span class="src-idx">[500]</span>. El detalle está en el modo Metodología.</p>
+<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-sm">Nota: gráficos ilustrativos (placeholders).</div>
+<div class="grid lg:grid-cols-2 gap-6">
+<div><h3 class="text-sm font-semibold text-academic-700 uppercase mb-2">Respuestas al impulso (ilustrativo)</h3><div style="position:relative;height:260px;width:100%"><canvas id="irfChart"></canvas></div></div>
+<div><h3 class="text-sm font-semibold text-academic-700 uppercase mb-2">Volatilidad condicional (ilustrativo)</h3><div style="position:relative;height:260px;width:100%"><canvas id="volChart"></canvas></div></div>
+</div></div></section>
+
+<section id="section-argentina" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">6. Argentina — Políticas frente al shock</h2>
+<p class="text-academic-700 mb-4">Argentina es productora de hidrocarburos (Vaca Muerta) pero el consumidor enfrenta precios con lógica cercana a la paridad de importación. Ante el alza del crudo, la respuesta no fue un control clásico sino un <strong>paquete de amortiguación temporal</strong>.</p>
+<div class="bg-academic-50 border border-academic-200 rounded-xl p-5 mb-6">
+<div class="text-center font-semibold text-academic-900 mb-3 text-sm">Cadena de respuesta argentina (abr–jun 2026)</div>
+<div class="space-y-2 text-sm text-academic-700">
+<div class="bg-white rounded-lg p-3 border flex gap-3 items-start"><span class="font-bold text-academic-accent">1</span><div><strong>Buffer de precios YPF</strong> (desde 1° abr 2026, ~45 días, prorrogable): no trasladar de inmediato la suba del Brent al surtidor; recuperar el margen diferido vía cuenta compensadora una vez superado el conflicto<span class="src-idx">[610]</span>.</div></div>
+<div class="bg-white rounded-lg p-3 border flex gap-3 items-start"><span class="font-bold text-academic-accent">2</span><div><strong>Postergación de impuestos</strong> a los combustibles (ICL y CO₂): decretos sucesivos dilatan la actualización para no sumar presión al precio final<span class="src-idx">[611]</span>.</div></div>
+<div class="bg-white rounded-lg p-3 border flex gap-3 items-start"><span class="font-bold text-academic-accent">3</span><div><strong>Bioetanol voluntario hasta ~15%</strong>: mayor corte permitido para reducir dependencia del crudo<span class="src-idx">[612]</span>.</div></div>
+</div></div>
+<div class="grid sm:grid-cols-2 gap-4 mb-4">
+<div class="border border-academic-200 rounded-lg p-4"><h3 class="font-semibold mb-2 text-sm">Impacto observado (hasta ~jun 2026)</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>Nafta subió del orden del 20–24% desde el inicio del conflicto pese al buffer<span class="src-idx">[613]</span></li>
+<li>El mecanismo evitó traslados inmediatos adicionales al surtidor</li>
+<li>Al vencer el buffer, precio interno por encima del crudo de ese momento → margen para eventual baja</li>
+</ul></div>
+<div class="border border-academic-200 rounded-lg p-4"><h3 class="font-semibold mb-2 text-sm">Lectura de estructura</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>Amortiguación temporal, no desacople estructural permanente</li>
+<li>Costo fiscal / margen de refinación diferido</li>
+<li>País productor que igual transmite el shock internacional al consumidor</li>
+</ul></div></div>
+<p class="text-xs text-academic-500">Fuentes: Bloomberg/Perfil/Forbes (buffer YPF); decretos 617/2025, 562/2026, 829/2026; Reuters/Secretaría de Energía (bioetanol); Infobae/Empiria (precios).</p>
+</div></section>
+
+<section id="section-asia" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">7. Asia — China e India</h2>
+<p class="text-academic-700 mb-4">Asia concentra la mayor parte de los flujos de petróleo que atraviesan Ormuz. China e India ilustran dos modos distintos de absorber el mismo shock<span class="src-idx">[620]</span>.</p>
+<div class="grid sm:grid-cols-2 gap-4 mb-4">
+<div class="border border-sky-200 bg-sky-50 rounded-lg p-4"><h3 class="font-semibold mb-2">China</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>Mayor importador absoluto vía rutas de Ormuz</li>
+<li>Buffers: inventarios grandes, carbón, control de exportaciones de refinados</li>
+<li>Menor demanda spot y uso de stocks limitaron la escasez física</li>
+<li>Costo neto del shock entre los más altos en términos absolutos<span class="src-idx">[621]</span></li>
+</ul></div>
+<div class="border border-amber-200 bg-amber-50 rounded-lg p-4"><h3 class="font-semibold mb-2">India</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>Alta y creciente dependencia del crudo de Medio Oriente</li>
+<li>Mitigación parcial vía crudo ruso con descuento (rutas fuera de Ormuz)</li>
+<li>Reservas estratégicas más limitadas que Japón o China</li>
+<li>Muy sensible al precio: inflación y cuenta corriente<span class="src-idx">[622]</span></li>
+</ul></div></div>
+<p class="text-sm text-academic-700">El patrón asiático confirma la asimetría del shock: quien más depende de los flujos del Golfo paga una proporción desproporcionada del ajuste.</p>
+</div></section>
+
+<section id="section-japan" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">8. Japón — Dependencia extrema, previsión y política</h2>
+<p class="text-academic-700 mb-4">Japón es el caso paradigmático de <strong>economía desarrollada con dependencia energética extrema</strong> del crudo de Medio Oriente (90–96%)<span class="src-idx">[102]</span>. Al mismo tiempo, dispone de uno de los sistemas de reservas estratégicas más profundos de la AIE (~250 días)<span class="src-idx">[700]</span>.</p>
+<div class="grid sm:grid-cols-2 gap-4 mb-4">
+<div class="border border-rose-200 bg-rose-50 rounded-lg p-4"><h3 class="font-semibold mb-2 text-rose-900">Vulnerabilidad estructural</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>90–96% del crudo importado proviene de Medio Oriente</li>
+<li>Producción doméstica mínima</li>
+<li>Exposición adicional a picos de precios de GNL en Asia (JKM)</li>
+<li>Un cierre prolongado de Ormuz es un riesgo existencial de suministro</li>
+</ul></div>
+<div class="border border-emerald-200 bg-emerald-50 rounded-lg p-4"><h3 class="font-semibold mb-2 text-emerald-900">Factores de resiliencia</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li>Reservas estratégicas ≈ 250 días de consumo<span class="src-idx">[700]</span></li>
+<li>Liberaciones tempranas de stocks en 2026<span class="src-idx">[701]</span></li>
+<li>Diversificación activa de orígenes (Américas, otros no-Golfo)</li>
+<li>Cultura de conservación y eficiencia energética de largo plazo</li>
+</ul></div></div>
+<div class="bg-academic-900 text-white rounded-lg p-4 mb-4">
+<p class="text-sm"><strong>Lectura de estructura:</strong> Japón demuestra que la vulnerabilidad de dependencia no se elimina solo con reservas — se gestiona. Las reservas compran tiempo; la diversificación y la eficiencia reducen la exposición permanente. Es el contraste útil frente a Argentina (amortiguación de precios de corto plazo) y frente a China/India (escala y opciones de origen).</p>
+</div>
+<p class="text-xs text-academic-500">Fuentes: Atlantic Council (2026); METI/JOGMEC; Oxford Energy Forum; IEA; CREA.</p>
+</div></section>
+
+<section id="section-conclusions" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-4">9. Conclusiones</h2>
+<p class="text-academic-700 mb-3">El shock asociado a la disrupción del Estrecho de Ormuz en 2026 ofrece un laboratorio poco frecuente para estudiar cómo un gran shock de oferta energética se transmite a través de la <strong>estructura económica mundial</strong>.</p>
+<p class="text-academic-700 mb-3">Tres hallazgos de estructura: (1) el impacto es asimétrico — Asia absorbe una proporción desproporcionada del ajuste; (2) las respuestas de política importan y difieren — amortiguación temporal en Argentina, stocks y diversificación en Asia, reservas profundas en Japón; (3) ser productor (Argentina) no inmuniza al consumidor si los precios internos siguen la lógica de paridad de importación.</p>
+<p class="text-academic-700">La econometría (SVAR + GARCH) aporta disciplina cuantitativa a esa narrativa; no la reemplaza.</p>
+</div></section>
+
+<section id="section-references" class="tab-content"><div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-2">10. Referencias e Índice de Fuentes</h2>
+<p class="text-sm text-academic-600 mb-4">100s Introducción · 200s Shock · 300s Mapa · 400s Transmisión · 500s Econometría · 610s Argentina · 620s China/India · 700s Japón.</p>
+<div class="text-sm space-y-2">
+<div class="ref-item"><span class="ref-num">[100]</span> EIA — World Oil Transit Chokepoints.</div>
+<div class="ref-item"><span class="ref-num">[101]</span> IEA — GNL y rutas de Medio Oriente.</div>
+<div class="ref-item"><span class="ref-num">[102]</span> Atlantic Council (2026); METI/JOGMEC; Oxford Energy Forum — Japón 90–96% crudo ME.</div>
+<div class="ref-item"><span class="ref-num">[200]–[201]</span> IEA OMR (2026); Goldman Sachs; Fed FSR.</div>
+<div class="ref-item"><span class="ref-num">[300]–[310]</span> Marcadores del mapa — EIA, IEA, Atlantic Council.</div>
+<div class="ref-item"><span class="ref-num">[400]–[401]</span> Kilian; Hamilton; FMI; Goldman Sachs.</div>
+<div class="ref-item"><span class="ref-num">[500]</span> Kilian; Baumeister & Hamilton; Jordà; Bollerslev/Engle.</div>
+<div class="ref-item"><span class="ref-num">[610]</span> Bloomberg; Perfil; Forbes Argentina — buffer de precios YPF (abr 2026).</div>
+<div class="ref-item"><span class="ref-num">[611]</span> Decretos 617/2025, 562/2026, 829/2026 — postergación de ICL/CO₂.</div>
+<div class="ref-item"><span class="ref-num">[612]</span> Reuters; Secretaría de Energía — bioetanol voluntario ~15% (mar 2026).</div>
+<div class="ref-item"><span class="ref-num">[613]</span> Infobae; Empiria — evolución de precios y fin del buffer (jun 2026).</div>
+<div class="ref-item"><span class="ref-num">[620]–[622]</span> CREA (2026); Oxford Energy Forum — China/India.</div>
+<div class="ref-item"><span class="ref-num">[700]–[701]</span> Atlantic Council; METI/JOGMEC; IEA — reservas Japón.</div>
+</div></div></section>
+</div>
+
+<div id="mode-methodology" class="mode-panel">
+<div class="section-card p-6 sm:p-8">
+<h2 class="text-2xl font-semibold mb-2">Metodología y Transparencia Estadística</h2>
+<p class="text-sm text-academic-600 mb-6">Explicación clara con ejemplos numéricos concretos.</p>
+<div class="flex flex-wrap gap-2 mb-8 border-b pb-4">
+<button class="method-tab active px-3 py-1.5 rounded text-sm font-medium bg-academic-accent text-white" onclick="showMethod('overview')">Panorama</button>
+<button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('svar')">SVAR</button>
+<button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('garch')">GARCH</button>
+<button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('lp')">Proyecciones Locales</button>
+<button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('data')">Datos</button>
+<button class="method-tab px-3 py-1.5 rounded text-sm font-medium bg-academic-100" onclick="showMethod('why')">Por qué</button>
+</div>
+<div id="method-overview" class="method-content active">
+<h3 class="text-lg font-semibold mb-3">Cómo funciona la estrategia empírica</h3>
+<p class="text-sm text-academic-700 mb-4">Cuando el costo de la energía sube de golpe por un evento geopolítico, ¿qué les ocurre a la inflación, la actividad y los mercados?</p>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="method-box"><h4>SVAR</h4><p class="text-academic-600">Transmisión dinámica del shock.</p></div>
+<div class="method-box"><h4>GARCH</h4><p class="text-academic-600">Cuánto aumentó la volatilidad.</p></div>
+<div class="method-box"><h4>Proyecciones Locales</h4><p class="text-academic-600">Chequeo de robustez del SVAR.</p></div>
+</div></div>
+<div id="method-svar" class="method-content">
+<h3 class="text-lg font-semibold mb-3">VAR Estructural (SVAR)</h3>
+<div class="method-box"><h4>Qué es (en lenguaje sencillo)</h4>
+<p class="text-sm text-academic-700">Varias series se modelan juntas. La parte estructural aísla un shock de oferta energética limpio con un instrumento externo.</p></div>
+<div class="method-box" style="background:#eff6ff;border-color:#bfdbfe">
+<h4>Ejemplo numérico ilustrativo</h4>
+<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> coeficientes inventados con fines pedagógicos.</p>
+<div class="code-block text-xs mb-2">P<sub>t</sub> = 0.70·P<sub>t-1</sub> + 0.10·π<sub>t-1</sub> + e<sub>t</sub><sup>P</sup><br>π<sub>t</sub> = 0.25·P<sub>t-1</sub> + 0.50·π<sub>t-1</sub> + e<sub>t</sub><sup>π</sup></div>
+</div></div>
+<div id="method-garch" class="method-content">
+<h3 class="text-lg font-semibold mb-3">Familia GARCH</h3>
+<div class="method-box" style="background:#f5f3ff;border-color:#ddd6fe">
+<h4>Ejemplo ilustrativo (GARCH(1,1))</h4>
+<p class="text-sm text-academic-700 mb-2"><strong>Importante:</strong> valores inventados para enseñar la mecánica.</p>
+<div class="code-block text-xs mb-2">σ<sub>t</sub>² = ω + α · ε<sub>t-1</sub>² + β · σ<sub>t-1</sub>²<br>ω=0.0001 · α=0.10 · β=0.80 → σ<sub>t</sub>² = <strong>0.00051</strong></div>
+</div></div>
+<div id="method-lp" class="method-content">
+<h3 class="text-lg font-semibold mb-3">Proyecciones Locales (Jordà)</h3>
+<div class="method-box" style="background:#ecfdf5;border-color:#a7f3d0">
+<h4>Ejemplo con valores numéricos</h4>
+<div class="code-block text-xs mb-3">π<sub>t+h</sub> = α<sub>h</sub> + β<sub>h</sub> · Shock<sub>t</sub> + controles<sub>t</sub> + error</div>
+<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-sm text-amber-900">
+<strong>Origen de los números:</strong> α₃=0.40, β₃=0.28 y la secuencia de β<sub>h</sub> son <strong>ilustrativos / hipotéticos</strong>. No provienen de una estimación real del trabajo ni de un paper citado.
+</div>
+<div class="code-block text-xs mb-3">π<sub>t+3</sub> = 0.40 + 0.28 · Shock<sub>t</sub> + 0.15 · π<sub>t-1</sub> + error</div>
+<canvas id="lpExampleChart" height="180"></canvas>
+</div></div>
+<div id="method-data" class="method-content"><h3 class="text-lg font-semibold mb-3">Datos</h3>
+<p class="text-sm text-academic-700">Series públicas: EIA, IEA, FRED, BCE, BOJ, datos de mercado.</p></div>
+<div id="method-why" class="method-content"><h3 class="text-lg font-semibold mb-3">Por qué esta combinación</h3>
+<ul class="text-sm text-academic-700 space-y-1 list-disc list-inside">
+<li><strong>SVAR</strong> — narrativa causal.</li>
+<li><strong>GARCH</strong> — dimensión de riesgo.</li>
+<li><strong>Proyecciones Locales</strong> — robustez.</li>
+</ul></div>
+</div></div>
+</main>
+<footer class="border-t mt-12 py-6"><div class="max-w-6xl mx-auto px-4 text-center text-sm text-academic-500"><p>Facundo & Santilli Agustín · Estructura Económica Mundial y Argentina · UNMdP · 2026</p></div></footer>
+<script>
+const popupContent={en:{hormuz:"<strong>Strait of Hormuz</strong> [300]<br>~20% of global oil supply and major LNG flows transit this chokepoint.",qatar:"<strong>Qatar</strong> [301]<br>World’s largest LNG exporter; most volumes exit via Hormuz.",saudi:"<strong>Saudi Arabia</strong> [302]<br>Partial East–West pipeline bypass; still highly exposed via the Gulf.",uae:"<strong>UAE</strong> [303]<br>Fujairah / Abu Dhabi alternative capacity is limited relative to total exports.",iraq:"<strong>Iraq</strong> [304]<br>Majority of crude exports transit the Gulf and Hormuz.",kuwait:"<strong>Kuwait</strong> [305]<br>Almost all crude exports depend on Hormuz transit.",iran:"<strong>Iran</strong> [306]<br>Central geopolitical actor in the 2026 disruption scenario.",japan:"<strong>Japan</strong> [307]<br>90–96% of crude from the Middle East; strategic reserves ~250 days.",china:"<strong>China</strong> [308]<br>Largest absolute oil importer via Hormuz routes.",india:"<strong>India</strong> [309]<br>High and rising dependence on Middle Eastern crude.",korea:"<strong>South Korea</strong> [310]<br>~70% of crude imports from the Middle East."},es:{hormuz:"<strong>Estrecho de Ormuz</strong> [300]<br>~20% del suministro global de petróleo y flujos importantes de GNL transitan por este chokepoint.",qatar:"<strong>Qatar</strong> [301]<br>Mayor exportador mundial de GNL; la mayor parte sale vía Ormuz.",saudi:"<strong>Arabia Saudita</strong> [302]<br>Bypass parcial por el oleoducto Este–Oeste; sigue muy expuesta vía el Golfo.",uae:"<strong>EAU</strong> [303]<br>Capacidad alternativa Fujairah/Abu Dhabi limitada respecto del total de exportaciones.",iraq:"<strong>Irak</strong> [304]<br>La mayoría de las exportaciones de crudo transitan el Golfo y Ormuz.",kuwait:"<strong>Kuwait</strong> [305]<br>Casi todas las exportaciones de crudo dependen del tránsito por Ormuz.",iran:"<strong>Irán</strong> [306]<br>Actor geopolítico central en el escenario de disrupción 2026.",japan:"<strong>Japón</strong> [307]<br>90–96% del crudo de Medio Oriente; reservas estratégicas ~250 días.",china:"<strong>China</strong> [308]<br>Mayor importador absoluto de petróleo por rutas de Ormuz.",india:"<strong>India</strong> [309]<br>Alta y creciente dependencia del crudo de Medio Oriente.",korea:"<strong>Corea del Sur</strong> [310]<br>~70% de las importaciones de crudo de Medio Oriente."}};
+let currentLang='es',map=null,mapInitialized=false;
+function setLang(lang){currentLang=lang;document.getElementById('lang-es').classList.toggle('active',lang==='es');document.getElementById('lang-en').classList.toggle('active',lang==='en');document.getElementById('lang-es').classList.toggle('text-slate-300',lang!=='es');document.getElementById('lang-en').classList.toggle('text-slate-300',lang!=='en');document.documentElement.lang=lang;if(mapInitialized){map.remove();map=null;mapInitialized=false;initMap();}}
+function setMode(mode){document.querySelectorAll('.mode-panel').forEach(el=>el.classList.remove('active'));document.getElementById('mode-'+mode).classList.add('active');document.querySelectorAll('.mode-btn').forEach(btn=>{btn.classList.remove('bg-academic-accent','text-white');btn.classList.add('text-slate-300');});const b=document.getElementById('btn-'+mode);b.classList.add('bg-academic-accent','text-white');b.classList.remove('text-slate-300');}
+function showSection(id){document.querySelectorAll('#mode-presentation .tab-content').forEach(el=>el.classList.remove('active'));document.getElementById('section-'+id).classList.add('active');document.querySelectorAll('.nav-tab').forEach(btn=>btn.classList.remove('active'));event.currentTarget.classList.add('active');if(id==='map')setTimeout(initMap,80);}
+function showMethod(id){document.querySelectorAll('.method-content').forEach(el=>el.classList.remove('active'));document.getElementById('method-'+id).classList.add('active');document.querySelectorAll('.method-tab').forEach(btn=>{btn.classList.remove('bg-academic-accent','text-white');btn.classList.add('bg-academic-100');});event.currentTarget.classList.remove('bg-academic-100');event.currentTarget.classList.add('bg-academic-accent','text-white');}
+function initMap(){if(mapInitialized){setTimeout(()=>{if(map)map.invalidateSize();},120);return;}mapInitialized=true;map=L.map('map',{scrollWheelZoom:true}).setView([26.5,56.5],4);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(map);const pc=popupContent[currentLang];L.circleMarker([26.56,56.25],{radius:14,color:'#e11d48',fillColor:'#e11d48',fillOpacity:0.85,weight:2}).addTo(map).bindPopup(pc.hormuz);[{lat:25.3,lng:51.5,key:'qatar'},{lat:24.6,lng:46.7,key:'saudi'},{lat:24.7,lng:54.0,key:'uae'},{lat:33.3,lng:44.4,key:'iraq'},{lat:29.3,lng:48.0,key:'kuwait'},{lat:32.0,lng:53.0,key:'iran'}].forEach(e=>{L.circleMarker([e.lat,e.lng],{radius:8,color:'#d97706',fillColor:'#f59e0b',fillOpacity:0.9,weight:1}).addTo(map).bindPopup(pc[e.key]);});[{lat:35.7,lng:139.7,key:'japan'},{lat:31.2,lng:121.5,key:'china'},{lat:19.1,lng:72.9,key:'india'},{lat:37.5,lng:127.0,key:'korea'}].forEach(i=>{L.circleMarker([i.lat,i.lng],{radius:9,color:'#0284c7',fillColor:'#0ea5e9',fillOpacity:0.9,weight:1}).addTo(map).bindPopup(pc[i.key]);});setTimeout(()=>map.invalidateSize(),250);}
+document.addEventListener('DOMContentLoaded',()=>{setLang('es');
+const c1=document.getElementById('priceChart');if(c1)new Chart(c1,{type:'line',data:{labels:['Ene','Feb','Mar','Abr','May','Jun','Jul'],datasets:[{data:[72,75,95,118,105,92,88],borderColor:'#0ea5e9',fill:true,backgroundColor:'rgba(14,165,233,0.08)',tension:0.3}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+const c2=document.getElementById('irfChart');if(c2)new Chart(c2,{type:'line',data:{labels:['0','1','2','3','4','5','6'],datasets:[{label:'Inflación',data:[0,0.15,0.28,0.32,0.25,0.18,0.1],borderColor:'#f43f5e',tension:0.3},{label:'Equity',data:[0,-0.8,-1.1,-0.7,-0.4,-0.2,0],borderColor:'#0ea5e9',tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+const c3=document.getElementById('volChart');if(c3)new Chart(c3,{type:'line',data:{labels:Array.from({length:40},(_,i)=>i),datasets:[{data:Array.from({length:40},(_,i)=>i<15?0.9+Math.random()*0.3:i<28?1.9+Math.random()*0.5:1.1+Math.random()*0.3),borderColor:'#8b5cf6',fill:true,backgroundColor:'rgba(139,92,246,0.1)',pointRadius:0,tension:0.2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false}}}});
+const lp=document.getElementById('lpExampleChart');if(lp)new Chart(lp,{type:'line',data:{labels:['h=0','h=1','h=2','h=3','h=4','h=5','h=6','h=7','h=8'],datasets:[{label:'βₕ',data:[0.02,0.12,0.22,0.28,0.24,0.16,0.10,0.05,0.02],borderColor:'#059669',backgroundColor:'rgba(5,150,105,0.12)',fill:true,tension:0.3,pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:true,position:'bottom'}}}});
+});
+</script>
+</body></html>
