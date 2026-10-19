@@ -180,27 +180,61 @@
     world.setAttribute('transform', `translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${k.toFixed(5)})`);
   }
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  function moveCam(target, instant) {
-    if (!cam || instant || reduced) { cam = target; applyCam(cam); tween = null; return; }
-    const from = { ...cam };
-    const dz = Math.abs(target.lk - from.lk);
-    const dur = 1100 + Math.min(900, dz * 300);
-    const t0 = performance.now();
-    tween = (now) => {
-      const t = Math.min(1, (now - t0) / dur), e = ease(t);
-      cam = {};
-      for (const k of Object.keys(target)) cam[k] = from[k] + (target[k] - from[k]) * e;
-      // Arco suave: alejar un poco en el medio cuando el viaje es largo
-      const dist = Math.hypot(target.cx - from.cx, target.cy - from.cy);
-      if (dist > 150) cam.lk -= Math.sin(Math.PI * e) * Math.min(1.2, dist / 900);
-      applyCam(cam);
-      if (t >= 1) tween = null;
+  const easeSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+  // Trayectoria de zoom "suave y eficiente" (van Wijk y Nuij, 2003): aleja lo justo para viajar y vuelve a acercar
+  function zoomPath(p0, p1) {
+    const rho = 1.25, rho2 = rho * rho, rho4 = rho2 * rho2;
+    const [ux0, uy0, w0] = p0, [ux1, uy1, w1] = p1;
+    const dx = ux1 - ux0, dy = uy1 - uy0, d2 = dx * dx + dy * dy;
+    if (d2 < 1e-9) {
+      const S = Math.log(w1 / w0) / rho;
+      const f = (t) => [ux0 + t * dx, uy0 + t * dy, w0 * Math.exp(rho * t * S)];
+      f.S = Math.abs(S); return f;
+    }
+    const d1 = Math.sqrt(d2);
+    const b0 = (w1 * w1 - w0 * w0 + rho4 * d2) / (2 * w0 * rho2 * d1);
+    const b1 = (w1 * w1 - w0 * w0 - rho4 * d2) / (2 * w1 * rho2 * d1);
+    const r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0), r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1);
+    const S = (r1 - r0) / rho;
+    const f = (t) => {
+      const s = t * S, c0 = Math.cosh(r0);
+      const u = (w0 / (rho2 * d1)) * (c0 * Math.tanh(rho * s + r0) - Math.sinh(r0));
+      return [ux0 + u * dx, uy0 + u * dy, (w0 * c0) / Math.cosh(rho * s + r0)];
     };
+    f.S = Math.abs(S); return f;
+  }
+  const REF = 1000; // ancho de referencia en pantalla para expresar el zoom como "ancho visible"
+  function moveCam(target, instant) {
+    if (!cam || instant || reduced) { cam = target; applyCam(cam); tween = null; camMoving(false); return; }
+    const from = { ...cam };
+    const same = Math.abs(from.cx - target.cx) < .5 && Math.abs(from.cy - target.cy) < .5 && Math.abs(from.lk - target.lk) < .01 && Math.abs(from.ax - target.ax) < 2;
+    if (same) return;
+    const path = zoomPath([from.cx, from.cy, REF / Math.exp(from.lk)], [target.cx, target.cy, REF / Math.exp(target.lk)]);
+    const dur = Math.max(900, Math.min(2300, 700 + path.S * 700));
+    const t0 = performance.now();
+    camMoving(true);
+    tween = (now) => {
+      const t = Math.min(1, (now - t0) / dur), e = easeSine(t), e2 = ease(t);
+      const [cx, cy, w] = path(e);
+      cam = { cx, cy, lk: Math.log(REF / w), ax: from.ax + (target.ax - from.ax) * e2, ay: from.ay + (target.ay - from.ay) * e2 };
+      applyCam(cam);
+      if (t >= 1) { tween = null; camMoving(false); }
+    };
+  }
+  // Las llamadas sobre el mapa esperan a que la cámara se detenga
+  let calloutTimer = null;
+  function camMoving(moving) {
+    clearTimeout(calloutTimer);
+    const active = slides && slides[cur];
+    const els = active ? $$('.callout', active) : [];
+    if (moving) els.forEach((el) => el.classList.remove('show'));
+    else calloutTimer = setTimeout(() => els.forEach((el) => el.classList.add('show')), 120);
   }
   const toScreen = (p) => [view.k * p[0] + view.tx, view.k * p[1] + view.ty];
 
   /* ---------------- Bucle de animación ---------------- */
   let state = { layers: new Set(), cities: new Set() };
+  let throttle = 1;
   let last = performance.now();
   const callouts = [];
   function frame(now) {
@@ -226,18 +260,19 @@
     const blocked = state.layers.has('blocked');
     const russia = state.layers.has('russia');
     const speed = 22 / Math.pow(Math.max(1, k), 0.75);
+    const goal = flowing ? 1 : 0;
+    throttle += (goal - throttle) * Math.min(1, dt * 1.6); // inercia: los barcos frenan y arrancan de a poco
     for (const s of ships) {
       const alt = s.key.startsWith('rus');
       const visible = alt ? russia : (flowing || blocked);
-      s.el.style.display = visible ? '' : 'none';
+      s.el.style.opacity = visible ? 1 : 0;
       if (!visible) continue;
-      const moving = alt ? true : flowing && !reduced;
-      if (moving && !reduced) s.s = (s.s + speed * dt * 10) % s.L;
-      if (!alt && blocked && !flowing) s.s = Math.min(s.s, 4 + (ships.indexOf(s) % 3) * 3); // amontonados en la salida del Golfo
+      const v = alt ? 1 : throttle;
+      if (!reduced && v > 0.002) s.s = (s.s + speed * dt * 10 * v) % s.L;
       const p = s.path.getPointAtLength(s.s);
       const [x, y] = toScreen([p.x, p.y]);
       s.el.setAttribute('cx', x.toFixed(1)); s.el.setAttribute('cy', y.toFixed(1));
-      s.el.classList.toggle('halt', !alt && blocked && !flowing);
+      s.el.classList.toggle('halt', !alt && blocked && !flowing && throttle < 0.5);
       if (alt) s.el.style.fill = 'var(--ink)';
     }
     for (const c of callouts) {
@@ -269,7 +304,7 @@
     }
     return st;
   }
-  function applyState(slide, instant) {
+  function applyState(slide, instant, entering) {
     const st = computeState(slide);
     state.layers = new Set(st.layers.split(/\s+/).filter(Boolean));
     state.cities = new Set(st.cities.split(',').filter(Boolean));
@@ -277,7 +312,7 @@
     const focus = new Set(st.focus.split(',').filter(Boolean));
     for (const [k, el] of Object.entries(ctryEls)) el.classList.toggle('on', focus.has(k));
     moveCam(targetFor(slide, st.cam), instant);
-    if (slide.querySelector('#brent')) brentTo(st.upto || '2026-02-28', instant);
+    if (slide.querySelector('#brent')) brentTo(st.upto || '2026-02-28', instant || entering);
   }
 
   function countUp(slide) {
@@ -303,13 +338,21 @@
     const prev = slides[cur];
     const s = slides[i];
     const back = opts.back;
-    if (prev && prev !== s) prev.classList.remove('active');
+    if (prev && prev !== s) {
+      prev.classList.remove('active');
+      prev.classList.add('leaving');
+      $$('.callout', prev).forEach((el) => el.classList.remove('show'));
+      clearTimeout(prev._leave);
+      prev._leave = setTimeout(() => prev.classList.remove('leaving'), 420);
+    }
+    s.classList.remove('leaving'); clearTimeout(s._leave);
     stepsOf(s).forEach((el) => el.classList.toggle('pending', !(back || small() || opts.all)));
     s.classList.add('active');
     const panel = $('.panel', s); if (panel) panel.scrollTop = 0;
     cur = i;
-    applyState(s, opts.instant);
-    countUp(s);
+    applyState(s, opts.instant, true);
+    if (!tween) camMoving(false);
+    setTimeout(() => countUp(s), 260);
     updateChrome();
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
   }
@@ -427,7 +470,7 @@
     ['2026-04-29', 118.03], ['2026-04-30', 114.01], ['2026-05-04', 114.40], ['2026-05-12', 107.27], ['2026-05-19', 111.28], ['2026-05-27', 94.29],
     ['2026-06-03', 97.81], ['2026-06-05', 93.09], ['2026-06-12', 87.33], ['2026-06-19', 80.57], ['2026-06-24', 73.74],
   ];
-  const EVENTS = [['2026-02-28', 1], ['2026-03-03', 2], ['2026-03-11', 3], ['2026-04-08', 4], ['2026-04-13', 5], ['2026-05-04', 6], ['2026-06-17', 7], ['2026-06-24', 8]];
+  const EVENTS = [['2026-02-28', 'Guerra', 'end', 0], ['2026-03-11', 'AIE libera reservas', 'start', 1], ['2026-04-08', 'Alto el fuego', 'end', 0], ['2026-04-13', 'Bloqueo de EE.UU.', 'start', 1], ['2026-06-17', 'Acuerdo', 'end', 0]];
   const d0 = Date.parse('2026-01-01'), d1 = Date.parse('2026-06-30');
   const X = (d) => 50 + ((Date.parse(d) - d0) / (d1 - d0)) * 830;
   const Y = (v) => 236 - ((v - 55) / (132 - 55)) * 205;
@@ -462,13 +505,13 @@
       }
       return BRENT[BRENT.length - 1][1];
     };
-    EVENTS.forEach(([d, n], j) => {
+    EVENTS.forEach(([d, name, anchor, row]) => {
       const e = mk('g', { class: 'evt' }, g);
       const x = X(d), yv = Y(at(d));
-      const top = 16 + (j % 2) * 17;
-      mk('line', { x1: x, x2: x, y1: top + 8, y2: yv - 4 }, e);
-      mk('circle', { cx: x, cy: top, r: 8 }, e);
-      mk('text', { x, y: top + 3.6 }, e).textContent = n;
+      const top = 18 + row * 20;
+      mk('line', { x1: x, x2: x, y1: top - 12, y2: yv - 5 }, e);
+      mk('circle', { cx: x, cy: yv, r: 4 }, e);
+      mk('text', { x: x + (anchor === 'end' ? -6 : 6), y: top, 'text-anchor': anchor }, e).textContent = name;
     });
     const lab = (d, v, txt, dx, dy, anchor = 'middle') => mk('text', { class: 'peak', x: X(d) + dx, y: Y(v) + dy, 'text-anchor': anchor }, g).textContent = txt;
     lab('2026-02-27', 72.48, '72,5', -4, 18, 'end');
