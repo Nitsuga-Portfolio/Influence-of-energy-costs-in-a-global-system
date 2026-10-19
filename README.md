@@ -1,110 +1,53 @@
-# Influence of Energy Cost Shocks on the Global Economic and Financial System
-### Case Study: Strait of Hormuz Crisis (2026)
+# Del Estrecho de Ormuz al surtidor
 
-[![Status](https://img.shields.io/badge/Status-Research%20in%20Progress-blue)]()
-[![Institution](https://img.shields.io/badge/UNMdP-Estructura%20Econ%C3%B3mica%20Mundial%20y%20Argentina-green)]()
-[![Level](https://img.shields.io/badge/Level-Master's%20Research%20Preparation-orange)]()
+**Influencia de los costos de la energía en un sistema global: el shock de 2026 y las respuestas de Argentina, China, India y Japón.**
 
----
+Presentación interactiva del trabajo final de investigación del Grupo 8 (Facundo Carrera y Agustín Santilli) para **Estructura Económica Mundial y Argentina** (Cód. 946), Universidad Nacional de Mar del Plata, 2.º cuatrimestre 2026. Docentes: Claudia B. Malamud y Rosana R. Zuanetti.
 
-## Overview
+La presentación acompaña al documento escrito (tercer parcial y horas de investigación). Su formato es una carta náutica narrativa: un único mapa funciona como hilo de la exposición y su "cámara" se mueve de la escala global al estrecho, de ahí a cada país y finalmente al surtidor.
 
-This repository hosts the empirical and methodological core of the final research paper for the course **Estructura Económica Mundial y Argentina** (Universidad Nacional de Mar del Plata).  
+## Estructura
 
-**Authors:** Facundo & Santilli Agustín  
-**Working document:** *Trabajo Final Carrera Facundo y Santilli Agustin | Estructura Económica Mundial y Argentina*
+| Parte | Diapositivas |
+|---|---|
+| Introducción | Contexto y motivación · Qué es Ormuz y por qué importa · Casos a analizar |
+| Desarrollo | El shock (Brent ene–jun 2026) · Implicancias de la guerra · Canales de transmisión e impacto efectivo · Argentina · China e India · Japón |
+| Conclusiones | Comparación de los cuatro casos y escalas (global, regional, nacional, local) · Vínculo con los núcleos del programa |
+| Cierre | Bibliografía y referencias · Anexo metodológico (regla práctica, SVAR, GARCH, proyecciones locales) |
 
-The work examines the transmission of energy cost shocks — triggered by the 2026 Strait of Hormuz disruption — into the global macroeconomic and financial system, with particular attention to inflation dynamics, asset pricing volatility, and differential regional impacts (emphasis on Asia, especially Japan).
+Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su fuente numerada (pasar el cursor sobre los superíndices rojos).
 
-The project is deliberately structured under the **“Iceberg Strategy”**:
+## Cómo presentar
 
-- **Surface layer** (course-facing narrative): clear, accessible macroeconomic and geopolitical analysis suitable for traditional economics faculty.
-- **Submerged base** (advanced research layer): rigorous time-series econometrics, volatility modelling and reproducible Python pipelines designed to serve as a solid empirical foundation for future master’s-level research in quantitative economics and finance.
+| Tecla | Acción |
+|---|---|
+| `→`, `espacio`, `PgDn` | Siguiente paso o diapositiva |
+| `←`, `PgUp` | Paso o diapositiva anterior |
+| `N` | Notas de exposición |
+| `I` | Índice |
+| `F` | Pantalla completa |
+| `Inicio` / `Fin` | Primera / última diapositiva |
 
----
+Cada diapositiva puede tener pasos internos (el gráfico del Brent se dibuja por etapas, los canales aparecen uno por uno). El contador de la barra inferior indica cuántos pasos quedan. Se puede enlazar directo a una diapositiva con `#n` (por ejemplo `…/#9` abre Japón). En el celular se navega deslizando.
 
-## Research Question
-
-How do sharp, geopolitically driven shocks in energy costs (oil and LNG) transmit into:
-1. Global and regional inflation and growth,
-2. Equity and corporate-bond market volatility and risk premia, and
-3. Differential resilience across economies — with special focus on energy-import-dependent Asian economies (Japan, and secondarily China and India)?
-
----
-
-## Planned Structure (≈ 20 pages + technical annex)
-
-| Section | Approx. pages | Layer |
-|---------|---------------|-------|
-| 1. Introduction & Motivation | 2 | Surface |
-| 2. Theoretical Framework (Energy shocks, pass-through, financial amplification) | 2.5 | Surface + light quant |
-| 3. The 2026 Hormuz Shock: Stylised Facts | 3 | Surface |
-| 4. Macroeconomic Transmission Channels | 3 | Surface |
-| 5. **Econometric Analysis of the Shock** | 4–5 | **Submerged base** |
-| 6. Financial Market Implications (volatility, pricing, risk) | 2.5 | Surface + quant bridge |
-| 7. Regional Asymmetries: Focus on Japan & Asia | 2 | Surface |
-| 8. Conclusions & Policy Implications | 1.5 | Surface |
-| Technical Annex (data, code, robustness) | — | Submerged |
-
----
-
-## Econometric Strategy (Core Options under Evaluation)
-
-Three complementary modelling routes are being assessed for implementation in Python:
-
-1. **Structural / Bayesian VAR** with external instrument (oil/LNG price or Hormuz flow proxy)  
-   → Impulse responses of inflation, industrial production, equity indices and credit spreads.
-
-2. **GARCH / EGARCH / GJR-GARCH** family on equity and energy-futures returns  
-   → Quantify the increase in conditional volatility and leverage effects during the shock window.
-
-3. **Local Projections (Jordà) or Smooth Local Projections** around the March 2026 event date  
-   → Flexible, non-parametric impulse responses that accommodate potential non-linearities.
-
-All specifications will use publicly available high-frequency and monthly series (EIA, IEA, FRED, ECB SDW, BOJ, etc.).
-
----
-
-## Key Data Sources (Preliminary)
-
-- **Energy**: EIA (Strait of Hormuz transit volumes), IEA Oil Market Report, Platts/Argus proxies, JODI.
-- **Macro**: FRED, ECB Statistical Data Warehouse, BOJ, IMF IFS, national statistical offices (Japan, China, India, Euro Area, US).
-- **Financial**: Equity indices (S&P 500, Nikkei 225, Euro Stoxx, Shanghai Composite), corporate bond spreads (ICE BofA), VIX / implied vol surfaces, energy futures (Brent, TTF, JKM).
-- **Institutional reports**: Federal Reserve Financial Stability Report (May 2026), European Commission / ECB analyses, METI / JOGMEC Japan energy security notes.
-
----
-
-## Repository Roadmap
+## Archivos
 
 ```
-├── README.md                 ← you are here
-├── paper/                    ← main manuscript (LaTeX / Word)
-├── notebooks/                ← exploratory & final analysis notebooks
-├── src/                      ← reusable Python modules (data, models, plots)
-├── data/
-│   ├── raw/
-│   └── processed/
-├── figures/
-├── tables/
-└── annex/                    ← technical appendix & robustness checks
+index.html            diapositivas y notas de exposición
+assets/styles.css     estética de carta náutica
+assets/app.js         cámara del mapa, pasos, gráfico, referencias y anexo
+assets/map-data.js    geometría generada (no editar a mano)
+tools/build-map.mjs   genera map-data.js desde Natural Earth (world-atlas)
 ```
 
----
+Es un sitio estático, sin dependencias en tiempo de ejecución salvo las fuentes de Google. Funciona abriendo `index.html` directamente y se publica en Vercel con cada push a `main`.
 
-## Academic Context
+Para regenerar el mapa: `cd tools && npm install && npm run build`.
 
-- **Course**: Estructura Económica Mundial y Argentina (Cód. 946) – 2º cuatrimestre 2026  
-- **Instructors**: Claudia Beatriz Malamud & Rosana Renata Zuanetti  
-- **Institution**: Universidad Nacional de Mar del Plata – Departamento de Economía  
-- **Purpose**: Final undergraduate research paper with methodological depth suitable as empirical foundation for future master’s applications in quantitative economics / finance.
+## Fase cuantitativa
 
----
-
-## Licence & Citation
-
-This work is currently under development for academic evaluation.  
-Please do not cite without permission until the final version is deposited.
+El anexo describe la estrategia econométrica (SVAR con instrumento externo, GARCH y proyecciones locales de Jordà) que sostiene el documento escrito. La presentación sólo muestra datos observados y cifras de las fuentes; los ejemplos numéricos del anexo están marcados como ilustrativos.
 
 ---
 
-*Last updated: September 2026*
+*Trabajo en evaluación académica. Citar con permiso de los autores.*
