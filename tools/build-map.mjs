@@ -4,7 +4,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { geoMercator, geoPath, geoGraticule, geoInterpolate, geoDistance } from 'd3-geo';
-import { line, curveCatmullRom } from 'd3-shape';
+import { line, curveCatmullRom, curveCatmullRomClosed } from 'd3-shape';
 import * as topo from 'topojson-client';
 import { presimplify, simplify, quantile } from 'topojson-simplify';
 
@@ -82,6 +82,8 @@ const routesLL = {
   rusChina: [[132.9, 42.75], [131.5, 40], [128.2, 34.4], [125.4, 32], [122.3, 29.9]],
   pipeEW: [[49.7, 25.95], [46.8, 24.8], [42.5, 24.4], [38.1, 24.1]],
   pipeHF: [[53.6, 23.8], [55.2, 24.4], [56.35, 25.12]],
+  // Oleoducto Vaca Muerta Sur (en obra): de Añelo a Punta Colorada, Río Negro (trazado aproximado)
+  vmos: [[-68.8, -38.35], [-68.1, -39.1], [-67.2, -40.0], [-66.1, -40.9], [-65.05, -41.68]],
 };
 const lineGen = line().curve(curveCatmullRom.alpha(0.5)).digits(1);
 const routes = {};
@@ -100,12 +102,13 @@ const kmArg = Math.round(geoDistance(HZ, BA) * 6371);
 
 /* ---------- Áreas de interés ---------- */
 const poly = (pts) => 'M' + pts.map((p) => P(p).join(',')).join('L') + 'Z';
+const smooth = (pts) => line().curve(curveCatmullRomClosed.alpha(0.5)).digits(1)(pts.map((p) => proj(p)));
 const aoi = {
   // Aguas: se dibujan debajo de la tierra, así que alcanza con un contorno aproximado
   risk: poly([[47.6, 30.2], [48.8, 30.6], [50.5, 30.2], [53, 28.2], [56.2, 27.3], [57.8, 26.6], [59.6, 25.6], [61.8, 25.1], [62.4, 22.6], [59.8, 21.4], [58.6, 23.4], [56.9, 24.6], [55.6, 25.3], [54, 24.1], [52, 23.9], [50.6, 24.4], [49.9, 26.4], [48.5, 28]]),
   redsea: poly([[38.2, 20.4], [41.6, 16.2], [43.1, 12.7], [45, 12.4], [51.4, 11.7], [52.2, 13.8], [45.2, 14.3], [43.6, 14.1], [42.4, 17.4], [40.2, 20.8]]),
   // Tierra: Cuenca Neuquina, donde está Vaca Muerta (contorno aproximado)
-  vaca: poly([[-71, -36.2], [-69.6, -35.4], [-68.2, -36.1], [-67.3, -37.6], [-67.6, -39.2], [-68.8, -40.2], [-70.4, -39.6], [-71.2, -38]]),
+  vaca: smooth([[-70.3, -34.6], [-69.3, -35.0], [-68.9, -36.2], [-68.3, -37.1], [-67.1, -37.8], [-66.8, -38.7], [-67.4, -39.6], [-68.6, -40.0], [-69.8, -40.3], [-70.6, -39.6], [-70.9, -38.4], [-70.8, -37.0], [-70.6, -35.6]]),
 };
 const prodIds = ['364', '368', '414', '682', '048', '634', '784', '512'];
 
@@ -115,7 +118,7 @@ const ptsLL = {
   tokyo: [139.75, 35.45], ningbo: [122.3, 29.9], jamnagar: [69.7, 22.45], ulsan: [129.4, 35.4], rotterdam: [4.1, 51.95],
   novorossiysk: [37.8, 44.7], kozmino: [132.9, 42.75], buenosAires: BA, vacaMuerta: [-68.9, -38.4], marDelPlata: [-57.55, -38.0],
   bandarAbbas: [56.27, 27.18], musandam: [56.25, 26.2], malacca: [101, 2.6], suez: [32.4, 30.2], babElMandeb: [43.4, 12.6],
-  capeGood: [18.5, -34.6], tehran: [51.4, 35.7], beijing: [116.4, 39.9], delhi: [77.2, 28.6],
+  capeGood: [18.5, -34.6], puntaColorada: [-65.05, -41.68], tehran: [51.4, 35.7], beijing: [116.4, 39.9], delhi: [77.2, 28.6],
 };
 const pts = Object.fromEntries(Object.entries(ptsLL).map(([k, p]) => [k, P(p)]));
 pts.geoMid = P(geoInterpolate(HZ, BA)(0.5));
@@ -141,6 +144,7 @@ const labelsLL = [
   ['Riesgo en Bab el-Mandeb', 'aoi-risk', 48.6, 13.1, 1.6, 99, null, 'redsea'],
   ['Cuenca Neuquina · Vaca Muerta', 'aoi-prod', -69.2, -41.6, 0, 99, null, 'vaca'],
   ['Proveedor alternativo', 'aoi-rus', 62, 55.5, 0, 99, null, 'rus'],
+  ['Oleoducto Vaca Muerta Sur', 'aoi-ink', -64.2, -39.1, 0, 99, null, 'vmos'],
 ];
 const labels = labelsLL.map(([t, c, lo, la, a, b, f = null, z = null]) => [t, c, ...P([lo, la]), a, b, f, z]);
 
@@ -153,6 +157,7 @@ const boxLL = {
   argentina: [-78, -55, 62, 33],
   chinaIndia: [28, 4, 136, 52],
   japan: [116, 20, 149, 45.5],
+  patagonia: [-74, -45, -55, -31],
 };
 const boxes = {};
 for (const [k, [x0, y0, x1, y1]] of Object.entries(boxLL)) {

@@ -14,10 +14,18 @@ La carta usa la proyección Mercator (la de la navegación), cubre toda la panta
 |---|---|
 | Introducción | Contexto y motivación · Qué es Ormuz y por qué importa · Casos a analizar |
 | Desarrollo | El shock (Brent ene–jun 2026) · Implicancias de la guerra · Canales de transmisión e impacto efectivo · Argentina · China e India · Japón |
-| Conclusiones | Comparación de los cuatro casos y escalas (global, regional, nacional, local) · Vínculo con los núcleos del programa · Cierre con la tesis y preguntas |
+| Conclusiones | Comparación de los cuatro casos y escalas de la organización territorial · Lecciones para Argentina (gestión territorial) · Vínculo con los núcleos del programa · Cierre con la tesis y preguntas |
 | Fuentes y anexo | Bibliografía y referencias · Anexo metodológico (regla práctica, SVAR, GARCH, proyecciones locales) |
 
 Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su fuente numerada (pasar el cursor sobre los superíndices rojos).
+
+## Correspondencia con el Plan de Trabajo Docente
+
+- **Núcleos temáticos:** 1b (nuevas relaciones de fuerza, organismos internacionales), 1c (multipolaridad, China, India, BRICS), 1e (ODS y Agenda 2030), 2a (petróleo y gas), 2b y 2c (cambio climático y desarrollo sustentable del territorio argentino), 2d (redes de transporte y globalización).
+- **Criterios de evaluación:** enfoque globalizador y análisis a escala global, regional, nacional y local; vocabulario específico de la organización territorial.
+- **Objetivo del curso:** aproximación a propuestas de gestión territorial (diapositiva "Lecciones para Argentina").
+- **Modalidad del 3.er parcial:** presentación grupal con género elegido (mosaico de géneros): carta náutica interactiva.
+- **Bibliografía de cátedra citada:** Ferrer, Friedman, Knox y Agnew, Krugman, Méndez, Roccatagliata y Sohr.
 
 ## Cómo presentar
 

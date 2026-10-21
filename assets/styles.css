@@ -58,6 +58,8 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #map .aoi.sea-zone.on { fill-opacity: .13; stroke-opacity: .75; }
 #map .aoi.land-zone { fill: var(--oil); fill-opacity: 0; stroke: var(--oil); stroke-opacity: 0; stroke-width: 1.6; stroke-dasharray: 5 3; }
 #map .aoi.land-zone.on { fill-opacity: .38; stroke-opacity: .95; }
+#map .aoi.pipe-zone { fill: none; stroke: var(--ink); stroke-width: 3.2; stroke-dasharray: 2 5; stroke-linecap: round; stroke-opacity: 0; }
+#map .aoi.pipe-zone.on { stroke-opacity: 1; }
 #map .route { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: opacity .8s, stroke .8s; }
 #map .route.oil { stroke: var(--oil); stroke-width: 2.4; stroke-dasharray: 1 9; animation: flow 1.6s linear infinite; opacity: 0; }
 #map .route.oil-base { stroke: var(--oil); stroke-width: 1; opacity: 0; }
@@ -91,6 +93,7 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #overlay .aoi-prod { fill: var(--oil); }
 #overlay .aoi-risk { fill: var(--magenta); }
 #overlay .aoi-rus { fill: #3d5a73; }
+#overlay .aoi-ink { fill: var(--ink); }
 #overlay .ring circle { fill: none; stroke: var(--magenta); stroke-width: 1.8; }
 #overlay .ring text { fill: var(--magenta); font-size: 12px; font-weight: 700; font-variation-settings: "wdth" 85; }
 #overlay .ring { opacity: 0; transition: opacity .6s ease; }
@@ -263,9 +266,10 @@ table.cmp tr.pay td { background: var(--magenta-soft); }
 table.cmp tr.pay th { color: var(--magenta); }
 
 .tablewrap { overflow-x: auto; }
+.scales-title { margin: 1.2rem 0 .4rem; font-size: 1em; color: var(--ink-soft); }
 
 /* Escalas */
-.scales { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 1.1rem; border: 1px solid var(--ink); }
+.scales { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 0; border: 1px solid var(--ink); }
 .scales div { padding: .7rem .9rem; position: relative; font-size: 1em; line-height: 1.35; }
 .scales div + div { border-left: 1px solid var(--ink); }
 .scales b { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 80; font-size: 1.15em; }
@@ -318,6 +322,12 @@ table.cmp thead th .flag { width: 1.15em; height: .77em; }
 
 /* Rosa de los vientos */
 #rose { position: fixed; right: calc(var(--gutter) + 8px); bottom: calc(var(--bar) + var(--gutter) + 4px); width: 104px; height: 104px; color: var(--ink); opacity: .55; pointer-events: none; z-index: 1; }
+
+.lessons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.6rem; margin: .4rem 0 .2rem; }
+.lessons div { border-top: 2px solid var(--ink); padding-top: .55rem; }
+.lessons h3 { display: flex; align-items: center; margin-bottom: .2rem; }
+.lessons p { margin: 0; font-size: 1.02em; line-height: 1.38; }
+.lessons .from { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 85; font-size: .78em; color: var(--ink-soft); margin-top: .3rem; }
 
 /* Cierre */
 .thesis-big { font-family: var(--f-head); font-variation-settings: "wdth" 72; font-weight: 800; font-size: clamp(2.2rem, min(4.4vw, 7.4vh), 4.6rem); line-height: .98; margin: .2rem 0 1.1rem; color: var(--ink); max-width: none; }
@@ -386,7 +396,7 @@ table.cmp thead th .flag { width: 1.15em; height: .77em; }
   #map { height: 42vh; }
   #deck { position: fixed; inset: 42vh 0 var(--bar) 0; }
   .panel, .slide.wide .panel, .slide.full .panel, .slide.right .panel, .slide.wide.mid .panel, .slide.wide.right .panel { left: 10px; right: 10px; top: 10px; max-height: calc(100% - 20px); width: auto; outline-offset: 3px; }
-  .cols, .channels, .calc, .ledger, .tankwrap, .phases, .tools { grid-template-columns: 1fr; }
+  .cols, .channels, .calc, .ledger, .tankwrap, .phases, .tools, .lessons { grid-template-columns: 1fr; }
   .qs li { grid-template-columns: 5.6rem 1fr; }
   .chan { grid-template-columns: 1fr; gap: .3rem; }
   .chan::before { display: none; }

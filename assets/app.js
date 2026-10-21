@@ -34,8 +34,8 @@
     ['Argentina', 'LM Neuquén (2 de abril de 2026). YPF congela los combustibles 45 días y activa un buffer para amortiguar la suba del petróleo.', 'https://mase.lmneuquen.com/pais/ypf-congela-los-combustibles-45-dias-y-activa-un-buffer-amortiguar-la-suba-del-petroleo-n1233720'],
     ['Argentina', 'Perfil (29 de abril de 2026). YPF aumentó el precio de sus combustibles 27 días después de anunciar un congelamiento por 45 días.', 'https://www.perfil.com/noticias/sociedad/ypf-aumento-el-precio-de-sus-combustibles-apenas-27-dias-despues-de-anunciar-un-congelamiento-por-45-dias.phtml'],
     ['Argentina', 'Bolsa de Comercio de Rosario, reseñado por Crónica (2026). Argentina registró el mayor superávit comercial energético para un primer semestre.', 'https://www.cronica.com.ar/politica/argentina-registro-el-mayor-superavit-comercial-energetico-para-un-primer-semestre-7856/'],
-    ['Argentina', 'Boletín Oficial de la República Argentina. Decretos 617/2025, 562/2026 y 829/2026: postergación de la actualización del Impuesto a los Combustibles Líquidos y al Dióxido de Carbono.', ''],
-    ['Argentina', 'Secretaría de Energía de la Nación (marzo de 2026). Resolución sobre corte voluntario de bioetanol; reseña de Reuters.', ''],
+    ['Argentina', 'Boletín Oficial de la República Argentina. Decreto 217/2026 y prórrogas: suspensión de la actualización del Impuesto a los Combustibles Líquidos y del Impuesto al Dióxido de Carbono. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
+    ['Argentina', 'Secretaría de Energía de la Nación. Resolución 79/2026: corte de bioetanol en naftas de hasta 15 %. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
     ['Organismos', 'Federal Reserve (mayo de 2026). <i>Financial Stability Report</i>.', 'https://www.federalreserve.gov/publications/financial-stability-report.htm'],
     ['Organismos', 'Daiwa Institute of Research (marzo de 2026) y Oxford Energy Forum n.º 149 (mayo de 2026): escenarios de impacto en el PIB y dependencia energética de Japón.', ''],
     ['Organismos', 'Fondo Monetario Internacional (julio de 2026). <i>World Economic Outlook Update</i>.', ''],
@@ -49,6 +49,9 @@
     ['Bibliografía de la cátedra', 'Méndez, R. (1997). <i>Geografía económica. La lógica espacial del capitalismo global</i>. Ariel.', ''],
     ['Bibliografía de la cátedra', 'Sohr, R. (2010). <i>Chao petróleo. El mundo y las energías del futuro</i>. Debate.', ''],
     ['Bibliografía de la cátedra', 'Knox, P. y Agnew, J. (1999). <i>Geografía económica mundial</i>. Fundación Hernandarias.', ''],
+    ['Bibliografía de la cátedra', 'Friedman, T. (2006). <i>La Tierra es plana. Breve historia del mundo globalizado del siglo XXI</i>. Martínez Roca.', ''],
+    ['Bibliografía de la cátedra', 'Roccatagliata, J. A. (coord.) (2008). <i>Argentina. Una visión actual y prospectiva desde la dimensión territorial</i>. Emecé.', ''],
+    ['Argentina', 'Ámbito (28 de julio de 2026). Vaca Muerta Oil Sur superó el 70 % de avance: YPF apunta a exportar a principios de 2027.', 'https://www.ambito.com/energia/vaca-muerta-oil-sur-supero-el-70-avance-ypf-apunta-exportar-principios-2027-n6304443'],
   ];
 
   const refsEl = $('#refs');
@@ -126,6 +129,7 @@
   ['rusIndia', 'rusChina'].forEach((k) => { routeEls[k] = mk('path', { d: M.routes[k], class: 'route alt' }, routesG); });
   ['pipeEW', 'pipeHF'].forEach((k) => mk('path', { d: M.routes[k], class: 'route pipe' }, routesG));
   mk('path', { d: M.routes.geoArg, class: 'route geo' }, routesG);
+  aoiEls.vmos = mk('path', { d: M.routes.vmos, class: 'aoi pipe-zone' }, routesG);
   const arcEls = ['arcARG', 'arcCHN', 'arcIND', 'arcJPN'].map((k, i) => mk('path', { d: M.routes[k], class: `route arc a${i + 1}` }, routesG));
 
   /* Capa superpuesta: rótulos con bandera, ciudades, cuellos de botella, barcos y el punto crítico */
@@ -154,7 +158,7 @@
   const CITY = {
     tokyo: 'Tokio', ningbo: 'Ningbo', jamnagar: 'Jamnagar', rotterdam: 'Róterdam', ulsan: 'Ulsan', bandarAbbas: 'Bandar Abbas',
     yanbu: 'Yanbu', fujairah: 'Fujairah', abqaiq: 'Abqaiq', rasLaffan: 'Ras Laffan',
-    novorossiysk: 'Novorossiysk', kozmino: 'Kozmino', marDelPlata: 'Mar del Plata', buenosAires: 'Buenos Aires', tehran: 'Teherán',
+    novorossiysk: 'Novorossiysk', kozmino: 'Kozmino', marDelPlata: 'Mar del Plata', buenosAires: 'Buenos Aires', tehran: 'Teherán', puntaColorada: 'Punta Colorada',
   };
   const cityG = mk('g', {}, overlay);
   const cities = {};
