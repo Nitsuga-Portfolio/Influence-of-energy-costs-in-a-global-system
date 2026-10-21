@@ -6,6 +6,8 @@ Presentación interactiva del trabajo final de investigación del Grupo 8 (Facun
 
 La presentación acompaña al documento escrito (tercer parcial y horas de investigación). Su formato es una carta náutica narrativa: un único mapa funciona como hilo de la exposición y su "cámara" se mueve de la escala global al estrecho, de ahí a cada país y finalmente al surtidor.
 
+La carta usa la proyección Mercator (la de la navegación), cubre toda la pantalla y se repite hacia los costados. Cada país tiene su tono, los casos llevan bandera y cada diapositiva enciende sus áreas de interés: exportadores del Golfo, zonas de alto riesgo, cuellos de botella, la Cuenca Neuquina y Rusia como proveedor alternativo.
+
 ## Estructura
 
 | Parte | Diapositivas |
@@ -40,7 +42,7 @@ assets/app.js         cámara del mapa, pasos, gráfico, referencias y anexo
 assets/presenter.js   vista de expositor (index.html?expositor)
 assets/fonts/         fuentes locales con sus licencias
 assets/map-data.js    geometría generada (no editar a mano)
-tools/build-map.mjs   genera map-data.js desde Natural Earth (world-atlas)
+tools/build-map.mjs   genera map-data.js desde Natural Earth (world-atlas): Mercator, países, áreas de interés
 ```
 
 Es un sitio estático y autocontenido: las fuentes (Archivo y Spectral, licencia OFL) están en `assets/fonts`, así que funciona sin internet. Para el aula alcanza con descargar el repositorio y abrir `index.html`; también se publica en Vercel con cada push a `main`.

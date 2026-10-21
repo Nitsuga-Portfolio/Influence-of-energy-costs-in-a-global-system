@@ -82,28 +82,41 @@
   const svg = $('#map');
   const world = $('#world');
   const overlay = $('#overlay');
-  mk('path', { d: M.sphere, class: 'sea' }, world);
-  mk('path', { d: M.grat, class: 'grat' }, world);
-  const masked = mk('g', { mask: 'url(#gulfHole)' }, world);
-  mk('path', { d: M.land, class: 'band' }, masked);
-  mk('path', { d: M.land, class: 'band2' }, masked);
-  mk('path', { d: M.land, class: 'land' }, masked);
-  const gulfG = mk('g', {}, world);
-  mk('path', { d: M.gulfCoast, class: 'band' }, gulfG);
-  mk('path', { d: M.gulfCoast, class: 'band2' }, gulfG);
-  const gulfLand = mk('path', { d: M.gulf, class: 'land' }, gulfG);
-  const ctryEls = {};
-  for (const [k, d] of Object.entries(M.countries)) ctryEls[k] = mk('path', { d, class: 'ctry', 'data-c': k, mask: 'url(#gulfHole)' }, world);
-  mk('path', { d: M.borders, class: 'borders', mask: 'url(#gulfHole)' }, world);
+  // Capa base (mar, países, áreas): se repite a izquierda y derecha para que la carta nunca tenga bordes
+  const base = mk('g', { id: 'base' }, world);
+  mk('path', { d: M.sphere, class: 'sea' }, base);
+  mk('path', { d: M.grat, class: 'grat' }, base);
+
+  // Áreas de interés en el agua: van debajo de la tierra, que recorta su contorno
+  const aoiEls = {};
+  const aoiSeaG = mk('g', {}, base);
+  for (const k of ['risk', 'redsea']) aoiEls[k] = mk('path', { d: M.aoi[k], class: 'aoi sea-zone' }, aoiSeaG);
+
+  // Países con tono propio (vecinos nunca comparten tono). Dentro del recuadro del Golfo se usa el detalle 10 m.
+  const ctryById = {};
+  const addCountry = (parent, [id, c, d]) => {
+    const el = mk('path', { d, class: `ct c${c}` }, parent);
+    (ctryById[id] = ctryById[id] || []).push(el);
+  };
+  const masked = mk('g', { mask: 'url(#gulfHole)' }, base);
+  for (const cls of ['band0', 'band', 'band2']) mk('path', { d: M.land, class: cls }, masked);
+  M.countries.forEach((c) => addCountry(masked, c));
+  mk('path', { d: M.borders, class: 'borders' }, masked);
+  const gulfG = mk('g', {}, base);
+  for (const cls of ['band0', 'band', 'band2']) mk('path', { d: M.gulfCoast, class: cls }, gulfG);
+  M.gulfCountries.forEach((c) => addCountry(gulfG, c));
+  mk('path', { d: M.gulfBorders, class: 'borders' }, gulfG);
   mk('path', { d: M.gulfCoast, class: 'coast' }, gulfG);
-  // Máscara: el detalle 10 m reemplaza al 50 m dentro del recuadro del Golfo
-  requestAnimationFrame(() => {
-    const b = gulfLand.getBBox();
-    const all = $('#maskAll'), hole = $('#maskGulf'), mask = $('#gulfHole');
-    mask.setAttribute('x', -100); mask.setAttribute('y', -100); mask.setAttribute('width', M.w + 200); mask.setAttribute('height', M.h + 200);
-    all.setAttribute('x', -100); all.setAttribute('y', -100); all.setAttribute('width', M.w + 200); all.setAttribute('height', M.h + 200);
-    hole.setAttribute('x', b.x + 0.15); hole.setAttribute('y', b.y + 0.15); hole.setAttribute('width', b.width - 0.3); hole.setAttribute('height', b.height - 0.3);
-  });
+  {
+    const [x0, y0, x1, y1] = M.gulfRect;
+    const set = (el, x, y, w, h) => { el.setAttribute('x', x); el.setAttribute('y', y); el.setAttribute('width', w); el.setAttribute('height', h); };
+    set($('#gulfHole'), -100, -100, M.w + 200, M.h + 200);
+    set($('#maskAll'), -100, -100, M.w + 200, M.h + 200);
+    set($('#maskGulf'), x0 + 0.15, y0 + 0.15, x1 - x0 - 0.3, y1 - y0 - 0.3);
+  }
+  // Área de interés en tierra (Cuenca Neuquina)
+  aoiEls.vaca = mk('path', { d: M.aoi.vaca, class: 'aoi land-zone' }, base);
+  for (const dx of [-M.w, M.w]) mk('use', { href: '#base', x: dx, y: 0 }, world);
 
   const routesG = mk('g', {}, world);
   const oilRoutes = ['europe', 'india', 'korea', 'china', 'japan'];
@@ -112,20 +125,36 @@
   oilRoutes.forEach((k) => { routeEls[k] = mk('path', { d: M.routes[k], class: 'route oil' }, routesG); });
   ['rusIndia', 'rusChina'].forEach((k) => { routeEls[k] = mk('path', { d: M.routes[k], class: 'route alt' }, routesG); });
   ['pipeEW', 'pipeHF'].forEach((k) => mk('path', { d: M.routes[k], class: 'route pipe' }, routesG));
-  const geoEl = mk('path', { d: M.routes.geoArg, class: 'route geo' }, routesG);
+  mk('path', { d: M.routes.geoArg, class: 'route geo' }, routesG);
   const arcEls = ['arcARG', 'arcCHN', 'arcIND', 'arcJPN'].map((k, i) => mk('path', { d: M.routes[k], class: `route arc a${i + 1}` }, routesG));
 
-  /* Capa superpuesta: rótulos, ciudades, barcos y el punto crítico */
+  /* Capa superpuesta: rótulos con bandera, ciudades, cuellos de botella, barcos y el punto crítico */
   const labG = mk('g', {}, overlay);
-  const labels = M.labels.map(([t, c, x, y, a, b]) => {
-    const el = mk('text', { class: c === 'sea' ? 'lbl-sea' : 'lbl-land', 'text-anchor': 'middle' }, labG);
-    el.textContent = t;
-    return { el, x, y, a, b };
+  const labels = M.labels.map(([t, c, x, y, a, b, flag, area]) => {
+    const cls = c === 'sea' ? 'lbl-sea' : c === 'land' ? 'lbl-land' : 'lbl-aoi ' + c;
+    const g = mk('g', { class: 'lbl' }, labG);
+    const text = mk('text', { class: cls, 'text-anchor': 'middle' }, g);
+    text.textContent = t;
+    const use = flag ? mk('use', { href: '#fl-' + flag, width: 17, height: 11.3, class: 'lbl-flag' }, g) : null;
+    return { g, text, use, x, y, a, b, area, vis: null };
   });
+  function layoutLabels() {
+    for (const l of labels) {
+      if (!l.use) continue;
+      const w = l.text.getComputedTextLength() || 40;
+      const total = w + 21;
+      l.use.setAttribute('x', (-total / 2).toFixed(1));
+      l.use.setAttribute('y', -9.6);
+      l.text.setAttribute('x', (-total / 2 + 21 + w / 2).toFixed(1));
+    }
+  }
+  layoutLabels();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutLabels);
+
   const CITY = {
     tokyo: 'Tokio', ningbo: 'Ningbo', jamnagar: 'Jamnagar', rotterdam: 'Róterdam', ulsan: 'Ulsan', bandarAbbas: 'Bandar Abbas',
-    yanbu: 'Yanbu', fujairah: 'Fujairah', abqaiq: 'Abqaiq', rasLaffan: 'Ras Laffan', malacca: 'Estrecho de Malaca', babElMandeb: 'Bab el-Mandeb',
-    suez: 'Suez', novorossiysk: 'Novorossiysk', kozmino: 'Kozmino', vacaMuerta: 'Vaca Muerta', marDelPlata: 'Mar del Plata', buenosAires: 'Buenos Aires', tehran: 'Teherán',
+    yanbu: 'Yanbu', fujairah: 'Fujairah', abqaiq: 'Abqaiq', rasLaffan: 'Ras Laffan',
+    novorossiysk: 'Novorossiysk', kozmino: 'Kozmino', marDelPlata: 'Mar del Plata', buenosAires: 'Buenos Aires', tehran: 'Teherán',
   };
   const cityG = mk('g', {}, overlay);
   const cities = {};
@@ -136,6 +165,16 @@
     t.textContent = name;
     cities[k] = { g, p: M.pts[k] };
   }
+  // Cuellos de botella del comercio marítimo (área de interés "chokes")
+  const RINGS = { babElMandeb: ['Bab el-Mandeb', 1], suez: ['Canal de Suez', 1], malacca: ['Estrecho de Malaca', 1], capeGood: ['Cabo de Buena Esperanza: el desvío', 1] };
+  const ringG = mk('g', { class: 'rings' }, overlay);
+  const rings = Object.entries(RINGS).map(([k, [name, side]]) => {
+    const g = mk('g', { class: 'ring' }, ringG);
+    mk('circle', { r: 8 }, g);
+    const t = mk('text', { x: side * 13, y: 4, 'text-anchor': side > 0 ? 'start' : 'end' }, g);
+    t.textContent = name;
+    return { g, p: M.pts[k] };
+  });
   const shipG = mk('g', {}, overlay);
   const ships = [];
   const addShips = (key, n, cls) => {
@@ -185,9 +224,13 @@
     const k = Math.min(a.w / bw, a.h / bh) * 0.9;
     return { cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, lk: Math.log(k), ax: a.x + a.w / 2, ay: a.y + a.h / 2 };
   }
+  // La cámara nunca muestra el borde de la carta: zoom mínimo y desplazamiento acotados
   function applyCam(c) {
-    const k = Math.exp(c.lk);
-    view.k = k; view.tx = c.ax - k * c.cx; view.ty = c.ay - k * c.cy;
+    const Ws = svg.clientWidth, Hs = svg.clientHeight;
+    const k = Math.max(Math.exp(c.lk), Hs / M.h);
+    view.k = k;
+    view.tx = c.ax - k * c.cx; // horizontalmente la carta se repite: no hace falta acotar
+    view.ty = Math.min(0, Math.max(Hs - k * M.h, c.ay - k * c.cy));
     world.setAttribute('transform', `translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${k.toFixed(5)})`);
   }
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -244,7 +287,7 @@
   const toScreen = (p) => [view.k * p[0] + view.tx, view.k * p[1] + view.ty];
 
   /* ---------------- Bucle de animación ---------------- */
-  let state = { layers: new Set(), cities: new Set() };
+  let state = { layers: new Set(), cities: new Set(), aoi: new Set() };
   let throttle = 1;
   let last = performance.now();
   const callouts = [];
@@ -255,9 +298,15 @@
     // Rótulos según nivel de zoom
     for (const l of labels) {
       const [x, y] = toScreen([l.x, l.y]);
-      const on = k >= l.a && k <= l.b;
-      l.el.setAttribute('x', x.toFixed(1)); l.el.setAttribute('y', y.toFixed(1));
-      l.el.style.opacity = on ? 1 : 0;
+      const on = k >= l.a && k <= l.b && (!l.area || state.aoi.has(l.area));
+      l.g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+      if (on !== l.vis) { l.g.style.opacity = on ? 1 : 0; l.vis = on; }
+    }
+    const chokesOn = state.aoi.has('chokes');
+    for (const r of rings) {
+      const [x, y] = toScreen(r.p);
+      r.g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+      r.g.classList.toggle('on', chokesOn);
     }
     for (const [key, c] of Object.entries(cities)) {
       const [x, y] = toScreen(c.p);
@@ -321,10 +370,10 @@
   const stepsOf = (s) => $$('[data-step]', s);
 
   function computeState(slide) {
-    const st = { cam: slide.dataset.cam, layers: slide.dataset.layers || '', cities: slide.dataset.cities || '', focus: slide.dataset.focus || '', dim: slide.dataset.dim, upto: null };
+    const st = { cam: slide.dataset.cam, layers: slide.dataset.layers || '', cities: slide.dataset.cities || '', focus: slide.dataset.focus || '', aoi: slide.dataset.aoi || '', dim: slide.dataset.dim, upto: null };
     for (const el of stepsOf(slide)) {
       if (el.classList.contains('pending')) break;
-      for (const key of ['cam', 'layers', 'cities', 'focus', 'upto']) if (el.dataset[key] !== undefined) st[key] = el.dataset[key];
+      for (const key of ['cam', 'layers', 'cities', 'focus', 'aoi', 'upto']) if (el.dataset[key] !== undefined) st[key] = el.dataset[key];
     }
     return st;
   }
@@ -333,8 +382,14 @@
     state.layers = new Set(st.layers.split(/\s+/).filter(Boolean));
     state.cities = new Set(st.cities.split(',').filter(Boolean));
     svg.setAttribute('class', [...state.layers].map((l) => 'L-' + l).join(' ') + (st.dim ? ' dim' : ''));
-    const focus = new Set(st.focus.split(',').filter(Boolean));
-    for (const [k, el] of Object.entries(ctryEls)) el.classList.toggle('on', focus.has(k));
+    const focus = new Set(st.focus.split(',').filter(Boolean).map((k) => M.iso[k]));
+    state.aoi = new Set(st.aoi.split(/\s+/).filter(Boolean));
+    const prod = state.aoi.has('prod'), rus = state.aoi.has('rus');
+    for (const [id, els] of Object.entries(ctryById)) {
+      const on = focus.has(id), isProd = prod && M.prodIds.includes(id), isRus = rus && id === M.iso.RUS;
+      for (const el of els) { el.classList.toggle('on', on); el.classList.toggle('prod', isProd && !on); el.classList.toggle('rus', isRus); }
+    }
+    for (const [k, el] of Object.entries(aoiEls)) el.classList.toggle('on', state.aoi.has(k));
     moveCam(targetFor(slide, st.cam), instant);
     if (slide.querySelector('#brent')) brentTo(st.upto || '2026-02-28', instant || entering);
   }

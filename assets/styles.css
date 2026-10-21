@@ -41,13 +41,23 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #map { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
 #map .sea { fill: var(--sea); }
 #map .grat { fill: none; stroke: #b9cfd6; stroke-width: .6; vector-effect: non-scaling-stroke; opacity: .7; }
+#map .band0 { fill: none; stroke: #dcecef; stroke-width: 18; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 #map .band { fill: none; stroke: var(--shoal); stroke-width: 7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 #map .band2 { fill: none; stroke: var(--shoal-deep); stroke-width: 1.4; vector-effect: non-scaling-stroke; opacity: .8; }
 #map .land { fill: var(--land); }
 #map .coast { fill: none; stroke: #8d8064; stroke-width: .7; vector-effect: non-scaling-stroke; }
 #map .borders { fill: none; stroke: #a99a78; stroke-width: .6; stroke-dasharray: 3 2; vector-effect: non-scaling-stroke; }
-#map .ctry { fill: var(--land); stroke: none; transition: fill .9s var(--ease); }
-#map .ctry.on { fill: var(--land-focus); }
+/* Países: cinco tonos de tierra; foco y áreas de interés con transición */
+#map .ct { stroke: none; transition: fill .9s ease; }
+#map .ct.c0 { fill: #ebe2cb; } #map .ct.c1 { fill: #e3d6b8; } #map .ct.c2 { fill: #efe9d8; } #map .ct.c3 { fill: #dccfae; } #map .ct.c4 { fill: #e7dbbf; } #map .ct.c5 { fill: #f3f5f4; }
+#map .ct.on { fill: #cfae6c; }
+#map .ct.prod { fill: #ecd09c; }
+#map .ct.rus { fill: #c5d0da; }
+#map .aoi { vector-effect: non-scaling-stroke; transition: fill-opacity .8s ease, stroke-opacity .8s ease; }
+#map .aoi.sea-zone { fill: var(--magenta); fill-opacity: 0; stroke: var(--magenta); stroke-opacity: 0; stroke-width: 1.4; stroke-dasharray: 6 4; }
+#map .aoi.sea-zone.on { fill-opacity: .13; stroke-opacity: .75; }
+#map .aoi.land-zone { fill: var(--oil); fill-opacity: 0; stroke: var(--oil); stroke-opacity: 0; stroke-width: 1.6; stroke-dasharray: 5 3; }
+#map .aoi.land-zone.on { fill-opacity: .38; stroke-opacity: .95; }
 #map .route { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: opacity .8s, stroke .8s; }
 #map .route.oil { stroke: var(--oil); stroke-width: 2.4; stroke-dasharray: 1 9; animation: flow 1.6s linear infinite; opacity: 0; }
 #map .route.oil-base { stroke: var(--oil); stroke-width: 1; opacity: 0; }
@@ -74,8 +84,17 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #world { transition: opacity .8s; }
 
 /* Capa superpuesta (no escala con el zoom) */
-#overlay text { transition: opacity .5s ease; font-family: var(--f-head); paint-order: stroke; stroke: var(--sea); stroke-width: 4px; stroke-linejoin: round; }
+#overlay text { font-family: var(--f-head); paint-order: stroke; stroke: var(--sea); stroke-width: 4px; stroke-linejoin: round; }
 #overlay .lbl-sea { font-family: var(--f-body); font-style: italic; fill: #5c8796; font-size: 14px; letter-spacing: .06em; }
+#overlay .lbl { transition: opacity .5s ease; }
+#overlay .lbl-aoi { font-size: 13px; font-weight: 700; font-variation-settings: "wdth" 82; letter-spacing: .02em; }
+#overlay .aoi-prod { fill: var(--oil); }
+#overlay .aoi-risk { fill: var(--magenta); }
+#overlay .aoi-rus { fill: #3d5a73; }
+#overlay .ring circle { fill: none; stroke: var(--magenta); stroke-width: 1.8; }
+#overlay .ring text { fill: var(--magenta); font-size: 12px; font-weight: 700; font-variation-settings: "wdth" 85; }
+#overlay .ring { opacity: 0; transition: opacity .6s ease; }
+#overlay .ring.on { opacity: 1; }
 #overlay .lbl-land { fill: var(--ink-soft); font-size: 12.5px; font-variation-settings: "wdth" 80; letter-spacing: .08em; font-weight: 500; }
 #overlay .lbl-city { fill: var(--ink); font-size: 12px; font-variation-settings: "wdth" 85; }
 #overlay .city { fill: var(--sea); stroke: var(--ink); stroke-width: 1.5; }
@@ -292,6 +311,14 @@ table.cmp tr.pay th { color: var(--magenta); }
 .tools b { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 82; font-size: 1.12em; }
 .hint { margin-top: 1.6rem; font-size: .78em; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: .2rem .7rem; align-items: center; }
 
+/* Banderas en miniatura */
+.flag { display: inline-block; width: 1.25em; height: .83em; margin-right: .38em; vertical-align: -.04em; flex: none; }
+h2 .flag { width: .9em; height: .6em; vertical-align: .06em; margin-right: .28em; }
+table.cmp thead th .flag { width: 1.15em; height: .77em; }
+
+/* Rosa de los vientos */
+#rose { position: fixed; right: calc(var(--gutter) + 8px); bottom: calc(var(--bar) + var(--gutter) + 4px); width: 104px; height: 104px; color: var(--ink); opacity: .55; pointer-events: none; z-index: 1; }
+
 /* Cierre */
 .thesis-big { font-family: var(--f-head); font-variation-settings: "wdth" 72; font-weight: 800; font-size: clamp(2.2rem, min(4.4vw, 7.4vh), 4.6rem); line-height: .98; margin: .2rem 0 1.1rem; color: var(--ink); max-width: none; }
 .thanks { font-family: var(--f-head); font-variation-settings: "wdth" 80; font-weight: 700; font-size: 1.5em; color: var(--magenta); margin-top: 1.4rem; }
@@ -370,6 +397,7 @@ table.cmp tr.pay th { color: var(--magenta); }
   .callout { display: none; }
   #route .sec { display: none; }
   #btnPresenter { display: none; }
+  #rose { display: none; }
   #notes { width: auto; left: 10px; right: 10px; }
   [data-step].pending { opacity: 1; transform: none; pointer-events: auto; }
 }
@@ -380,7 +408,7 @@ table.cmp tr.pay th { color: var(--magenta); }
 
 @media print {
   html, body { overflow: visible; height: auto; }
-  #map, #route, #notes, #toc, .callout { display: none !important; }
+  #map, #route, #notes, #toc, .callout, #rose { display: none !important; }
   #deck { position: static; }
   .slide { position: relative; visibility: visible; page-break-after: always; }
   .panel { position: static; width: auto !important; outline: none; }
@@ -390,7 +418,7 @@ table.cmp tr.pay th { color: var(--magenta); }
 
 /* ---------- Vista de expositor ---------- */
 html.presenter, html.presenter body { overflow: hidden; background: var(--ink); }
-html.presenter #map, html.presenter #deck, html.presenter #route, html.presenter #notes, html.presenter #toc, html.presenter .callout { display: none !important; }
+html.presenter #rose, html.presenter #map, html.presenter #deck, html.presenter #route, html.presenter #notes, html.presenter #toc, html.presenter .callout { display: none !important; }
 #pv { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto; color: var(--sea); font-size: 18px; }
 #pv button { font-family: var(--f-head); font-variation-settings: "wdth" 85; cursor: pointer; }
 #pv header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 14px 22px; border-bottom: 1px solid #2c4357; }
