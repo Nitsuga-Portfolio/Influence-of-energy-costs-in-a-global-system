@@ -53,6 +53,7 @@
     ['Bibliografía de la cátedra', 'Roccatagliata, J. A. (coord.) (2008). <i>Argentina. Una visión actual y prospectiva desde la dimensión territorial</i>. Emecé.', ''],
     ['Argentina', 'Ámbito (28 de julio de 2026). Vaca Muerta Oil Sur superó el 70 % de avance: YPF apunta a exportar a principios de 2027.', 'https://www.ambito.com/energia/vaca-muerta-oil-sur-supero-el-70-avance-ypf-apunta-exportar-principios-2027-n6304443'],
     ['Fuentes del caso', 'Jiji Press, vía Adnkronos (16 de marzo de 2026). Japón comienza a liberar reservas: 146 días estatales y 101 privados; se liberan 45 días.', 'https://english.adnkronos.com/2026/03/16/japan-starts-releasing-oil-reserves/'],
+    ['Organismos', 'Georgieva, K. (6 de marzo de 2026). Entrevista en Bloomberg Television, conferencia del FMI «Asia in 2050», Bangkok: efecto de una suba de 10 % de la energía sobre la inflación y el crecimiento mundial. Reseña de The Edge Singapore.', 'https://alfi.dev.theedgesingapore.com/news/global-economy/imf-says-10-oil-rise-year-adds-40-basis-points-inflation'],
   ];
 
   const refsEl = $('#refs');
@@ -60,12 +61,38 @@
     // Orden numérico, igual que los superíndices; la bibliografía de la cátedra va marcada
     refsEl.innerHTML = '<ol>' + REFS.map((r, i) => (r ? `<li value="${i}">${r[0] === 'Bibliografía de la cátedra' ? '<span class="cat">Cátedra</span> ' : ''}${r[1]}${r[2] ? ` <a href="${r[2]}" target="_blank" rel="noopener">enlace</a>` : ''}</li>` : '')).join('') + '</ol>';
   }
+  /* Glosario: vocabulario específico con definición al pasar el cursor */
+  const GLOSS = {
+    "aie": "Agencia Internacional de Energía: organismo de 32 países consumidores que coordina reservas de emergencia de petróleo. Japón es miembro desde su fundación, en 1974.",
+    "choke": "Chokepoint o cuello de botella: paso marítimo angosto y obligado de una ruta comercial. Su bloqueo no tiene sustituto inmediato (Ormuz, Malaca, Suez, Bab el-Mandeb).",
+    "mbd": "Millones de barriles por día. El mundo consume unos 100 mb/d; por Ormuz pasaban unos 20.",
+    "gnl": "Gas natural licuado (GNL): gas enfriado a −162 °C para transportarlo en buques. Qatar es uno de los mayores exportadores y sale por Ormuz.",
+    "brent": "Crudo de referencia del Mar del Norte: fija el precio de la mayor parte del petróleo que se comercia en el mundo, incluido el de Argentina.",
+    "shockof": "Shock de oferta: caída brusca de la cantidad disponible de un bien. Sube el precio y frena la actividad a la vez, a diferencia de un shock de demanda.",
+    "tdi": "Términos de intercambio: relación entre los precios de lo que un país exporta y lo que importa. Si sube el petróleo, mejoran para los exportadores y empeoran para los importadores.",
+    "pip": "Paridad de importación: el precio interno se alinea con lo que costaría importar el producto. Por eso el surtidor argentino sigue al Brent aunque el país produzca su crudo.",
+    "buffer": "Mecanismo anunciado por YPF el 1 de abril: no trasladar al surtidor durante 45 días las subas del Brent, resignando margen para recuperarlo después.",
+    "reservas": "Reservas estratégicas: stocks de petróleo que un Estado (o las empresas, por obligación legal) mantienen para usar en una emergencia de suministro.",
+    "gestion": "Gestión territorial: diseño de políticas que organizan el uso del territorio y sus recursos. Objetivo del curso según el Plan de Trabajo Docente.",
+    "vcl": "Ventaja competitiva locacional: ventaja que un territorio obtiene de su localización, sus recursos y su infraestructura. Concepto del marco teórico de la cátedra.",
+    "brics": "Bloque de economías emergentes: Brasil, Rusia, India, China y Sudáfrica, ampliado desde 2024 con Irán, Egipto, Etiopía y Emiratos, entre otros.",
+  };
+  $$('dfn[data-g]').forEach((d) => { d.tabIndex = 0; });
+  const GNAMES = { aie: 'AIE', choke: 'Chokepoint (cuello de botella)', mbd: 'mb/d', gnl: 'GNL (gas natural licuado)', brent: 'Brent', shockof: 'Shock de oferta', tdi: 'Términos de intercambio', pip: 'Paridad de importación', buffer: 'Buffer de YPF', reservas: 'Reservas estratégicas', gestion: 'Gestión territorial', vcl: 'Ventaja competitiva locacional', brics: 'BRICS' };
+  const gl = $('#glossList');
+  if (gl) gl.innerHTML = Object.keys(GNAMES).sort((x, y) => GNAMES[x].localeCompare(GNAMES[y], 'es'))
+    .map((k) => `<div><dt>${GNAMES[k]}</dt><dd>${GLOSS[k].replace(/^[^:]+: /, '')}</dd></div>`).join('');
   $$('sup.r').forEach((s) => { s.textContent = s.dataset.r; s.tabIndex = 0; s.setAttribute('aria-label', 'Fuente ' + s.dataset.r); });
   const tip = $('#tip');
   const showTip = (e) => {
-    const s = e.target.closest('sup.r'); if (!s) return;
-    const r = REFS[+s.dataset.r]; if (!r) return;
-    tip.innerHTML = `<b>[${s.dataset.r}]</b> ${r[1]}`;
+    const s = e.target.closest('sup.r, dfn[data-g]'); if (!s) return;
+    if (s.matches('dfn')) {
+      const g = GLOSS[s.dataset.g]; if (!g) return;
+      tip.innerHTML = g; tip.classList.add('gloss');
+    } else {
+      const r = REFS[+s.dataset.r]; if (!r) return;
+      tip.innerHTML = `<b>[${s.dataset.r}]</b> ${r[1]}`; tip.classList.remove('gloss');
+    }
     tip.style.display = 'block';
     const b = s.getBoundingClientRect();
     const x = Math.min(innerWidth - tip.offsetWidth - 10, Math.max(10, b.left - 20));
@@ -74,15 +101,17 @@
   };
   document.addEventListener('mouseover', showTip);
   document.addEventListener('focusin', showTip);
-  document.addEventListener('mouseout', (e) => { if (e.target.closest('sup.r')) tip.style.display = 'none'; });
-  document.addEventListener('focusout', (e) => { if (e.target.closest('sup.r')) tip.style.display = 'none'; });
+  document.addEventListener('mouseout', (e) => { if (e.target.closest('sup.r, dfn[data-g]')) tip.style.display = 'none'; });
+  document.addEventListener('focusout', (e) => { if (e.target.closest('sup.r, dfn[data-g]')) tip.style.display = 'none'; });
 
   /* ---------------- Mapa base ---------------- */
   const svg = $('#map');
+  const baseSvg = $('#mapBase');
   const world = $('#world');
+  const worldBase = $('#worldBase');
   const overlay = $('#overlay');
   // Capa base (mar, países, áreas): se repite a izquierda y derecha para que la carta nunca tenga bordes
-  const base = mk('g', { id: 'base' }, world);
+  const base = mk('g', { id: 'base' }, worldBase);
   mk('path', { d: M.sphere, class: 'sea' }, base);
   mk('path', { d: M.grat, class: 'grat' }, base);
 
@@ -97,7 +126,7 @@
     const el = mk('path', { d, class: `ct c${c}` }, parent);
     (ctryById[id] = ctryById[id] || []).push(el);
   };
-  const masked = mk('g', { mask: 'url(#gulfHole)' }, base);
+  const masked = mk('g', { 'clip-path': 'url(#gulfHole)' }, base);
   for (const cls of ['band0', 'band', 'band2']) mk('path', { d: M.land, class: cls }, masked);
   M.countries.forEach((c) => addCountry(masked, c));
   mk('path', { d: M.borders, class: 'borders' }, masked);
@@ -107,15 +136,13 @@
   mk('path', { d: M.gulfBorders, class: 'borders' }, gulfG);
   mk('path', { d: M.gulfCoast, class: 'coast' }, gulfG);
   {
-    const [x0, y0, x1, y1] = M.gulfRect;
-    const set = (el, x, y, w, h) => { el.setAttribute('x', x); el.setAttribute('y', y); el.setAttribute('width', w); el.setAttribute('height', h); };
-    set($('#gulfHole'), -100, -100, M.w + 200, M.h + 200);
-    set($('#maskAll'), -100, -100, M.w + 200, M.h + 200);
-    set($('#maskGulf'), x0 + 0.15, y0 + 0.15, x1 - x0 - 0.3, y1 - y0 - 0.3);
+    // Recorte con un agujero en el recuadro del Golfo (más barato que una máscara de luminancia)
+    const [x0, y0, x1, y1] = M.gulfRect.map((v, i) => v + (i < 2 ? 0.15 : -0.15));
+    $('#gulfHolePath').setAttribute('d', `M-100,-100H${M.w + 100}V${M.h + 100}H-100Z M${x0},${y0}V${y1}H${x1}V${y0}Z`);
   }
   // Área de interés en tierra (Cuenca Neuquina)
   aoiEls.vaca = mk('path', { d: M.aoi.vaca, class: 'aoi land-zone' }, base);
-  for (const dx of [-M.w, M.w]) mk('use', { href: '#base', x: dx, y: 0 }, world);
+  const clones = [-M.w, M.w].map((dx) => mk('use', { href: '#base', x: dx, y: 0 }, worldBase));
 
   const routesG = mk('g', {}, world);
   const oilRoutes = ['europe', 'india', 'korea', 'china', 'japan'];
@@ -175,26 +202,37 @@
     t.textContent = name;
     return { g, p: M.pts[k] };
   });
-  const shipG = mk('g', {}, overlay);
+  // Las rutas se muestrean una sola vez: mover un barco es leer un arreglo, no medir el trazado en cada cuadro
+  const sampleCache = new Map();
+  function sampler(path) {
+    if (sampleCache.has(path)) return sampleCache.get(path);
+    const L = path.getTotalLength(), n = Math.max(80, Math.ceil(L / 2));
+    const xy = new Float32Array((n + 1) * 2);
+    for (let i = 0; i <= n; i++) { const p = path.getPointAtLength((i / n) * L); xy[i * 2] = p.x; xy[i * 2 + 1] = p.y; }
+    const f = { L, at(s) { const u = Math.max(0, Math.min(1, s / L)) * n, i = Math.floor(u), j = Math.min(n, i + 1), r = u - i;
+      return [xy[i * 2] + (xy[j * 2] - xy[i * 2]) * r, xy[i * 2 + 1] + (xy[j * 2 + 1] - xy[i * 2 + 1]) * r]; } };
+    sampleCache.set(path, f); return f;
+  }
+  const shipG = mk('g', { class: 'keep' }, overlay);
   const ships = [];
   const addShips = (key, n, cls) => {
-    const path = routeEls[key];
-    const L = path.getTotalLength();
+    const path = sampler(routeEls[key]);
+    const L = path.L;
     for (let i = 0; i < n; i++) ships.push({ path, L, s: (i / n) * L + Math.random() * 20, el: mk('circle', { r: 3, class: 'ship ' + cls }, shipG), key });
   };
   oilRoutes.forEach((k) => addShips(k, k === 'india' ? 1 : 3, 'oilship'));
   addShips('rusIndia', 3, 'altship'); addShips('rusChina', 1, 'altship');
 
   // Ondas del shock: puntos que viajan de Ormuz a cada caso en el cierre
-  const waveG = mk('g', {}, overlay);
+  const waveG = mk('g', { class: 'keep' }, overlay);
   const waves = [];
-  arcEls.forEach((path, i) => {
-    const L = path.getTotalLength();
+  arcEls.forEach((el, i) => {
+    const path = sampler(el), L = path.L;
     for (let j = 0; j < 3; j++) waves.push({ path, L, s: (j / 3) * L, delay: i * 0.25, el: mk('circle', { r: 3.4, class: 'wave' }, waveG) });
   });
   let arcsOnAt = 0;
 
-  const chokeG = mk('g', {}, overlay);
+  const chokeG = mk('g', { class: 'keep' }, overlay);
   const pulse = mk('circle', { r: 6, class: 'pulse' }, chokeG);
   mk('circle', { r: 9, class: 'choke' }, chokeG);
   mk('circle', { r: 3.5, class: 'choke-core' }, chokeG);
@@ -232,6 +270,35 @@
     view.tx = c.ax - k * c.cx; // horizontalmente la carta se repite: no hace falta acotar
     view.ty = Math.min(0, Math.max(Hs - k * M.h, c.ay - k * c.cy));
     world.setAttribute('transform', `translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${k.toFixed(5)})`);
+    syncBase();
+  }
+  // Capa base: en equipos rápidos se redibuja en cada cuadro; en equipos lentos la GPU escala la última versión nítida
+  // y se redibuja sólo cuando esa imagen deja de cubrir la pantalla o pierde mucha definición. El modo se mide solo.
+  const baseView = { k: 0, tx: 0, ty: 0, at: 0 };
+  let rasterMs = 0; // costo estimado de redibujar la base (promedio móvil del cuadro siguiente a un redibujo)
+  let measureFrom = 0;
+  function drawBase() {
+    Object.assign(baseView, view, { at: performance.now() });
+    worldBase.setAttribute('transform', `translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${view.k.toFixed(5)})`);
+    baseSvg.style.transform = '';
+    const left = -view.tx / view.k, right = (svg.clientWidth - view.tx) / view.k;
+    clones[0].style.display = left < 0 ? '' : 'none';
+    clones[1].style.display = right > M.w ? '' : 'none';
+    measureFrom = performance.now();
+    requestAnimationFrame(() => requestAnimationFrame((t) => {
+      const d = t - measureFrom; rasterMs = rasterMs ? rasterMs * 0.6 + d * 0.4 : d;
+    }));
+  }
+  function syncBase() {
+    if (!baseView.k || !tween) return drawBase();
+    if (rasterMs && rasterMs < 45) return drawBase(); // equipo rápido: siempre nítido
+    const s = view.k / baseView.k;
+    const dx = view.tx - s * baseView.tx, dy = view.ty - s * baseView.ty;
+    const Ws = svg.clientWidth, Hs = svg.clientHeight;
+    const uncovered = dx > 1 || dy > 1 || dx + s * Ws < Ws - 1 || dy + s * Hs < Hs - 1;
+    const blurry = s > 2.2;
+    if ((uncovered || blurry) && performance.now() - baseView.at > 160) return drawBase();
+    baseSvg.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${s.toFixed(5)})`;
   }
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const easeSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
@@ -272,13 +339,17 @@
       const [cx, cy, w] = path(e);
       cam = { cx, cy, lk: Math.log(REF / w), ax: from.ax + (target.ax - from.ax) * e2, ay: from.ay + (target.ay - from.ay) * e2 };
       applyCam(cam);
-      if (t >= 1) { tween = null; camMoving(false); }
+      if (t >= 1) { tween = null; drawBase(); camMoving(false); }
     };
   }
   // Las llamadas sobre el mapa esperan a que la cámara se detenga
   let calloutTimer = null;
+  // Durante los viajes los rótulos se ocultan (como en los mapas digitales): la carta queda limpia y fluida
+  let labelsHidden = false;
   function camMoving(moving) {
     clearTimeout(calloutTimer);
+    if (moving) { labelsHidden = true; overlay.classList.add('moving'); }
+    else { labelsHidden = false; lastSig = ''; overlay.classList.remove('moving'); }
     const active = slides && slides[cur];
     const els = active ? $$('.callout', active) : [];
     if (moving) els.forEach((el) => el.classList.remove('show'));
@@ -289,12 +360,17 @@
   /* ---------------- Bucle de animación ---------------- */
   let state = { layers: new Set(), cities: new Set(), aoi: new Set() };
   let throttle = 1;
+  let lastSig = '';
   let last = performance.now();
   const callouts = [];
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (tween) tween(now);
     const k = view.k;
+    const sig = `${k.toFixed(5)}|${view.tx.toFixed(1)}|${view.ty.toFixed(1)}|${[...state.aoi].join()}|${[...state.cities].join()}|${cur}`;
+    const viewChanged = sig !== lastSig && !labelsHidden;
+    if (viewChanged) lastSig = sig;
+    if (viewChanged) {
     // Rótulos según nivel de zoom
     for (const l of labels) {
       const [x, y] = toScreen([l.x, l.y]);
@@ -313,6 +389,7 @@
       c.g.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
       c.g.classList.toggle('on', state.cities.has(key));
     }
+    }
     const [hx, hy] = toScreen(M.pts.hormuz);
     chokeG.setAttribute('transform', `translate(${hx.toFixed(1)} ${hy.toFixed(1)})`);
     // Barcos
@@ -329,8 +406,7 @@
       if (!visible) continue;
       const v = alt ? 1 : throttle;
       if (!reduced && v > 0.002) s.s = (s.s + speed * dt * 10 * v) % s.L;
-      const p = s.path.getPointAtLength(s.s);
-      const [x, y] = toScreen([p.x, p.y]);
+      const [x, y] = toScreen(s.path.at(s.s));
       s.el.setAttribute('cx', x.toFixed(1)); s.el.setAttribute('cy', y.toFixed(1));
       s.el.classList.toggle('halt', !alt && blocked && !flowing && throttle < 0.5);
       if (alt) s.el.style.fill = 'var(--ink)';
@@ -343,8 +419,7 @@
       w.el.style.opacity = vis ? 1 : 0;
       if (!vis) continue;
       if (!reduced) w.s = (w.s + (w.L / 5) * dt) % w.L; // cada onda tarda unos 5 s en llegar
-      const p = w.path.getPointAtLength(w.s);
-      const [x, y] = toScreen([p.x, p.y]);
+      const [x, y] = toScreen(w.path.at(w.s));
       w.el.setAttribute('cx', x.toFixed(1)); w.el.setAttribute('cy', y.toFixed(1));
     }
     for (const c of callouts) {
@@ -382,7 +457,8 @@
     const st = computeState(slide);
     state.layers = new Set(st.layers.split(/\s+/).filter(Boolean));
     state.cities = new Set(st.cities.split(',').filter(Boolean));
-    svg.setAttribute('class', [...state.layers].map((l) => 'L-' + l).join(' ') + (st.dim ? ' dim' : ''));
+    svg.setAttribute('class', 'mapsvg ' + [...state.layers].map((l) => 'L-' + l).join(' ') + (st.dim ? ' dim' : ''));
+    baseSvg.setAttribute('class', 'mapsvg' + (st.dim ? ' dim' : ''));
     const focus = new Set(st.focus.split(',').filter(Boolean).map((k) => M.iso[k]));
     state.aoi = new Set(st.aoi.split(/\s+/).filter(Boolean));
     const prod = state.aoi.has('prod'), rus = state.aoi.has('rus');
@@ -501,7 +577,7 @@
     ticks.forEach((t, i) => t.classList.toggle('seen', i <= cur));
     secBtns.forEach(({ b, p }) => b.classList.toggle('cur', +s.dataset.part === p));
     $('#count').textContent = `${cur + 1} / ${N}`;
-    $('#notesTitle').textContent = `${cur + 1}. ${s.dataset.title}`;
+    $('#notesTitle').textContent = `${cur + 1}. ${s.dataset.title}` + (s.dataset.speaker && +s.dataset.secs ? ` · habla ${s.dataset.speaker}` : '');
     broadcast();
     const n = $('aside.notes', s);
     $('#notesBody').innerHTML = n ? n.innerHTML : '<p>Sin notas.</p>';
@@ -643,7 +719,7 @@
   function calc() {
     const p = +pct.value / 10;
     $('#pctv').textContent = pct.value;
-    $('#outG').textContent = fmt1(-0.10 * p); $('#outG2').textContent = fmt1(-0.15 * p);
+    $('#outG').textContent = fmt1(-0.10 * p); $('#outG2').textContent = fmt1(-0.20 * p);
     $('#outI').textContent = fmt1(0.3 * p); $('#outI2').textContent = fmt1(0.4 * p);
   }
   if (pct) {

@@ -15,6 +15,8 @@
     const info = slides.map((s, i) => ({
       i,
       title: s.dataset.title,
+      speaker: s.dataset.speaker || '',
+      secs: +(s.dataset.secs || 0),
       part: ($('.part', s) || {}).textContent || '',
       notes: ($('aside.notes', s) || {}).innerHTML || '<p>Sin notas.</p>',
       steps: [], // el texto aparece completo: no hay pasos internos
@@ -25,11 +27,12 @@
     root.id = 'pv';
     root.innerHTML = `
       <header>
-        <div class="pv-where"><span id="pvNum"></span><b id="pvTitle"></b><span id="pvPart"></span></div>
+        <div class="pv-where"><span id="pvNum"></span><b id="pvTitle"></b><span id="pvWho"></span><span id="pvPart"></span></div>
         <div class="pv-time">
           <button id="pvTimer" title="Clic: pausar o reanudar">00:00</button>
           <button id="pvReset" title="Reiniciar el cronómetro">Reiniciar</button>
           <button id="pvQa" aria-pressed="false" title="Preguntas probables de la cátedra (Q)">Preguntas</button>
+          <span id="pvPace" title="Diferencia con el tiempo objetivo acumulado hasta esta diapositiva"></span>
           <span id="pvClock"></span>
         </div>
       </header>
@@ -54,7 +57,10 @@
       $('#pvQa').setAttribute('aria-pressed', on);
     };
     $('#pvQa').addEventListener('click', () => setQa($('#pvQaList').hidden));
-    $('#pvList').innerHTML = info.map((s) => `<li><button data-go="${s.i}"><span>${s.i + 1}</span>${s.title}</button></li>`).join('');
+    const fmtS = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+    const target = info.reduce((a, s) => a + s.secs, 0);
+    $('#pvList').innerHTML = info.map((s) => `<li><button data-go="${s.i}"><span>${s.i + 1}</span>${s.title}<em>${s.speaker && s.secs ? s.speaker[0] : ''}</em></button></li>`).join('')
+      + `<li class="pv-total">Objetivo total: ${fmtS(target)}</li>`;
 
     const main = window.opener;
     const send = (msg) => { try { main && main.postMessage({ ns: 'ormuz', ...msg }, '*'); } catch (e) { /* ventana cerrada */ } };
@@ -65,6 +71,7 @@
       $('#pvNum').textContent = `${cur + 1} / ${info.length}`;
       $('#pvTitle').textContent = s.title;
       $('#pvPart').textContent = s.part;
+      $('#pvWho').textContent = s.speaker ? `Habla: ${s.speaker}` + (s.secs ? ` · ${fmtS(s.secs)}` : '') : '';
       $('#pvNotes').innerHTML = s.notes;
       $('#pvSteps').innerHTML = s.steps.length
         ? `<div class="pv-dots">${s.steps.map((t, k) => `<span class="${k < shown ? 'done' : ''}" title="${t}"></span>`).join('')}<em>${shown} de ${s.steps.length} pasos</em></div>`
@@ -126,6 +133,14 @@
       const t = $('#pvTimer');
       t.textContent = fmt(elapsed());
       t.classList.toggle('paused', running === null);
+      // Ritmo: tiempo transcurrido frente al objetivo acumulado al terminar la diapositiva actual
+      const due = info.slice(0, cur + 1).reduce((a, s) => a + s.secs, 0) * 1000;
+      const dueStart = due - info[cur].secs * 1000;
+      const el = $('#pvPace'), e = elapsed();
+      if (!e || !info[cur].secs) { el.textContent = ''; el.className = ''; }
+      else if (e > due) { el.textContent = `${fmt(e - due)} de atraso`; el.className = 'late'; }
+      else if (e < dueStart) { el.textContent = `${fmt(dueStart - e)} adelantados`; el.className = 'early'; }
+      else { el.textContent = 'a tiempo'; el.className = 'ok'; }
       $('#pvClock').textContent = new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
     }, 250);
 

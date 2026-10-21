@@ -28,11 +28,15 @@
   </defs>
 </svg>
 
-<svg id="map" role="img" aria-label="Mapa náutico del mundo con las rutas del petróleo que salen del Estrecho de Ormuz">
+<!-- Carta en dos capas: la base estática (mar y países) se rasteriza una vez; arriba van rutas, barcos y rótulos -->
+<svg id="mapBase" class="mapsvg" aria-hidden="true">
   <defs>
-    <mask id="gulfHole" maskUnits="userSpaceOnUse"><rect id="maskAll" fill="#fff"/><rect id="maskGulf" fill="#000"/></mask>
+    <clipPath id="gulfHole" clipPathUnits="userSpaceOnUse"><path id="gulfHolePath" clip-rule="evenodd"/></clipPath>
   </defs>
-  <g id="world"></g>
+  <g id="worldBase" class="wl"></g>
+</svg>
+<svg id="map" class="mapsvg" role="img" aria-label="Mapa náutico del mundo con las rutas del petróleo que salen del Estrecho de Ormuz">
+  <g id="world" class="wl"></g>
   <g id="overlay"></g>
 </svg>
 <svg id="rose" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="44" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="60" cy="60" r="40" fill="none" stroke="currentColor" stroke-width=".5"/><line x1="60.00" y1="20.00" x2="60.00" y2="16.00" stroke="currentColor" stroke-width=".5"/><line x1="63.49" y1="20.15" x2="63.63" y2="18.56" stroke="currentColor" stroke-width=".5"/><line x1="66.95" y1="20.61" x2="67.22" y2="19.03" stroke="currentColor" stroke-width=".5"/><line x1="70.35" y1="21.36" x2="71.03" y2="18.85" stroke="currentColor" stroke-width=".5"/><line x1="73.68" y1="22.41" x2="74.23" y2="20.91" stroke="currentColor" stroke-width=".5"/><line x1="76.90" y1="23.75" x2="77.58" y2="22.30" stroke="currentColor" stroke-width=".5"/><line x1="80.00" y1="25.36" x2="81.30" y2="23.11" stroke="currentColor" stroke-width=".5"/><line x1="82.94" y1="27.23" x2="83.86" y2="25.92" stroke="currentColor" stroke-width=".5"/><line x1="85.71" y1="29.36" x2="86.74" y2="28.13" stroke="currentColor" stroke-width=".5"/><line x1="88.28" y1="31.72" x2="91.11" y2="28.89" stroke="currentColor" stroke-width=".5"/><line x1="90.64" y1="34.29" x2="91.87" y2="33.26" stroke="currentColor" stroke-width=".5"/><line x1="92.77" y1="37.06" x2="94.08" y2="36.14" stroke="currentColor" stroke-width=".5"/><line x1="94.64" y1="40.00" x2="96.89" y2="38.70" stroke="currentColor" stroke-width=".5"/><line x1="96.25" y1="43.10" x2="97.70" y2="42.42" stroke="currentColor" stroke-width=".5"/><line x1="97.59" y1="46.32" x2="99.09" y2="45.77" stroke="currentColor" stroke-width=".5"/><line x1="98.64" y1="49.65" x2="101.15" y2="48.97" stroke="currentColor" stroke-width=".5"/><line x1="99.39" y1="53.05" x2="100.97" y2="52.78" stroke="currentColor" stroke-width=".5"/><line x1="99.85" y1="56.51" x2="101.44" y2="56.37" stroke="currentColor" stroke-width=".5"/><line x1="100.00" y1="60.00" x2="104.00" y2="60.00" stroke="currentColor" stroke-width=".5"/><line x1="99.85" y1="63.49" x2="101.44" y2="63.63" stroke="currentColor" stroke-width=".5"/><line x1="99.39" y1="66.95" x2="100.97" y2="67.22" stroke="currentColor" stroke-width=".5"/><line x1="98.64" y1="70.35" x2="101.15" y2="71.03" stroke="currentColor" stroke-width=".5"/><line x1="97.59" y1="73.68" x2="99.09" y2="74.23" stroke="currentColor" stroke-width=".5"/><line x1="96.25" y1="76.90" x2="97.70" y2="77.58" stroke="currentColor" stroke-width=".5"/><line x1="94.64" y1="80.00" x2="96.89" y2="81.30" stroke="currentColor" stroke-width=".5"/><line x1="92.77" y1="82.94" x2="94.08" y2="83.86" stroke="currentColor" stroke-width=".5"/><line x1="90.64" y1="85.71" x2="91.87" y2="86.74" stroke="currentColor" stroke-width=".5"/><line x1="88.28" y1="88.28" x2="91.11" y2="91.11" stroke="currentColor" stroke-width=".5"/><line x1="85.71" y1="90.64" x2="86.74" y2="91.87" stroke="currentColor" stroke-width=".5"/><line x1="82.94" y1="92.77" x2="83.86" y2="94.08" stroke="currentColor" stroke-width=".5"/><line x1="80.00" y1="94.64" x2="81.30" y2="96.89" stroke="currentColor" stroke-width=".5"/><line x1="76.90" y1="96.25" x2="77.58" y2="97.70" stroke="currentColor" stroke-width=".5"/><line x1="73.68" y1="97.59" x2="74.23" y2="99.09" stroke="currentColor" stroke-width=".5"/><line x1="70.35" y1="98.64" x2="71.03" y2="101.15" stroke="currentColor" stroke-width=".5"/><line x1="66.95" y1="99.39" x2="67.22" y2="100.97" stroke="currentColor" stroke-width=".5"/><line x1="63.49" y1="99.85" x2="63.63" y2="101.44" stroke="currentColor" stroke-width=".5"/><line x1="60.00" y1="100.00" x2="60.00" y2="104.00" stroke="currentColor" stroke-width=".5"/><line x1="56.51" y1="99.85" x2="56.37" y2="101.44" stroke="currentColor" stroke-width=".5"/><line x1="53.05" y1="99.39" x2="52.78" y2="100.97" stroke="currentColor" stroke-width=".5"/><line x1="49.65" y1="98.64" x2="48.97" y2="101.15" stroke="currentColor" stroke-width=".5"/><line x1="46.32" y1="97.59" x2="45.77" y2="99.09" stroke="currentColor" stroke-width=".5"/><line x1="43.10" y1="96.25" x2="42.42" y2="97.70" stroke="currentColor" stroke-width=".5"/><line x1="40.00" y1="94.64" x2="38.70" y2="96.89" stroke="currentColor" stroke-width=".5"/><line x1="37.06" y1="92.77" x2="36.14" y2="94.08" stroke="currentColor" stroke-width=".5"/><line x1="34.29" y1="90.64" x2="33.26" y2="91.87" stroke="currentColor" stroke-width=".5"/><line x1="31.72" y1="88.28" x2="28.89" y2="91.11" stroke="currentColor" stroke-width=".5"/><line x1="29.36" y1="85.71" x2="28.13" y2="86.74" stroke="currentColor" stroke-width=".5"/><line x1="27.23" y1="82.94" x2="25.92" y2="83.86" stroke="currentColor" stroke-width=".5"/><line x1="25.36" y1="80.00" x2="23.11" y2="81.30" stroke="currentColor" stroke-width=".5"/><line x1="23.75" y1="76.90" x2="22.30" y2="77.58" stroke="currentColor" stroke-width=".5"/><line x1="22.41" y1="73.68" x2="20.91" y2="74.23" stroke="currentColor" stroke-width=".5"/><line x1="21.36" y1="70.35" x2="18.85" y2="71.03" stroke="currentColor" stroke-width=".5"/><line x1="20.61" y1="66.95" x2="19.03" y2="67.22" stroke="currentColor" stroke-width=".5"/><line x1="20.15" y1="63.49" x2="18.56" y2="63.63" stroke="currentColor" stroke-width=".5"/><line x1="20.00" y1="60.00" x2="16.00" y2="60.00" stroke="currentColor" stroke-width=".5"/><line x1="20.15" y1="56.51" x2="18.56" y2="56.37" stroke="currentColor" stroke-width=".5"/><line x1="20.61" y1="53.05" x2="19.03" y2="52.78" stroke="currentColor" stroke-width=".5"/><line x1="21.36" y1="49.65" x2="18.85" y2="48.97" stroke="currentColor" stroke-width=".5"/><line x1="22.41" y1="46.32" x2="20.91" y2="45.77" stroke="currentColor" stroke-width=".5"/><line x1="23.75" y1="43.10" x2="22.30" y2="42.42" stroke="currentColor" stroke-width=".5"/><line x1="25.36" y1="40.00" x2="23.11" y2="38.70" stroke="currentColor" stroke-width=".5"/><line x1="27.23" y1="37.06" x2="25.92" y2="36.14" stroke="currentColor" stroke-width=".5"/><line x1="29.36" y1="34.29" x2="28.13" y2="33.26" stroke="currentColor" stroke-width=".5"/><line x1="31.72" y1="31.72" x2="28.89" y2="28.89" stroke="currentColor" stroke-width=".5"/><line x1="34.29" y1="29.36" x2="33.26" y2="28.13" stroke="currentColor" stroke-width=".5"/><line x1="37.06" y1="27.23" x2="36.14" y2="25.92" stroke="currentColor" stroke-width=".5"/><line x1="40.00" y1="25.36" x2="38.70" y2="23.11" stroke="currentColor" stroke-width=".5"/><line x1="43.10" y1="23.75" x2="42.42" y2="22.30" stroke="currentColor" stroke-width=".5"/><line x1="46.32" y1="22.41" x2="45.77" y2="20.91" stroke="currentColor" stroke-width=".5"/><line x1="49.65" y1="21.36" x2="48.97" y2="18.85" stroke="currentColor" stroke-width=".5"/><line x1="53.05" y1="20.61" x2="52.78" y2="19.03" stroke="currentColor" stroke-width=".5"/><line x1="56.51" y1="20.15" x2="56.37" y2="18.56" stroke="currentColor" stroke-width=".5"/><polygon points="84.02,50.05 61.15,62.77 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="84.02,50.05 58.85,57.23 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="69.95,35.98 62.77,61.15 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="69.95,35.98 57.23,58.85 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="69.95,84.02 57.23,61.15 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="69.95,84.02 62.77,58.85 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="84.02,69.95 58.85,62.77 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="84.02,69.95 61.15,57.23 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="35.98,69.95 58.85,57.23 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="35.98,69.95 61.15,62.77 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="50.05,84.02 57.23,58.85 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="50.05,84.02 62.77,61.15 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="50.05,35.98 62.77,58.85 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="50.05,35.98 57.23,61.15 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="35.98,50.05 61.15,57.23 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="35.98,50.05 58.85,62.77 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="82.63,37.37 63.54,63.54 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="82.63,37.37 56.46,56.46 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="82.63,82.63 56.46,63.54 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="82.63,82.63 63.54,56.46 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="37.37,82.63 56.46,56.46 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="37.37,82.63 63.54,63.54 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="37.37,37.37 63.54,56.46 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="37.37,37.37 56.46,63.54 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="60.00,20.00 66.50,60.00 60,60" fill="#b0176a" stroke="currentColor" stroke-width=".5"/><polygon points="60.00,20.00 53.50,60.00 60,60" fill="#f3d6e5" stroke="currentColor" stroke-width=".5"/><polygon points="100.00,60.00 60.00,66.50 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="100.00,60.00 60.00,53.50 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="60.00,100.00 53.50,60.00 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="60.00,100.00 66.50,60.00 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><polygon points="20.00,60.00 60.00,53.50 60,60" fill="currentColor" stroke="currentColor" stroke-width=".5"/><polygon points="20.00,60.00 60.00,66.50 60,60" fill="none" stroke="currentColor" stroke-width=".5"/><circle cx="60" cy="60" r="2.4" fill="#f2f6f5" stroke="currentColor" stroke-width=".8"/><text x="60" y="11" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="11" fill="#b0176a">N</text></svg>
@@ -40,7 +44,7 @@
 <main id="deck">
 
 <!-- ================= PORTADA ================= -->
-<section class="slide cover" data-cam="world" data-layers="flows" data-part="0" data-title="Portada" data-aoi="prod" data-cities="tokyo,ningbo,jamnagar,rotterdam">
+<section class="slide cover" data-cam="world" data-layers="flows" data-part="0" data-title="Portada" data-speaker="Agustín" data-secs="30" data-aoi="prod" data-cities="tokyo,ningbo,jamnagar,rotterdam">
   <div class="panel">
     <p class="part">Trabajo final de investigación · Grupo 8</p>
     <h1>Del Estrecho de Ormuz al surtidor</h1>
@@ -63,16 +67,16 @@
 </section>
 
 <!-- ================= INTRODUCCIÓN ================= -->
-<section class="slide" data-cam="world" data-layers="flows" data-part="1" data-title="Contexto y motivación" data-aoi="prod" data-cities="tokyo,ningbo,jamnagar,rotterdam">
+<section class="slide" data-cam="world" data-layers="flows" data-part="1" data-title="Contexto y motivación" data-speaker="Agustín" data-secs="75" data-aoi="prod" data-cities="tokyo,ningbo,jamnagar,rotterdam">
   <div class="panel">
     <p class="part">Introducción · Contexto</p>
     <h2>Un punto del mapa, un problema mundial</h2>
-    <p class="lead">28 de febrero de 2026: guerra en Irán. En 48 horas, Ormuz queda cerrado<sup class="r" data-r="4"></sup>. Para la AIE, la mayor disrupción de oferta de la historia del petróleo<sup class="r" data-r="2"></sup>.</p>
+    <p class="lead">28 de febrero de 2026: guerra en Irán. En 48 horas, Ormuz queda cerrado<sup class="r" data-r="4"></sup>. Para la <dfn data-g="aie">AIE</dfn>, la mayor disrupción de oferta de la historia del petróleo<sup class="r" data-r="2"></sup>.</p>
     <p class="question">¿Cómo viaja un shock energético nacido en un solo punto del mapa, y por qué cada país responde distinto?</p>
     <div class="chips">
       <span><b>Globalización</b> como red de flujos</span>
       <span><b>Petróleo y gas</b> como poder territorial</span>
-      <span><b>Transporte</b> y cuellos de botella</span>
+      <span><b>Transporte</b> y <dfn data-g="choke">cuellos de botella</dfn></span>
     </div>
     <p class="note">Período analizado: enero a junio de 2026.</p>
   </div>
@@ -84,14 +88,14 @@
   </aside>
 </section>
 
-<section class="slide" data-cam="strait" data-layers="flows" data-part="1" data-title="Qué es Ormuz y por qué importa" data-cities="bandarAbbas">
+<section class="slide" data-cam="strait" data-layers="flows" data-part="1" data-title="Qué es Ormuz y por qué importa" data-speaker="Agustín" data-secs="75" data-cities="bandarAbbas">
   <div class="panel">
     <p class="part">Introducción · El estrecho</p>
     <h2>33 km que sostienen un quinto del petróleo mundial</h2>
     <div class="figs">
-      <div class="fig hot"><b data-count="20">20<small>mb/d</small></b><span>de petróleo: 20 % del mundo<sup class="r" data-r="2"></sup></span></div>
-      <div class="fig hot"><b data-count="20">20<small>%</small></b><span>del gas licuado mundial<sup class="r" data-r="4"></sup></span></div>
-      <div class="fig oil"><b data-count="84">84<small>%</small></b><span>de ese crudo va a Asia<sup class="r" data-r="4"></sup></span></div>
+      <div class="fig hot"><b data-count="20">20<small><dfn data-g="mbd">mb/d</dfn></small></b><span>de petróleo: 20 % del mundo<sup class="r" data-r="2"></sup></span></div>
+      <div class="fig hot"><b data-count="20">20<small>%</small></b><span>del <dfn data-g="gnl">gas licuado</dfn> mundial<sup class="r" data-r="4"></sup></span></div>
+      <div class="fig oil"><b data-count="84">84<small>%</small></b><span>de ese crudo iba a Asia (2024)<sup class="r" data-r="4"></sup></span></div>
     </div>
     <div data-cue data-delay="3000" data-cam="gulf" data-layers="flows pipes" data-cities="yanbu,fujairah">
       <h3>¿Se puede rodear?</h3>
@@ -102,12 +106,12 @@
   <div class="callout" data-anchor="hormuz" data-dx="30" data-dy="-70"><b>33 km</b><span>en su punto más angosto</span></div>
   <aside class="notes">
     <p>Un chokepoint es un paso obligado y estrecho de una ruta comercial. Entre la costa iraní y la península omaní de Musandam, los buques usan dos carriles de unos 3 km, uno por sentido.</p>
-    <p>Por ahí sale casi todo lo que exportan Arabia Saudita, Irak, Kuwait, Emiratos, Qatar e Irán: 15 mb/d de crudo y 5 de productos. El 84 % de ese crudo va a Asia: ya anticipa quién va a sufrir más.</p>
+    <p>Por ahí sale casi todo lo que exportan Arabia Saudita, Irak, Kuwait, Emiratos, Qatar e Irán: 15 mb/d de crudo y 5 de productos. En 2024, el 84 % de ese crudo fue a Asia: ya anticipa quién va a sufrir más.</p>
     <p>(El mapa pasa solo al Golfo) Los oleoductos: el saudí Este–Oeste lleva unos 7 mb/d al Mar Rojo y el emiratí Habshan–Fujairah 1,8 mb/d. No hay plan B completo.</p>
   </aside>
 </section>
 
-<section class="slide" data-cam="world" data-layers="flows" data-part="1" data-title="Casos a analizar" data-focus="ARG,CHN,IND,JPN">
+<section class="slide" data-cam="world" data-layers="flows" data-part="1" data-title="Casos a analizar" data-speaker="Agustín" data-secs="45" data-focus="ARG,CHN,IND,JPN">
   <div class="panel">
     <p class="part">Introducción · Casos</p>
     <h2>Cuatro países, cuatro preguntas</h2>
@@ -136,12 +140,12 @@
 </section>
 
 <!-- ================= DESARROLLO ================= -->
-<section class="slide wide" data-cam="gulf" data-layers="blocked" data-part="2" data-title="El shock" data-aoi="risk" data-cities="bandarAbbas">
+<section class="slide wide" data-cam="gulf" data-layers="blocked" data-part="2" data-title="El shock" data-speaker="Agustín" data-secs="90" data-aoi="risk" data-cities="bandarAbbas">
   <div class="panel">
     <p class="part">Desarrollo · El shock</p>
     <h2>De US$72 a US$112 en tres semanas</h2>
     <svg id="brent" class="chart" viewBox="0 0 900 262" aria-label="Precio de cierre del Brent, enero a junio de 2026"></svg>
-    <p class="small cap">Brent, cierre en US$ por barril<sup class="r" data-r="5"></sup>. Sombreado: estrecho cerrado o restringido.</p>
+    <p class="small cap"><dfn data-g="brent">Brent</dfn>, cierre en US$ por barril<sup class="r" data-r="5"></sup>. Sombreado: estrecho cerrado o restringido.</p>
     <div class="phases">
       <p data-cue data-delay="700" data-upto="2026-03-31"><b>Marzo</b>Guerra, cierre y reservas de la AIE.</p>
       <p data-cue data-delay="2300" data-upto="2026-05-31"><b>Abril y mayo</b>El precio sigue a la diplomacia.</p>
@@ -156,7 +160,7 @@
   </aside>
 </section>
 
-<section class="slide wide mid" data-cam="asia" data-layers="blocked" data-part="2" data-title="Implicancias de la guerra" data-aoi="risk redsea chokes">
+<section class="slide wide mid" data-cam="asia" data-layers="blocked" data-part="2" data-title="Implicancias de la guerra" data-speaker="Agustín" data-secs="75" data-aoi="risk redsea chokes">
   <div class="panel">
     <p class="part">Desarrollo · Implicancias</p>
     <h2>Qué rompió la guerra</h2>
@@ -184,24 +188,24 @@
   </aside>
 </section>
 
-<section class="slide full" data-cam="world" data-layers="blocked" data-dim="1" data-aoi="prod" data-part="2" data-title="Canales de transmisión">
+<section class="slide full" data-cam="world" data-layers="blocked" data-dim="1" data-aoi="prod" data-part="2" data-title="Canales de transmisión" data-speaker="Facundo" data-secs="90">
   <div class="panel">
     <p class="part">Desarrollo · Canales de transmisión</p>
     <h2>Cómo viaja el shock por la economía</h2>
     <div class="channels">
-      <div class="origin"><b>Shock de Ormuz</b><span>Menos oferta, energía más cara</span></div>
+      <div class="origin"><b>Shock de Ormuz</b><span><dfn data-g="shockof">Shock de oferta</dfn>: menos oferta, energía más cara</span></div>
       <div>
-        <div class="chan"><h3>Costos</h3><p class="mech">Energía y fletes encarecen todo</p><p class="ev">Combustible de aviación +95 %<sup class="r" data-r="6"></sup></p></div>
+        <div class="chan"><h3>Costos</h3><p class="mech">Energía y fletes encarecen todo</p><p class="ev">Combustible de aviación en EE.UU. +95 %<sup class="r" data-r="6"></sup></p></div>
         <div class="chan"><h3>Ingreso real</h3><p class="mech">Más gasto en energía, menos demanda</p><p class="ev">Nafta en EE.UU. +US$1,50 por galón<sup class="r" data-r="2"></sup></p></div>
-        <div class="chan"><h3>Términos de intercambio</h3><p class="mech">Importadores pierden, exportadores ganan</p><p class="ev">Japón e India pagan; Argentina cobra<sup class="r" data-r="15"></sup></p></div>
+        <div class="chan"><h3><dfn data-g="tdi">Términos de intercambio</dfn></h3><p class="mech">Importadores pierden, exportadores ganan</p><p class="ev">Japón e India pagan; Argentina cobra<sup class="r" data-r="15"></sup></p></div>
         <div class="chan"><h3>Financiero</h3><p class="mech">Más volatilidad y riesgo</p><p class="ev">WTI +35 % en una semana<sup class="r" data-r="5"></sup></p></div>
         <div class="chan"><h3>Política</h3><p class="mech">Cada Estado elige su herramienta</p><p class="ev">Reservas, subsidios, controles, impuestos<sup class="r" data-r="6"></sup></p></div>
       </div>
     </div>
     <div class="rule">
-      <span>Regla práctica<sup class="r" data-r="21"></sup><sup class="r" data-r="22"></sup>: si el petróleo sube 10 % y se sostiene,</span>
-      <span><b>−0,1 pp</b> de crecimiento mundial</span>
-      <span><b>+0,3 pp</b> de inflación</span>
+      <span>Regla del FMI<sup class="r" data-r="35"></sup>: si la energía sube 10 % durante un año,</span>
+      <span><b>+0,4 pp</b> de inflación mundial</span>
+      <span><b>−0,1 a −0,2 pp</b> de crecimiento</span>
     </div>
   </div>
   <aside class="notes">
@@ -211,23 +215,23 @@
     <p>(Términos de intercambio) Es el canal que separa ganadores y perdedores y conecta con los casos.</p>
     <p>(Financiero) La Fed lo ubicó entre los principales riesgos para la estabilidad financiera en su informe de mayo.</p>
     <p>(Política) El BCE y el Banco de Inglaterra mantuvieron tasas. Los instrumentos de cada país los vemos en los casos.</p>
-    <p>(Regla) Rangos completos: −0,10 a −0,15 pp de crecimiento y +0,3 a +0,4 pp de inflación por cada 10 %. En julio el FMI ubicó el crecimiento mundial 2026 en 3,0 %. En el anexo hay una calculadora.</p>
+    <p>(Regla) Es la regla que dio Kristalina Georgieva, directora del FMI, el 6 de marzo, a una semana de iniciada la guerra: cada 10 % de suba de la energía sostenida un año suma unos 0,4 puntos a la inflación mundial y resta entre 0,1 y 0,2 al crecimiento. En julio el FMI ubicó el crecimiento mundial 2026 en 3,0 %. En el anexo hay una calculadora.</p>
   </aside>
 </section>
 
-<section class="slide wide mid" data-cam="argentina" data-layers="geo" data-part="2" data-title="Argentina" data-focus="ARG" data-aoi="vaca" data-cities="buenosAires">
+<section class="slide wide mid" data-cam="argentina" data-layers="geo" data-part="2" data-title="Argentina" data-speaker="Facundo" data-secs="90" data-focus="ARG" data-aoi="vaca" data-cities="buenosAires">
   <div class="panel">
     <p class="part">Desarrollo · Caso Argentina</p>
     <h2><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>Argentina: lejos del estrecho, cerca del precio</h2>
-    <p class="lead">Productora neta, pero el surtidor sigue el precio internacional.</p>
+    <p class="lead">Productora neta, pero el surtidor sigue la <dfn data-g="pip">paridad de importación</dfn>.</p>
     <div class="tools">
-      <span><b>Buffer de YPF</b>45 días sin trasladar el Brent<sup class="r" data-r="13"></sup></span>
+      <span><b><dfn data-g="buffer">Buffer de YPF</dfn></b>45 días sin trasladar el Brent<sup class="r" data-r="13"></sup></span>
       <span><b>Impuestos</b>suba postergada por decreto<sup class="r" data-r="16"></sup></span>
       <span><b>Bioetanol</b>hasta 15 % del corte<sup class="r" data-r="17"></sup></span>
     </div>
     <div class="ledger">
-      <div><h3>Pierde el consumidor</h3><div class="fig hot"><b data-count="21" data-prefix="+">+21<small>%</small></b><span>la nafta en un trimestre<sup class="r" data-r="13"></sup></span></div></div>
-      <div><h3>Gana la balanza</h3><div class="fig oil"><b data-count="7000" data-prefix="US$">US$7.000<small>M</small></b><span>superávit energético récord<sup class="r" data-r="15"></sup></span></div></div>
+      <div><h3>Pierde el consumidor</h3><div class="fig hot"><b data-count="21" data-prefix="+">+21<small>%</small></b><span>la nafta súper en el 1.er trimestre<sup class="r" data-r="13"></sup></span></div></div>
+      <div><h3>Gana la balanza</h3><div class="fig oil"><b data-count="7000" data-prefix="US$">US$7.000<small>M</small></b><span>superávit energético récord del 1.er semestre<sup class="r" data-r="15"></sup></span></div></div>
     </div>
     <p class="reading"><b>Respuesta:</b> ser productor no protege al consumidor, pero convierte el shock en divisas.</p>
   </div>
@@ -240,14 +244,14 @@
   </aside>
 </section>
 
-<section class="slide wide mid" data-cam="chinaIndia" data-layers="blocked russia" data-part="2" data-title="China e India" data-focus="CHN,IND" data-aoi="rus" data-cities="novorossiysk,ningbo,jamnagar">
+<section class="slide wide mid" data-cam="chinaIndia" data-layers="blocked russia" data-part="2" data-title="China e India" data-speaker="Facundo" data-secs="90" data-focus="CHN,IND" data-aoi="rus" data-cities="novorossiysk,ningbo,jamnagar">
   <div class="panel">
     <p class="part">Desarrollo · Casos China e India</p>
     <h2>China e India: mismo shock, palancas opuestas</h2>
     <div class="cols">
       <div class="col hot">
         <h3><svg class="flag" aria-hidden="true"><use href="#fl-cn"/></svg>China absorbe hacia adentro</h3>
-        <div class="fig hot"><b data-count="32" data-prefix="−">−32<small>%</small></b><span>importaciones de crudo en el 2.º trimestre<sup class="r" data-r="7"></sup></span></div>
+        <div class="fig hot"><b data-count="32" data-prefix="−">−32<small>%</small></b><span>importaciones de crudo, 2.º trimestre frente al 1.º<sup class="r" data-r="7"></sup></span></div>
         <ul class="ticks">
           <li>Usó sus inventarios<sup class="r" data-r="8"></sup></li>
           <li>Prohibió exportar combustibles<sup class="r" data-r="6"></sup></li>
@@ -274,7 +278,7 @@
   </aside>
 </section>
 
-<section class="slide wide right" data-cam="japan" data-layers="blocked" data-part="2" data-title="Japón" data-focus="JPN" data-cities="tokyo">
+<section class="slide wide right" data-cam="japan" data-layers="blocked" data-part="2" data-title="Japón" data-speaker="Facundo" data-secs="75" data-focus="JPN" data-cities="tokyo">
   <div class="panel">
     <p class="part">Desarrollo · Caso Japón</p>
     <h2><svg class="flag" aria-hidden="true"><use href="#fl-jp"/></svg>Japón: la mayor exposición, la mejor previsión</h2>
@@ -289,8 +293,8 @@
       </div>
       <div>
         <ol class="seq">
-          <li><time>16 mar</time><span><b>Reservas</b> que compran tiempo</span></li>
-          <li><time>19 mar</time><span><b>Subsidio</b> para fijar la nafta en ¥170<sup class="r" data-r="12"></sup></span></li>
+          <li><time>16 mar</time><span><b><dfn data-g="reservas">Reservas</dfn></b> que compran tiempo</span></li>
+          <li><time>19 mar</time><span><b>Subsidio</b> para llevar la nafta a ≈¥170<sup class="r" data-r="12"></sup></span></li>
           <li><time>12 may</time><span><b>Diversificación</b>: crudo de Azerbaiyán<sup class="r" data-r="11"></sup></span></li>
         </ol>
         <p class="reading"><b>Respuesta:</b> las reservas compran tiempo; la diversificación compra autonomía.</p>
@@ -307,7 +311,7 @@
 </section>
 
 <!-- ================= CONCLUSIONES ================= -->
-<section class="slide full" data-cam="world" data-layers="blocked" data-dim="1" data-part="3" data-title="Conclusiones comparadas" data-focus="ARG,CHN,IND,JPN" data-aoi="prod">
+<section class="slide full" data-cam="world" data-layers="blocked" data-dim="1" data-part="3" data-title="Conclusiones comparadas" data-speaker="Agustín" data-secs="75" data-focus="ARG,CHN,IND,JPN" data-aoi="prod">
   <div class="panel">
     <p class="part">Conclusiones</p>
     <h2>El shock es global; las respuestas, nacionales</h2>
@@ -336,18 +340,18 @@
   </aside>
 </section>
 
-<section class="slide wide mid" data-cam="patagonia" data-layers="flows" data-part="3" data-title="Lecciones para Argentina" data-aoi="vaca vmos" data-cities="buenosAires,puntaColorada">
+<section class="slide wide mid" data-cam="patagonia" data-layers="flows" data-part="3" data-title="Lecciones para Argentina" data-speaker="Facundo" data-secs="75" data-aoi="vaca vmos" data-cities="buenosAires,puntaColorada">
   <div class="panel">
     <p class="part">Conclusiones · Gestión territorial</p>
     <h2><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>¿Qué puede aprender Argentina?</h2>
-    <p class="lead">Cuatro lecciones de los casos, como propuestas de gestión territorial<sup class="r" data-r="32"></sup>.</p>
+    <p class="lead">Cuatro lecciones de los casos, como propuestas de <dfn data-g="gestion">gestión territorial</dfn><sup class="r" data-r="32"></sup>.</p>
     <div class="lessons">
       <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-jp"/></svg>Reservas</h3><p>Un stock estratégico de combustibles compra tiempo frente al próximo shock.</p></div>
       <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-cn"/></svg>Matriz</h3><p>Electrificar el transporte baja lo que paga el consumidor cuando sube el crudo.</p></div>
       <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-in"/></svg>Socios</h3><p>Diversificar compradores y contratos: la autonomía también se negocia.</p></div>
       <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>Infraestructura</h3><p>Vaca Muerta Sur: 180.000 barriles diarios por Punta Colorada desde 2027, hasta 550.000<sup class="r" data-r="33"></sup>.</p></div>
     </div>
-    <p class="reading"><b>Propuesta:</b> convertir la ventaja de recursos en ventaja territorial, con desarrollo sustentable.</p>
+    <p class="reading"><b>Propuesta:</b> convertir la ventaja de recursos en <dfn data-g="vcl">ventaja competitiva locacional</dfn>, con desarrollo sustentable.</p>
   </div>
   <aside class="notes">
     <p>Esta es la parte de gestión territorial que pide el programa: qué haría Argentina con lo aprendido. Son propuestas del grupo, no medidas en curso, salvo el oleoducto.</p>
@@ -359,13 +363,13 @@
   </aside>
 </section>
 
-<section class="slide wide" data-cam="world" data-layers="flows" data-part="3" data-aoi="prod" data-title="Lo que Ormuz enseña">
+<section class="slide wide" data-cam="world" data-layers="flows" data-part="3" data-aoi="prod" data-title="Lo que Ormuz enseña" data-speaker="Facundo" data-secs="60">
   <div class="panel">
     <p class="part">Conclusiones · Vínculo con la materia</p>
     <h2>Lo que Ormuz enseña sobre la estructura económica mundial</h2>
     <div class="links">
       <div><span class="ptd">Núcleo 1b</span><p>Nuevas relaciones de fuerza: el paso se negoció por alineamiento.</p></div>
-      <div><span class="ptd">Núcleo 1c</span><p>Multipolaridad: el shock nace en un BRICS y favorece a otros tres.</p></div>
+      <div><span class="ptd">Núcleo 1c</span><p>Multipolaridad: el shock nace en un <dfn data-g="brics">BRICS</dfn> y favorece a otros tres.</p></div>
       <div><span class="ptd">Núcleo 1e</span><p>ODS 7: diversificar la matriz también es seguridad.</p></div>
       <div><span class="ptd">Núcleo 2a</span><p>El petróleo sigue ordenando la geopolítica<sup class="r" data-r="29"></sup>.</p></div>
       <div><span class="ptd">Núcleo 2d</span><p>Un nodo de 33 km desvía el comercio: el mundo no es tan plano<sup class="r" data-r="31"></sup>.</p></div>
@@ -379,10 +383,10 @@
   </aside>
 </section>
 
-<section class="slide closing" data-cam="world" data-layers="flows arcs" data-part="3" data-title="Cierre y preguntas" data-focus="ARG,CHN,IND,JPN" data-aoi="prod">
+<section class="slide closing" data-cam="world" data-layers="flows arcs" data-part="3" data-title="Cierre y preguntas" data-speaker="Ambos" data-secs="30" data-focus="ARG,CHN,IND,JPN" data-aoi="prod">
   <div class="panel">
     <p class="part">Cierre</p>
-    <p class="thesis-big">Una acción en un chokepoint no es local.<br>Las respuestas sí.</p>
+    <p class="thesis-big">Una acción en un <dfn data-g="choke">chokepoint</dfn> no es local.<br>Las respuestas sí.</p>
     <p class="lead">Lo que pasa en 33 km se paga en cuatro surtidores distintos, según la geografía, la política y los aliados de cada país.</p>
     <p class="thanks">Gracias. ¿Preguntas?</p>
     <p class="muted small">Facundo Carrera y Agustín Santilli · Grupo 8</p>
@@ -399,7 +403,7 @@
 </section>
 
 <!-- ================= CIERRE ================= -->
-<section class="slide full" data-cam="world" data-layers="flows" data-dim="1" data-part="4" data-title="Bibliografía y referencias">
+<section class="slide full" data-cam="world" data-layers="flows" data-dim="1" data-part="4" data-title="Bibliografía y referencias" data-speaker="Ambos" data-secs="0">
   <div class="panel">
     <p class="part">Bibliografía y referencias</p>
     <h2>Fuentes</h2>
@@ -408,7 +412,7 @@
   <aside class="notes"><p>Las referencias están numeradas igual que los superíndices de cada diapositiva. Las marcadas como "Cátedra" son de la bibliografía del programa y las usamos como marco.</p></aside>
 </section>
 
-<section class="slide full" data-cam="world" data-layers="flows" data-dim="1" data-part="4" data-title="Anexo metodológico">
+<section class="slide full" data-cam="world" data-layers="flows" data-dim="1" data-part="4" data-title="Anexo metodológico" data-speaker="Ambos" data-secs="0">
   <div class="panel">
     <p class="part">Anexo · Metodología</p>
     <h2>La econometría como ancla, no como protagonista</h2>
@@ -418,6 +422,7 @@
       <button role="tab" aria-selected="false" data-tab="t-garch">GARCH</button>
       <button role="tab" aria-selected="false" data-tab="t-lp">Proyecciones locales</button>
       <button role="tab" aria-selected="false" data-tab="t-data">Datos</button>
+      <button role="tab" aria-selected="false" data-tab="t-gloss">Glosario</button>
     </div>
     <div class="tabpane on" id="t-rule">
       <div class="calc">
@@ -435,7 +440,7 @@
           <div class="fig oil"><b><i id="outI">+1,2</i><small> a </small><i id="outI2">+1,6</i></b><span>puntos porcentuales de inflación</span></div>
         </div>
       </div>
-      <p class="note">Fórmula: Δcrecimiento = −(0,10 a 0,15) × (suba/10); Δinflación = +(0,3 a 0,4) × (suba/10). Fuente de los coeficientes: reglas FMI / Goldman Sachs citadas en la literatura<sup class="r" data-r="21"></sup><sup class="r" data-r="22"></sup>.</p>
+      <p class="note">Fórmula: Δinflación = +(0,3 a 0,4) × (suba/10); Δcrecimiento = −(0,1 a 0,2) × (suba/10). Coeficientes: regla del FMI (Georgieva, 6/3/2026) y estimaciones de la literatura sobre shocks petroleros<sup class="r" data-r="35"></sup><sup class="r" data-r="22"></sup>.</p>
     </div>
     <div class="tabpane" id="t-svar">
       <p><b>VAR estructural con instrumento externo.</b> Modela juntas varias series (precio de la energía, inflación, actividad) y aísla un shock de oferta energética "limpio" usando un instrumento: el tránsito por Ormuz o un índice de noticias geopolíticas<sup class="r" data-r="22"></sup><sup class="r" data-r="25"></sup>.</p>
@@ -461,6 +466,7 @@
       </ul>
       <p class="small">Los resultados econométricos finales acompañan el documento escrito; esta presentación sólo usa datos observados y cifras de las fuentes citadas.</p>
     </div>
+    <div class="tabpane" id="t-gloss"><dl class="gloss" id="glossList"></dl></div>
   </div>
   <aside class="notes"><p>Sólo si preguntan por la metodología. La calculadora muestra que con la suba observada la regla da órdenes de magnitud coherentes con lo que reportaron los organismos.</p></aside>
 </section>

@@ -40,6 +40,10 @@ Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su 
 | `Inicio` / `Fin` | Primera / última diapositiva |
 | `Q` (en la vista de expositor) | Preguntas probables de la cátedra con respuestas preparadas |
 
+**Guion de defensa:** la vista de expositor muestra quién habla en cada diapositiva y un tiempo objetivo (total ≈ 16 min), con un indicador de ritmo: "a tiempo", "adelantados" o "de atraso". El reparto es una propuesta y se cambia en `index.html` con los atributos `data-speaker` y `data-secs` de cada diapositiva.
+
+**Glosario:** los términos con subrayado punteado (chokepoint, paridad de importación, términos de intercambio, ventaja competitiva locacional, entre otros) muestran su definición al pasar el cursor; la lista completa está en la pestaña "Glosario" del anexo.
+
 El texto de cada diapositiva aparece completo al entrar; el movimiento lo pone el mapa: la cámara viaja y encadena vistas sola, el gráfico del Brent se dibuja por etapas, las cifras cuentan y las líneas de los canales se trazan en cascada. Cada tecla avanza una diapositiva. Se puede enlazar directo a una diapositiva con `#n` (por ejemplo `…/#10` abre Japón). En el celular se navega deslizando.
 
 ## Archivos
@@ -53,6 +57,8 @@ assets/fonts/         fuentes locales con sus licencias
 assets/map-data.js    geometría generada (no editar a mano)
 tools/build-map.mjs   genera map-data.js desde Natural Earth (world-atlas): Mercator, países, áreas de interés
 ```
+
+La carta se dibuja en dos capas: la base (mar y países) se rasteriza una vez y las rutas, barcos y rótulos van encima. El motor mide cuánto tarda el equipo en redibujar y, en computadoras lentas, escala la última imagen nítida con la GPU durante los viajes de cámara.
 
 Es un sitio estático y autocontenido: las fuentes (Archivo y Spectral, licencia OFL) están en `assets/fonts`, así que funciona sin internet. Para el aula alcanza con descargar el repositorio y abrir `index.html`; también se publica en Vercel con cada push a `main`.
 
