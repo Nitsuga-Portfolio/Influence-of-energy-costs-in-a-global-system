@@ -32,11 +32,12 @@
         <div class="pv-time">
           <button id="pvTimer" title="Clic: pausar o reanudar">00:00</button>
           <button id="pvReset" title="Reiniciar el cronómetro">Reiniciar</button>
+          <button id="pvQa" aria-pressed="false" title="Preguntas probables de la cátedra (Q)">Preguntas</button>
           <span id="pvClock"></span>
         </div>
       </header>
       <main>
-        <section class="pv-notes"><div id="pvSteps"></div><div id="pvNotes"></div></section>
+        <section class="pv-notes"><div id="pvSteps"></div><div id="pvNotes"></div><div id="pvQaList" hidden><h3>Preguntas probables</h3></div></section>
         <aside class="pv-side">
           <div class="pv-next"><span>Lo que sigue</span><b id="pvNext"></b><em id="pvNextSub"></em></div>
           <ol id="pvList"></ol>
@@ -49,6 +50,13 @@
       </footer>`;
     document.body.appendChild(root);
 
+    const qa = document.getElementById('qa');
+    if (qa) $('#pvQaList').insertAdjacentHTML('beforeend', qa.innerHTML);
+    const setQa = (on) => {
+      $('#pvQaList').hidden = !on; $('#pvNotes').hidden = on; $('#pvSteps').hidden = on;
+      $('#pvQa').setAttribute('aria-pressed', on);
+    };
+    $('#pvQa').addEventListener('click', () => setQa($('#pvQaList').hidden));
     $('#pvList').innerHTML = info.map((s) => `<li><button data-go="${s.i}"><span>${s.i + 1}</span>${s.title}</button></li>`).join('');
 
     const main = window.opener;
@@ -105,6 +113,7 @@
       else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); cmd('prev'); }
       else if (e.key === 'Home') cmd('go', 0);
       else if (e.key === 'End') cmd('go', info.length - 1);
+      else if (e.key === 'q' || e.key === 'Q') $('#pvQa').click();
     });
 
     // Cronómetro: arranca al pasar de la portada; clic para pausar

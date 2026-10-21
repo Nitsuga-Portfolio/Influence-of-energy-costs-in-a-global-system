@@ -36,8 +36,8 @@
     ['Argentina', 'Bolsa de Comercio de Rosario, reseñado por Crónica (2026). Argentina registró el mayor superávit comercial energético para un primer semestre.', 'https://www.cronica.com.ar/politica/argentina-registro-el-mayor-superavit-comercial-energetico-para-un-primer-semestre-7856/'],
     ['Argentina', 'Boletín Oficial de la República Argentina. Decreto 217/2026 y prórrogas: suspensión de la actualización del Impuesto a los Combustibles Líquidos y del Impuesto al Dióxido de Carbono. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
     ['Argentina', 'Secretaría de Energía de la Nación. Resolución 79/2026: corte de bioetanol en naftas de hasta 15 %. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
-    ['Organismos', 'Federal Reserve (mayo de 2026). <i>Financial Stability Report</i>.', 'https://www.federalreserve.gov/publications/financial-stability-report.htm'],
-    ['Organismos', 'Daiwa Institute of Research (marzo de 2026) y Oxford Energy Forum n.º 149 (mayo de 2026): escenarios de impacto en el PIB y dependencia energética de Japón.', ''],
+    ['Organismos', 'Federal Reserve (8 de mayo de 2026). <i>Financial Stability Report</i>: el shock petrolero, segunda preocupación más citada (70 % de los consultados). Reseña de Reuters.', 'https://www.kitco.com/news/off-the-wire/2026-05-08/geopolitical-risks-oil-shock-cited-top-worries-fed-financial-stability'],
+    ['Organismos', 'Daiwa Institute of Research (5 de junio de 2026). <i>Japan’s Economy: Monthly Outlook (May 2026)</i>: escenarios de crecimiento ante el shock de Medio Oriente.', 'https://www.dir.co.jp/english/research/report/jmonthly/20260605_025806.html'],
     ['Organismos', 'Fondo Monetario Internacional (julio de 2026). <i>World Economic Outlook Update</i>.', ''],
     ['Literatura económica', 'Hamilton, J. D. (1983). Oil and the macroeconomy since World War II. <i>Journal of Political Economy</i>, 91(2), 228–248.', ''],
     ['Literatura económica', 'Kilian, L. (2009). Not all oil price shocks are alike. <i>American Economic Review</i>, 99(3), 1053–1069.', ''],
@@ -52,17 +52,13 @@
     ['Bibliografía de la cátedra', 'Friedman, T. (2006). <i>La Tierra es plana. Breve historia del mundo globalizado del siglo XXI</i>. Martínez Roca.', ''],
     ['Bibliografía de la cátedra', 'Roccatagliata, J. A. (coord.) (2008). <i>Argentina. Una visión actual y prospectiva desde la dimensión territorial</i>. Emecé.', ''],
     ['Argentina', 'Ámbito (28 de julio de 2026). Vaca Muerta Oil Sur superó el 70 % de avance: YPF apunta a exportar a principios de 2027.', 'https://www.ambito.com/energia/vaca-muerta-oil-sur-supero-el-70-avance-ypf-apunta-exportar-principios-2027-n6304443'],
+    ['Fuentes del caso', 'Jiji Press, vía Adnkronos (16 de marzo de 2026). Japón comienza a liberar reservas: 146 días estatales y 101 privados; se liberan 45 días.', 'https://english.adnkronos.com/2026/03/16/japan-starts-releasing-oil-reserves/'],
   ];
 
   const refsEl = $('#refs');
   if (refsEl) {
-    const groups = new Map();
-    REFS.forEach((r, i) => { if (r) { if (!groups.has(r[0])) groups.set(r[0], []); groups.get(r[0]).push([i, r]); } });
-    let html = '';
-    for (const [g, items] of groups) {
-      html += `<h3>${g}</h3><ol>` + items.map(([i, r]) => `<li value="${i}">${r[1]}${r[2] ? ` <a href="${r[2]}" target="_blank" rel="noopener">enlace</a>` : ''}</li>`).join('') + '</ol>';
-    }
-    refsEl.innerHTML = html;
+    // Orden numérico, igual que los superíndices; la bibliografía de la cátedra va marcada
+    refsEl.innerHTML = '<ol>' + REFS.map((r, i) => (r ? `<li value="${i}">${r[0] === 'Bibliografía de la cátedra' ? '<span class="cat">Cátedra</span> ' : ''}${r[1]}${r[2] ? ` <a href="${r[2]}" target="_blank" rel="noopener">enlace</a>` : ''}</li>` : '')).join('') + '</ol>';
   }
   $$('sup.r').forEach((s) => { s.textContent = s.dataset.r; s.tabIndex = 0; s.setAttribute('aria-label', 'Fuente ' + s.dataset.r); });
   const tip = $('#tip');

@@ -38,6 +38,7 @@ Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su 
 | `I` | Índice |
 | `F` | Pantalla completa |
 | `Inicio` / `Fin` | Primera / última diapositiva |
+| `Q` (en la vista de expositor) | Preguntas probables de la cátedra con respuestas preparadas |
 
 Cada diapositiva puede tener pasos internos (el gráfico del Brent se dibuja por etapas, los canales aparecen uno por uno). El contador de la barra inferior indica cuántos pasos quedan. Se puede enlazar directo a una diapositiva con `#n` (por ejemplo `…/#10` abre Japón). En el celular se navega deslizando.
 
@@ -54,6 +55,8 @@ tools/build-map.mjs   genera map-data.js desde Natural Earth (world-atlas): Merc
 ```
 
 Es un sitio estático y autocontenido: las fuentes (Archivo y Spectral, licencia OFL) están en `assets/fonts`, así que funciona sin internet. Para el aula alcanza con descargar el repositorio y abrir `index.html`; también se publica en Vercel con cada push a `main`.
+
+**Respaldo:** `descargas/presentacion-respaldo.pdf` tiene todas las diapositivas en su estado final, en resolución de proyector, por si la computadora del aula no permite usar la versión interactiva.
 
 Para exponer con dos pantallas: la presentación va al proyector en pantalla completa (`F`) y la vista de expositor (`P`) queda en la notebook.
 
