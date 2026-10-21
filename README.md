@@ -62,6 +62,8 @@ La carta se dibuja en dos capas: la base (mar y países) se rasteriza una vez y 
 
 Es un sitio estático y autocontenido: las fuentes (Archivo y Spectral, licencia OFL) están en `assets/fonts`, así que funciona sin internet. Para el aula alcanza con descargar el repositorio y abrir `index.html`; también se publica en Vercel con cada push a `main`.
 
+**Guion de defensa:** `descargas/guion-defensa.pdf` es un documento interno (no se proyecta) con el reparto de expositores, los tiempos objetivo, las notas de cada diapositiva y las preguntas probables. Se regenera con `python3 tools/build-guion.py` si cambian las notas o el reparto.
+
 **Respaldo:** `descargas/presentacion-respaldo.pdf` tiene todas las diapositivas en su estado final, en resolución de proyector, por si la computadora del aula no permite usar la versión interactiva.
 
 Para exponer con dos pantallas: la presentación va al proyector en pantalla completa (`F`) y la vista de expositor (`P`) queda en la notebook.
