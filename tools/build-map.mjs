@@ -74,6 +74,15 @@ const interp = geoInterpolate(HZ, BA);
 const geo = Array.from({ length: 64 }, (_, i) => proj(interp(i / 63)));
 routes.geoArg = line()(geo.map((p) => [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10]));
 const kmArg = Math.round(geoDistance(HZ, BA) * 6371);
+// Arcos de cierre: Ormuz hacia las capitales de los cuatro casos
+const geoArc = (to) => {
+  const f = geoInterpolate(HZ, to);
+  return line()(Array.from({ length: 48 }, (_, i) => proj(f(i / 47)).map((v) => Math.round(v * 10) / 10)));
+};
+routes.arcARG = routes.geoArg;
+routes.arcCHN = geoArc([116.4, 39.9]);
+routes.arcIND = geoArc([77.2, 28.6]);
+routes.arcJPN = geoArc([139.75, 35.68]);
 
 const ptsLL = {
   hormuz: [56.35, 26.55], rasLaffan: [51.53, 25.9], yanbu: [38.06, 24.09], fujairah: [56.35, 25.12], abqaiq: [49.7, 25.95],

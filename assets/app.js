@@ -2,6 +2,7 @@
    Mapa con "cámara" que se mueve entre diapositivas, pasos internos, notas, índice y referencias. */
 (() => {
   'use strict';
+  if (window.PRESENTER) return; // la vista de expositor tiene su propio script
   const M = window.MAP;
   const NS = 'http://www.w3.org/2000/svg';
   const $ = (s, r = document) => r.querySelector(s);
@@ -112,6 +113,7 @@
   ['rusIndia', 'rusChina'].forEach((k) => { routeEls[k] = mk('path', { d: M.routes[k], class: 'route alt' }, routesG); });
   ['pipeEW', 'pipeHF'].forEach((k) => mk('path', { d: M.routes[k], class: 'route pipe' }, routesG));
   const geoEl = mk('path', { d: M.routes.geoArg, class: 'route geo' }, routesG);
+  const arcEls = ['arcARG', 'arcCHN', 'arcIND', 'arcJPN'].map((k, i) => mk('path', { d: M.routes[k], class: `route arc a${i + 1}` }, routesG));
 
   /* Capa superpuesta: rótulos, ciudades, barcos y el punto crítico */
   const labG = mk('g', {}, overlay);
@@ -143,6 +145,15 @@
   };
   oilRoutes.forEach((k) => addShips(k, k === 'india' ? 1 : 3, 'oilship'));
   addShips('rusIndia', 3, 'altship'); addShips('rusChina', 1, 'altship');
+
+  // Ondas del shock: puntos que viajan de Ormuz a cada caso en el cierre
+  const waveG = mk('g', {}, overlay);
+  const waves = [];
+  arcEls.forEach((path, i) => {
+    const L = path.getTotalLength();
+    for (let j = 0; j < 3; j++) waves.push({ path, L, s: (j / 3) * L, delay: i * 0.25, el: mk('circle', { r: 3.4, class: 'wave' }, waveG) });
+  });
+  let arcsOnAt = 0;
 
   const chokeG = mk('g', {}, overlay);
   const pulse = mk('circle', { r: 6, class: 'pulse' }, chokeG);
@@ -275,11 +286,24 @@
       s.el.classList.toggle('halt', !alt && blocked && !flowing && throttle < 0.5);
       if (alt) s.el.style.fill = 'var(--ink)';
     }
+    const arcsOn = state.layers.has('arcs');
+    if (arcsOn && !arcsOnAt) arcsOnAt = now;
+    if (!arcsOn) arcsOnAt = 0;
+    for (const w of waves) {
+      const vis = arcsOn && (now - arcsOnAt) / 1000 > w.delay + 0.4;
+      w.el.style.opacity = vis ? 1 : 0;
+      if (!vis) continue;
+      if (!reduced) w.s = (w.s + (w.L / 5) * dt) % w.L; // cada onda tarda unos 5 s en llegar
+      const p = w.path.getPointAtLength(w.s);
+      const [x, y] = toScreen([p.x, p.y]);
+      w.el.setAttribute('cx', x.toFixed(1)); w.el.setAttribute('cy', y.toFixed(1));
+    }
     for (const c of callouts) {
       if (!c.slide.classList.contains('active')) continue;
       const p = M.pts[c.anchor]; if (!p) continue;
       const [x, y] = toScreen(p);
-      c.el.style.transform = `translate(${(x + c.dx).toFixed(0)}px, ${(y + c.dy).toFixed(0)}px)`;
+      const cx = Math.max(8, Math.min(innerWidth - (c.el.offsetWidth || 200) - 12, x + c.dx)); // nunca fuera de la pantalla
+      c.el.style.transform = `translate(${cx.toFixed(0)}px, ${(y + c.dy).toFixed(0)}px)`;
     }
     requestAnimationFrame(frame);
   }
@@ -380,7 +404,7 @@
   }
 
   /* ---------------- Interfaz: barra de ruta, índice y notas ---------------- */
-  const PARTS = ['Portada', 'Introducción', 'Desarrollo', 'Conclusiones', 'Cierre'];
+  const PARTS = ['Portada', 'Introducción', 'Desarrollo', 'Conclusiones', 'Fuentes y anexo'];
   const track = $('#track');
   const pos = (i) => (N === 1 ? 0 : (i / (N - 1)) * 100);
   const secBtns = [];
@@ -401,6 +425,28 @@
   });
   const boat = $('#boat'); track.appendChild(boat);
   const notes = $('#notes');
+  /* Vista de expositor (otra ventana) */
+  let presenterWin = null;
+  function broadcast() {
+    if (!presenterWin || presenterWin.closed) return;
+    const s = slides[cur];
+    try { presenterWin.postMessage({ ns: 'ormuz', t: 'state', cur, shown: stepsOf(s).filter((el) => !el.classList.contains('pending')).length }, '*'); } catch (e) { presenterWin = null; }
+  }
+  function openPresenter() {
+    const url = location.href.split('#')[0].split('?')[0] + '?expositor';
+    const w = window.open(url, 'ormuz-expositor', 'width=1100,height=720');
+    if (w) { presenterWin = w; w.focus(); }
+  }
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || d.ns !== 'ormuz') return;
+    if (d.t === 'hello') { presenterWin = e.source; broadcast(); }
+    else if (d.t === 'cmd') {
+      presenterWin = e.source;
+      if (d.a === 'next') next(); else if (d.a === 'prev') prev(); else if (d.a === 'go') go(+d.i, { all: true });
+    }
+  });
+
   function updateChrome() {
     const s = slides[cur];
     $('#done').style.width = pos(cur) + '%';
@@ -410,6 +456,7 @@
     const pend = stepsOf(s).filter((el) => el.classList.contains('pending')).length;
     $('#count').textContent = `${cur + 1} / ${N}` + (pend && !small() ? ` · +${pend}` : '');
     $('#notesTitle').textContent = `${cur + 1}. ${s.dataset.title}`;
+    broadcast();
     const n = $('aside.notes', s);
     $('#notesBody').innerHTML = n ? n.innerHTML : '<p>Sin notas.</p>';
   }
@@ -432,6 +479,7 @@
   $('#btnNotes').addEventListener('click', () => setNotes(!notes.classList.contains('on')));
   const fs = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.());
   $('#btnFs').addEventListener('click', fs);
+  $('#btnPresenter').addEventListener('click', openPresenter);
   $('#next').addEventListener('click', next);
   $('#prev').addEventListener('click', prev);
 
@@ -450,6 +498,7 @@
     else if (k === 'n' || k === 'N') setNotes(!notes.classList.contains('on'));
     else if (k === 'i' || k === 'I') setToc(!toc.classList.contains('on'));
     else if (k === 'f' || k === 'F') fs();
+    else if (k === 'p' || k === 'P') openPresenter();
   });
   let tx0 = null, ty0 = null;
   document.addEventListener('touchstart', (e) => { tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; }, { passive: true });

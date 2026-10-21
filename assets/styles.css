@@ -1,5 +1,14 @@
 /* Del Estrecho de Ormuz al surtidor — estética de carta náutica
    Paleta: agua profunda, bajíos, tierra, tinta de carta, magenta de peligro y ámbar de crudo */
+/* Fuentes locales (SIL Open Font License, ver assets/fonts): la presentación funciona sin internet */
+@font-face { font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%; src: url(fonts/archivo-latin-standard-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%; src: url(fonts/archivo-latin-ext-standard-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Spectral"; font-style: normal; font-display: swap; font-weight: 400; src: url(fonts/spectral-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Spectral"; font-style: normal; font-display: swap; font-weight: 400; src: url(fonts/spectral-latin-ext-400-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Spectral"; font-style: italic; font-display: swap; font-weight: 400; src: url(fonts/spectral-latin-400-italic.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Spectral"; font-style: normal; font-display: swap; font-weight: 600; src: url(fonts/spectral-latin-600-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Spectral"; font-style: normal; font-display: swap; font-weight: 600; src: url(fonts/spectral-latin-ext-600-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+
 :root {
   --sea: #f2f6f5;
   --shoal: #c6dfe3;
@@ -45,6 +54,12 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #map .route.alt { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 5; animation: flow 2.4s linear infinite; opacity: 0; }
 #map .route.pipe { stroke: var(--ink); stroke-width: 3; stroke-dasharray: 2 4; opacity: 0; }
 #map .route.geo { stroke: var(--magenta); stroke-width: 2; stroke-dasharray: 7 6; opacity: 0; }
+#map .route.arc { stroke: var(--magenta); stroke-width: 2.2; stroke-dasharray: 7 6; opacity: 0; transition: opacity .9s ease; }
+#map.L-arcs .route.arc { opacity: .95; }
+#map.L-arcs .route.arc.a2 { transition-delay: .25s; }
+#map.L-arcs .route.arc.a3 { transition-delay: .5s; }
+#map.L-arcs .route.arc.a4 { transition-delay: .75s; }
+#map.L-arcs .route.oil, #map.L-arcs .route.oil-base { opacity: .18; }
 @keyframes flow { to { stroke-dashoffset: -20; } }
 
 /* Estados de capas */
@@ -66,6 +81,7 @@ a { color: var(--ink); text-decoration-color: var(--ink-faint); text-underline-o
 #overlay .city { fill: var(--sea); stroke: var(--ink); stroke-width: 1.5; }
 #overlay .ship { fill: var(--oil); }
 #overlay .ship.halt { fill: var(--ink-faint); }
+#overlay .wave { fill: var(--magenta); transition: opacity .6s ease; }
 #overlay .choke { fill: none; stroke: var(--magenta); stroke-width: 2; }
 #overlay .choke-core { fill: var(--magenta); }
 #overlay .pulse { fill: none; stroke: var(--magenta); stroke-width: 1.5; animation: pulse 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
@@ -276,6 +292,12 @@ table.cmp tr.pay th { color: var(--magenta); }
 .tools b { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 82; font-size: 1.12em; }
 .hint { margin-top: 1.6rem; font-size: .78em; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: .2rem .7rem; align-items: center; }
 
+/* Cierre */
+.thesis-big { font-family: var(--f-head); font-variation-settings: "wdth" 72; font-weight: 800; font-size: clamp(2.2rem, min(4.4vw, 7.4vh), 4.6rem); line-height: .98; margin: .2rem 0 1.1rem; color: var(--ink); max-width: none; }
+.thanks { font-family: var(--f-head); font-variation-settings: "wdth" 80; font-weight: 700; font-size: 1.5em; color: var(--magenta); margin-top: 1.4rem; }
+.callout b.mini { display: block; font-size: .78rem; font-variation-settings: "wdth" 85; font-weight: 700; color: var(--ink-soft); line-height: 1.2; }
+.closing .callout span { font-weight: 600; }
+
 /* Portada */
 .cover h1 { margin-top: .4rem; }
 .cover .sub { font-size: 1.15em; max-width: 34ch; }
@@ -347,6 +369,7 @@ table.cmp tr.pay th { color: var(--magenta); }
   table.cmp { font-size: .82em; min-width: 520px; }
   .callout { display: none; }
   #route .sec { display: none; }
+  #btnPresenter { display: none; }
   #notes { width: auto; left: 10px; right: 10px; }
   [data-step].pending { opacity: 1; transform: none; pointer-events: auto; }
 }
@@ -364,3 +387,40 @@ table.cmp tr.pay th { color: var(--magenta); }
   .slide .panel { opacity: 1 !important; transform: none !important; }
   [data-step].pending { opacity: 1; transform: none; }
 }
+
+/* ---------- Vista de expositor ---------- */
+html.presenter, html.presenter body { overflow: hidden; background: var(--ink); }
+html.presenter #map, html.presenter #deck, html.presenter #route, html.presenter #notes, html.presenter #toc, html.presenter .callout { display: none !important; }
+#pv { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto; color: var(--sea); font-size: 18px; }
+#pv button { font-family: var(--f-head); font-variation-settings: "wdth" 85; cursor: pointer; }
+#pv header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 14px 22px; border-bottom: 1px solid #2c4357; }
+.pv-where { display: flex; align-items: baseline; gap: .9rem; flex-wrap: wrap; }
+.pv-where span { font-family: var(--f-head); color: #9fb4c2; font-size: .85rem; }
+.pv-where b { font-family: var(--f-head); font-variation-settings: "wdth" 78; font-size: 1.7rem; font-weight: 800; }
+.pv-time { display: flex; align-items: center; gap: .6rem; }
+#pvTimer { background: none; border: 0; color: #f1d39e; font-size: 2.2rem; font-weight: 800; font-variation-settings: "wdth" 70; padding: 0 .3rem; font-variant-numeric: tabular-nums; }
+#pvTimer.paused { color: #6d8597; }
+#pvReset, #pv footer button { background: none; border: 1px solid #3c5568; color: var(--sea); padding: .45rem .9rem; font-size: .9rem; }
+#pvReset:hover, #pv footer button:hover { border-color: var(--sea); }
+#pvClock { font-family: var(--f-head); color: #9fb4c2; font-size: .95rem; font-variant-numeric: tabular-nums; }
+#pv main { display: grid; grid-template-columns: 1fr 320px; min-height: 0; }
+.pv-notes { padding: 22px 28px; overflow-y: auto; border-right: 1px solid #2c4357; }
+#pvNotes p { font-size: 1.32rem; line-height: 1.5; margin: 0 0 1rem; max-width: 62ch; }
+.pv-dots { display: flex; align-items: center; gap: .4rem; margin-bottom: 1rem; }
+.pv-dots span { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #6d8597; }
+.pv-dots span.done { background: var(--oil); border-color: var(--oil); }
+.pv-dots em { font-family: var(--f-head); font-style: normal; color: #9fb4c2; font-size: .85rem; margin-left: .4rem; }
+.pv-side { display: grid; grid-template-rows: auto 1fr; min-height: 0; }
+.pv-next { padding: 20px 22px; border-bottom: 1px solid #2c4357; }
+.pv-next span { display: block; font-family: var(--f-head); color: #9fb4c2; font-size: .8rem; }
+.pv-next b { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 80; font-size: 1.35rem; line-height: 1.15; margin: .3rem 0 .2rem; color: #f6c9de; }
+.pv-next em { font-style: normal; font-size: .85rem; color: #9fb4c2; }
+#pvList { list-style: none; margin: 0; padding: 10px 0; overflow-y: auto; }
+#pvList button { display: flex; gap: .7rem; width: 100%; text-align: left; background: none; border: 0; color: #c8d6de; padding: .4rem 22px; font-size: .95rem; }
+#pvList button span { color: #6d8597; width: 1.4rem; }
+#pvList button:hover { color: #fff; }
+#pvList button.cur { background: #1d3850; color: #fff; box-shadow: inset 3px 0 0 var(--oil); }
+#pv footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px; border-top: 1px solid #2c4357; }
+#pv footer button { font-size: 1.05rem; padding: .6rem 1.4rem; }
+#pvStatus { font-family: var(--f-head); color: #9fb4c2; font-size: .85rem; }
+@media (max-width: 760px) { #pv main { grid-template-columns: 1fr; } .pv-side { display: none; } #pvNotes p { font-size: 1.1rem; } }

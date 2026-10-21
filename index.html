@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Del Estrecho de Ormuz al surtidor</title>
 <meta name="description" content="Influencia de los costos de la energía en un sistema global: el shock de Ormuz 2026 y las respuestas de Argentina, China, India y Japón. Grupo 8 — Estructura Económica Mundial y Argentina, UNMdP.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2313293d'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23b0176a' stroke-width='3'/%3E%3C/svg%3E">
 </head>
@@ -35,7 +32,7 @@
       <span class="muted">UNMdP, 2.º cuatrimestre 2026</span>
       <span class="muted">Docentes: Claudia B. Malamud y Rosana R. Zuanetti</span>
     </div>
-    <p class="hint"><span class="kbd">→</span> avanzar <span class="kbd">N</span> notas <span class="kbd">I</span> índice <span class="kbd">F</span> pantalla completa</p>
+    <p class="hint"><span class="kbd">→</span> avanzar <span class="kbd">P</span> vista de expositor <span class="kbd">N</span> notas <span class="kbd">I</span> índice <span class="kbd">F</span> pantalla completa</p>
   </div>
   <div class="callout" data-anchor="hormuz" data-dx="26" data-dy="-96"><b data-count="20">20</b><span>millones de barriles diarios cruzaban este punto</span></div>
   <aside class="notes">
@@ -328,12 +325,30 @@
       <div><span class="ptd">Núcleo 2d</span><p>Un nodo de 33 km desvía el comercio mundial.</p></div>
       <div><span class="ptd">Ferrer y Krugman</span><p>La geografía pesa, pero la política nacional decide<sup class="r" data-r="26"></sup><sup class="r" data-r="27"></sup>.</p></div>
     </div>
-    <p class="thesis">Una acción en un chokepoint no es local; las respuestas sí.</p>
   </div>
   <aside class="notes">
     <p>Cada hallazgo se ubica en un núcleo del programa. 1b: el acceso se negoció por alineamiento y coordinaron AIE, OMI y FMI. 1c: Irán es miembro de los BRICS y el paso selectivo favoreció a China, India y Rusia. 1e: la electrificación china mostró que diversificar la matriz también es seguridad energética (ODS 7). 2a: siguiendo a Sohr, el fin del petróleo no es inminente pero sí su capacidad de ordenar la geopolítica. 2d: seguros, desvíos por el Cabo, un solo nodo.</p>
     <p>Ferrer: la globalización no anula el margen de la política nacional. Krugman: la geografía sigue determinando costos y ventajas.</p>
-    <p>Cerrar con la tesis y abrir preguntas.</p>
+    <p>Pasar al cierre.</p>
+  </aside>
+</section>
+
+<section class="slide closing" data-cam="world" data-layers="flows arcs" data-part="3" data-title="Cierre y preguntas" data-focus="ARG,CHN,IND,JPN">
+  <div class="panel">
+    <p class="part">Cierre</p>
+    <p class="thesis-big">Una acción en un chokepoint no es local.<br>Las respuestas sí.</p>
+    <p class="lead">Lo que pasa en 33 km se paga en cuatro surtidores distintos, según la geografía, la política y los aliados de cada país.</p>
+    <p class="thanks">Gracias. ¿Preguntas?</p>
+    <p class="muted small">Facundo Carrera y Agustín Santilli · Grupo 8</p>
+  </div>
+  <div class="callout oil" data-anchor="buenosAires" data-dx="14" data-dy="-6"><span><b class="mini">Argentina</b>Producir no inmuniza</span></div>
+  <div class="callout" data-anchor="beijing" data-dx="10" data-dy="-58"><span><b class="mini">China</b>La escala absorbe</span></div>
+  <div class="callout" data-anchor="delhi" data-dx="-60" data-dy="34"><span><b class="mini">India</b>La autonomía tiene precio</span></div>
+  <div class="callout" data-anchor="tokyo" data-dx="-60" data-dy="40"><span><b class="mini">Japón</b>La previsión compra tiempo</span></div>
+  <aside class="notes">
+    <p>Volvemos al mapa del principio. Desde Ormuz el shock llega a los cuatro países al mismo tiempo; lo que cambia es cómo cada uno lo recibe.</p>
+    <p>Leer la tesis: una acción en un chokepoint no es local, las respuestas sí. Esa tensión entre lo global y lo nacional es el núcleo de la materia.</p>
+    <p>Agradecer y abrir preguntas. Si preguntan por la metodología, ir al anexo (última diapositiva, tecla Fin).</p>
   </aside>
 </section>
 
@@ -419,6 +434,7 @@
   <div class="ctrl">
     <button id="btnToc" aria-pressed="false" title="Índice (I)">Índice</button>
     <button id="btnNotes" aria-pressed="false" title="Notas de exposición (N)">Notas</button>
+    <button id="btnPresenter" title="Vista de expositor en otra ventana (P)">Expositor</button>
     <button id="btnFs" title="Pantalla completa (F)" aria-label="Pantalla completa">⛶</button>
   </div>
 </nav>
@@ -427,6 +443,7 @@
 <div id="toc" role="dialog" aria-modal="true" aria-label="Índice"><div class="box"><h2>Índice</h2><div id="tocBody"></div></div></div>
 <div id="tip" role="tooltip"></div>
 
+<script src="assets/presenter.js"></script>
 <script src="assets/map-data.js"></script>
 <script src="assets/app.js"></script>
 </body>
