@@ -214,7 +214,13 @@ p.reading { max-width: none; }
 .origin span { font-size: .9em; margin-top: .4rem; opacity: .92; }
 .chan { display: grid; grid-template-columns: 11.5rem 1fr 1fr; gap: 1.2rem; padding: .6rem 0 .6rem .2rem; border-bottom: 1px solid #d5e1e4; position: relative; align-items: start; }
 .chan::before { content: ""; position: absolute; left: -1.4rem; top: 1.15rem; width: 1.2rem; height: 2px; background: var(--magenta); transform-origin: left; transform: scaleX(0); transition: transform .6s var(--ease) .15s; }
-.chan:not(.pending)::before { transform: scaleX(1); }
+/* Las líneas de los canales se trazan en cascada desde el origen al entrar */
+.slide.active .chan::before { transform: scaleX(1); }
+.slide.active .chan:nth-child(1)::before { transition-delay: .5s; }
+.slide.active .chan:nth-child(2)::before { transition-delay: .7s; }
+.slide.active .chan:nth-child(3)::before { transition-delay: .9s; }
+.slide.active .chan:nth-child(4)::before { transition-delay: 1.1s; }
+.slide.active .chan:nth-child(5)::before { transition-delay: 1.3s; }
 .chan h3 { margin: 0; font-size: 1.1em; }
 .chan .mech { margin: 0; font-size: 1em; color: var(--ink-soft); line-height: 1.38; }
 .chan .ev { margin: 0; font-size: 1em; line-height: 1.38; border-left: 2px solid var(--oil); padding-left: .6rem; }
@@ -309,7 +315,8 @@ table.cmp tr.pay th { color: var(--magenta); }
 .qs b { font-family: var(--f-head); font-variation-settings: "wdth" 82; white-space: nowrap; }
 .cap { margin-top: -.2rem; }
 .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: .6rem; }
-.phases p { margin: 0; border-top: 2px solid var(--magenta); padding-top: .5rem; font-size: 1.05em; line-height: 1.35; }
+.phases p { margin: 0; border-top: 2px solid #cfdadd; transition: border-color .5s ease; padding-top: .5rem; font-size: 1.05em; line-height: 1.35; }
+.phases p.lit { border-top-color: var(--magenta); }
 .phases b { display: block; font-family: var(--f-head); font-variation-settings: "wdth" 82; font-size: 1.1em; }
 .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin: 1rem 0 0; }
 .tools span { border-top: 2px solid var(--ink); padding-top: .5rem; font-size: .95em; line-height: 1.3; }

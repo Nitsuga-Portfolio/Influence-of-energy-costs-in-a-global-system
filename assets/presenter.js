@@ -17,10 +17,7 @@
       title: s.dataset.title,
       part: ($('.part', s) || {}).textContent || '',
       notes: ($('aside.notes', s) || {}).innerHTML || '<p>Sin notas.</p>',
-      steps: $$('[data-step]', s).map((el) => {
-        const h = el.querySelector('h3, b, time');
-        return (h ? h.textContent : el.textContent).trim().replace(/\s+/g, ' ').slice(0, 60);
-      }),
+      steps: [], // el texto aparece completo: no hay pasos internos
     }));
 
     document.title = 'Expositor · Del Estrecho de Ormuz al surtidor';

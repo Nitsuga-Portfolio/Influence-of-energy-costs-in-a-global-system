@@ -367,14 +367,15 @@
       callouts.push({ el, slide: s, anchor: el.dataset.anchor, dx: +el.dataset.dx || 0, dy: +el.dataset.dy || 0 });
     });
   });
-  const stepsOf = (s) => $$('[data-step]', s);
+  // Señales del mapa: el texto ya está visible; estas marcas sólo encadenan movimientos del mapa o del gráfico
+  const cuesOf = (s) => $$('[data-cue]', s);
 
   function computeState(slide) {
     const st = { cam: slide.dataset.cam, layers: slide.dataset.layers || '', cities: slide.dataset.cities || '', focus: slide.dataset.focus || '', aoi: slide.dataset.aoi || '', dim: slide.dataset.dim, upto: null };
-    for (const el of stepsOf(slide)) {
-      if (el.classList.contains('pending')) break;
+    cuesOf(slide).forEach((el, idx) => {
+      if (idx >= (slide._cueN || 0)) return;
       for (const key of ['cam', 'layers', 'cities', 'focus', 'aoi', 'upto']) if (el.dataset[key] !== undefined) st[key] = el.dataset[key];
-    }
+    });
     return st;
   }
   function applyState(slide, instant, entering) {
@@ -400,7 +401,8 @@
       const dec = +(el.dataset.dec || 0);
       const node = el.firstChild;
       if (!node || node.nodeType !== 3) return;
-      const fmt = (v) => v.toLocaleString('es-AR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.thousands ? ' km' : '');
+      const pre = el.dataset.prefix || '';
+      const fmt = (v) => pre + v.toLocaleString('es-AR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.thousands ? ' km' : '');
       if (reduced) { node.textContent = fmt(target); return; }
       const t0 = performance.now(), dur = 1500;
       const tick = (now) => {
@@ -417,6 +419,7 @@
     const prev = slides[cur];
     const s = slides[i];
     const back = opts.back;
+    if (prev) (prev._timers || []).forEach(clearTimeout);
     if (prev && prev !== s) {
       prev.classList.remove('active');
       prev.classList.add('leaving');
@@ -425,7 +428,16 @@
       prev._leave = setTimeout(() => prev.classList.remove('leaving'), 420);
     }
     s.classList.remove('leaving'); clearTimeout(s._leave);
-    stepsOf(s).forEach((el) => el.classList.toggle('pending', !(back || small() || opts.all)));
+    const cues = cuesOf(s);
+    const instantCues = back || opts.all || reduced;
+    s._cueN = instantCues ? cues.length : 0;
+    cues.forEach((el) => el.classList.toggle('lit', instantCues));
+    s._timers = instantCues ? [] : cues.map((el, k) => setTimeout(() => {
+      if (slides[cur] !== s) return;
+      s._cueN = Math.max(s._cueN, k + 1);
+      el.classList.add('lit');
+      applyState(s);
+    }, +(el.dataset.delay || 1500 + k * 1500)));
     s.classList.add('active');
     const panel = $('.panel', s); if (panel) panel.scrollTop = 0;
     cur = i;
@@ -435,28 +447,8 @@
     updateChrome();
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
   }
-  function next() {
-    const s = slides[cur];
-    const pend = stepsOf(s).find((el) => el.classList.contains('pending'));
-    if (pend) {
-      pend.classList.remove('pending');
-      applyState(s);
-      if (!small()) pend.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
-      updateChrome();
-      return;
-    }
-    if (cur < N - 1) go(cur + 1);
-  }
-  function prev() {
-    const s = slides[cur];
-    const shown = stepsOf(s).filter((el) => !el.classList.contains('pending'));
-    if (shown.length && !small()) {
-      shown[shown.length - 1].classList.add('pending');
-      applyState(s); updateChrome();
-      return;
-    }
-    if (cur > 0) go(cur - 1, { back: true });
-  }
+  function next() { if (cur < N - 1) go(cur + 1); }
+  function prev() { if (cur > 0) go(cur - 1, { back: true }); }
 
   /* ---------------- Interfaz: barra de ruta, índice y notas ---------------- */
   const PARTS = ['Portada', 'Introducción', 'Desarrollo', 'Conclusiones', 'Fuentes y anexo'];
@@ -485,7 +477,7 @@
   function broadcast() {
     if (!presenterWin || presenterWin.closed) return;
     const s = slides[cur];
-    try { presenterWin.postMessage({ ns: 'ormuz', t: 'state', cur, shown: stepsOf(s).filter((el) => !el.classList.contains('pending')).length }, '*'); } catch (e) { presenterWin = null; }
+    try { presenterWin.postMessage({ ns: 'ormuz', t: 'state', cur, shown: 0 }, '*'); } catch (e) { presenterWin = null; }
   }
   function openPresenter() {
     const url = location.href.split('#')[0].split('?')[0] + '?expositor';
@@ -508,8 +500,7 @@
     boat.style.left = pos(cur) + '%';
     ticks.forEach((t, i) => t.classList.toggle('seen', i <= cur));
     secBtns.forEach(({ b, p }) => b.classList.toggle('cur', +s.dataset.part === p));
-    const pend = stepsOf(s).filter((el) => el.classList.contains('pending')).length;
-    $('#count').textContent = `${cur + 1} / ${N}` + (pend && !small() ? ` · +${pend}` : '');
+    $('#count').textContent = `${cur + 1} / ${N}`;
     $('#notesTitle').textContent = `${cur + 1}. ${s.dataset.title}`;
     broadcast();
     const n = $('aside.notes', s);
@@ -633,7 +624,7 @@
     cancelAnimationFrame(brentAnim);
     const tick = (now) => {
       const t = Math.min(1, (now - t0) / dur);
-      brentClip.w = from + (target - from) * ease(t);
+      brentClip.w = from + (target - from) * (1 - Math.pow(1 - t, 3)); // arranca rápido y frena al llegar
       brentClip.rect.setAttribute('width', brentClip.w);
       if (t < 1) brentAnim = requestAnimationFrame(tick);
     };

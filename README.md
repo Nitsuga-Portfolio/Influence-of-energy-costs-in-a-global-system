@@ -31,8 +31,8 @@ Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su 
 
 | Tecla | Acción |
 |---|---|
-| `→`, `espacio`, `PgDn` | Siguiente paso o diapositiva |
-| `←`, `PgUp` | Paso o diapositiva anterior |
+| `→`, `espacio`, `PgDn` | Siguiente diapositiva |
+| `←`, `PgUp` | Diapositiva anterior |
 | `P` | Vista de expositor en otra ventana: notas grandes, cronómetro, lo que sigue y lista de diapositivas. Controla la presentación desde ahí |
 | `N` | Notas de exposición sobre la misma pantalla |
 | `I` | Índice |
@@ -40,7 +40,7 @@ Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su 
 | `Inicio` / `Fin` | Primera / última diapositiva |
 | `Q` (en la vista de expositor) | Preguntas probables de la cátedra con respuestas preparadas |
 
-Cada diapositiva puede tener pasos internos (el gráfico del Brent se dibuja por etapas, los canales aparecen uno por uno). El contador de la barra inferior indica cuántos pasos quedan. Se puede enlazar directo a una diapositiva con `#n` (por ejemplo `…/#10` abre Japón). En el celular se navega deslizando.
+El texto de cada diapositiva aparece completo al entrar; el movimiento lo pone el mapa: la cámara viaja y encadena vistas sola, el gráfico del Brent se dibuja por etapas, las cifras cuentan y las líneas de los canales se trazan en cascada. Cada tecla avanza una diapositiva. Se puede enlazar directo a una diapositiva con `#n` (por ejemplo `…/#10` abre Japón). En el celular se navega deslizando.
 
 ## Archivos
 

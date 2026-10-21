@@ -93,7 +93,7 @@
       <div class="fig hot"><b data-count="20">20<small>%</small></b><span>del gas licuado mundial<sup class="r" data-r="4"></sup></span></div>
       <div class="fig oil"><b data-count="84">84<small>%</small></b><span>de ese crudo va a Asia<sup class="r" data-r="4"></sup></span></div>
     </div>
-    <div data-step data-cam="gulf" data-layers="flows pipes" data-cities="yanbu,fujairah">
+    <div data-cue data-delay="3000" data-cam="gulf" data-layers="flows pipes" data-cities="yanbu,fujairah">
       <h3>¿Se puede rodear?</h3>
       <p class="lead">Sólo en parte: los oleoductos alternativos mueven ≈9 mb/d, menos de la mitad<sup class="r" data-r="2"></sup>.</p>
       <p class="reading"><b>Por qué es geopolítico:</b> quien controla la costa norte, Irán, controla el paso.</p>
@@ -103,7 +103,7 @@
   <aside class="notes">
     <p>Un chokepoint es un paso obligado y estrecho de una ruta comercial. Entre la costa iraní y la península omaní de Musandam, los buques usan dos carriles de unos 3 km, uno por sentido.</p>
     <p>Por ahí sale casi todo lo que exportan Arabia Saudita, Irak, Kuwait, Emiratos, Qatar e Irán: 15 mb/d de crudo y 5 de productos. El 84 % de ese crudo va a Asia: ya anticipa quién va a sufrir más.</p>
-    <p>(Avanzar) Los oleoductos: el saudí Este–Oeste lleva unos 7 mb/d al Mar Rojo y el emiratí Habshan–Fujairah 1,8 mb/d. No hay plan B completo.</p>
+    <p>(El mapa pasa solo al Golfo) Los oleoductos: el saudí Este–Oeste lleva unos 7 mb/d al Mar Rojo y el emiratí Habshan–Fujairah 1,8 mb/d. No hay plan B completo.</p>
   </aside>
 </section>
 
@@ -143,9 +143,9 @@
     <svg id="brent" class="chart" viewBox="0 0 900 262" aria-label="Precio de cierre del Brent, enero a junio de 2026"></svg>
     <p class="small cap">Brent, cierre en US$ por barril<sup class="r" data-r="5"></sup>. Sombreado: estrecho cerrado o restringido.</p>
     <div class="phases">
-      <p data-step data-upto="2026-03-31"><b>Marzo</b>Guerra, cierre y reservas de la AIE.</p>
-      <p data-step data-upto="2026-05-31"><b>Abril y mayo</b>El precio sigue a la diplomacia.</p>
-      <p data-step data-upto="2026-06-30" data-layers="flows"><b>Junio</b>Acuerdo y reapertura: vuelve a US$74.</p>
+      <p data-cue data-delay="700" data-upto="2026-03-31"><b>Marzo</b>Guerra, cierre y reservas de la AIE.</p>
+      <p data-cue data-delay="2300" data-upto="2026-05-31"><b>Abril y mayo</b>El precio sigue a la diplomacia.</p>
+      <p data-cue data-delay="3900" data-upto="2026-06-30" data-layers="flows"><b>Junio</b>Acuerdo y reapertura: vuelve a US$74.</p>
     </div>
   </div>
   <aside class="notes">
@@ -161,20 +161,20 @@
     <p class="part">Desarrollo · Implicancias</p>
     <h2>Qué rompió la guerra</h2>
     <div class="cols" style="--n:3">
-      <div class="col" data-step>
+      <div class="col">
         <h3>Logística</h3>
-        <div class="fig"><b>2.000</b><span>buques varados en el Golfo<sup class="r" data-r="4"></sup></span></div>
+        <div class="fig"><b data-count="2000">2.000</b><span>buques varados en el Golfo<sup class="r" data-r="4"></sup></span></div>
       </div>
-      <div class="col hot" data-step>
+      <div class="col hot">
         <h3>Energía</h3>
-        <div class="fig hot"><b>+140<small>%</small></b><span>el gas licuado en Asia tras el ataque a Qatar<sup class="r" data-r="6"></sup></span></div>
+        <div class="fig hot"><b data-count="140" data-prefix="+">+140<small>%</small></b><span>el gas licuado en Asia tras el ataque a Qatar<sup class="r" data-r="6"></sup></span></div>
       </div>
-      <div class="col oil" data-step>
+      <div class="col oil">
         <h3>Geopolítica</h3>
         <div class="fig oil"><b class="word">Paso selectivo</b><span>China, Rusia e India sí; Occidente no<sup class="r" data-r="4"></sup></span></div>
       </div>
     </div>
-    <p class="reading" data-step><b>Lectura:</b> el estrecho dejó de ser un bien común y pasó a ser un instrumento de poder.</p>
+    <p class="reading"><b>Lectura:</b> el estrecho dejó de ser un bien común y pasó a ser un instrumento de poder.</p>
   </div>
   <aside class="notes">
     <p>(Logística) Según la OMI, el 21 de abril había 2.000 buques y 20.000 marinos varados. Las primas de seguro por riesgo de guerra se multiplicaron por 4 a 6 en una semana y desde el 5 de marzo se retiró la cobertura de responsabilidad civil. Las navieras de contenedores desviaron por el Cabo de Buena Esperanza.</p>
@@ -191,14 +191,14 @@
     <div class="channels">
       <div class="origin"><b>Shock de Ormuz</b><span>Menos oferta, energía más cara</span></div>
       <div>
-        <div class="chan" data-step><h3>Costos</h3><p class="mech">Energía y fletes encarecen todo</p><p class="ev">Combustible de aviación +95 %<sup class="r" data-r="6"></sup></p></div>
-        <div class="chan" data-step><h3>Ingreso real</h3><p class="mech">Más gasto en energía, menos demanda</p><p class="ev">Nafta en EE.UU. +US$1,50 por galón<sup class="r" data-r="2"></sup></p></div>
-        <div class="chan" data-step><h3>Términos de intercambio</h3><p class="mech">Importadores pierden, exportadores ganan</p><p class="ev">Japón e India pagan; Argentina cobra<sup class="r" data-r="15"></sup></p></div>
-        <div class="chan" data-step><h3>Financiero</h3><p class="mech">Más volatilidad y riesgo</p><p class="ev">WTI +35 % en una semana<sup class="r" data-r="5"></sup></p></div>
-        <div class="chan" data-step><h3>Política</h3><p class="mech">Cada Estado elige su herramienta</p><p class="ev">Reservas, subsidios, controles, impuestos<sup class="r" data-r="6"></sup></p></div>
+        <div class="chan"><h3>Costos</h3><p class="mech">Energía y fletes encarecen todo</p><p class="ev">Combustible de aviación +95 %<sup class="r" data-r="6"></sup></p></div>
+        <div class="chan"><h3>Ingreso real</h3><p class="mech">Más gasto en energía, menos demanda</p><p class="ev">Nafta en EE.UU. +US$1,50 por galón<sup class="r" data-r="2"></sup></p></div>
+        <div class="chan"><h3>Términos de intercambio</h3><p class="mech">Importadores pierden, exportadores ganan</p><p class="ev">Japón e India pagan; Argentina cobra<sup class="r" data-r="15"></sup></p></div>
+        <div class="chan"><h3>Financiero</h3><p class="mech">Más volatilidad y riesgo</p><p class="ev">WTI +35 % en una semana<sup class="r" data-r="5"></sup></p></div>
+        <div class="chan"><h3>Política</h3><p class="mech">Cada Estado elige su herramienta</p><p class="ev">Reservas, subsidios, controles, impuestos<sup class="r" data-r="6"></sup></p></div>
       </div>
     </div>
-    <div class="rule" data-step>
+    <div class="rule">
       <span>Regla práctica<sup class="r" data-r="21"></sup><sup class="r" data-r="22"></sup>: si el petróleo sube 10 % y se sostiene,</span>
       <span><b>−0,1 pp</b> de crecimiento mundial</span>
       <span><b>+0,3 pp</b> de inflación</span>
@@ -220,16 +220,16 @@
     <p class="part">Desarrollo · Caso Argentina</p>
     <h2><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>Argentina: lejos del estrecho, cerca del precio</h2>
     <p class="lead">Productora neta, pero el surtidor sigue el precio internacional.</p>
-    <div class="tools" data-step>
+    <div class="tools">
       <span><b>Buffer de YPF</b>45 días sin trasladar el Brent<sup class="r" data-r="13"></sup></span>
       <span><b>Impuestos</b>suba postergada por decreto<sup class="r" data-r="16"></sup></span>
       <span><b>Bioetanol</b>hasta 15 % del corte<sup class="r" data-r="17"></sup></span>
     </div>
-    <div class="ledger" data-step>
-      <div><h3>Pierde el consumidor</h3><div class="fig hot"><b>+21<small>%</small></b><span>la nafta en un trimestre<sup class="r" data-r="13"></sup></span></div></div>
-      <div><h3>Gana la balanza</h3><div class="fig oil"><b>US$7.000<small>M</small></b><span>superávit energético récord<sup class="r" data-r="15"></sup></span></div></div>
+    <div class="ledger">
+      <div><h3>Pierde el consumidor</h3><div class="fig hot"><b data-count="21" data-prefix="+">+21<small>%</small></b><span>la nafta en un trimestre<sup class="r" data-r="13"></sup></span></div></div>
+      <div><h3>Gana la balanza</h3><div class="fig oil"><b data-count="7000" data-prefix="US$">US$7.000<small>M</small></b><span>superávit energético récord<sup class="r" data-r="15"></sup></span></div></div>
     </div>
-    <p class="reading" data-step><b>Respuesta:</b> ser productor no protege al consumidor, pero convierte el shock en divisas.</p>
+    <p class="reading"><b>Respuesta:</b> ser productor no protege al consumidor, pero convierte el shock en divisas.</p>
   </div>
   <div class="callout" data-anchor="geoMid" data-dx="-60" data-dy="-36"><b data-count="13800" data-thousands="1">13.800 km</b><span>de Ormuz a Buenos Aires</span></div>
   <aside class="notes">
@@ -245,18 +245,18 @@
     <p class="part">Desarrollo · Casos China e India</p>
     <h2>China e India: mismo shock, palancas opuestas</h2>
     <div class="cols">
-      <div class="col hot" data-step>
+      <div class="col hot">
         <h3><svg class="flag" aria-hidden="true"><use href="#fl-cn"/></svg>China absorbe hacia adentro</h3>
-        <div class="fig hot"><b>−32<small>%</small></b><span>importaciones de crudo en el 2.º trimestre<sup class="r" data-r="7"></sup></span></div>
+        <div class="fig hot"><b data-count="32" data-prefix="−">−32<small>%</small></b><span>importaciones de crudo en el 2.º trimestre<sup class="r" data-r="7"></sup></span></div>
         <ul class="ticks">
           <li>Usó sus inventarios<sup class="r" data-r="8"></sup></li>
           <li>Prohibió exportar combustibles<sup class="r" data-r="6"></sup></li>
           <li>Autos eléctricos: menos nafta y gasoil<sup class="r" data-r="8"></sup></li>
         </ul>
       </div>
-      <div class="col oil" data-step>
+      <div class="col oil">
         <h3><svg class="flag" aria-hidden="true"><use href="#fl-in"/></svg>India resuelve hacia afuera</h3>
-        <div class="fig oil"><b>53,5<small>%</small></b><span>de su crudo vino de Rusia en junio<sup class="r" data-r="10"></sup></span></div>
+        <div class="fig oil"><b data-count="53.5" data-dec="1">53,5<small>%</small></b><span>de su crudo vino de Rusia en junio<sup class="r" data-r="10"></sup></span></div>
         <ul class="ticks">
           <li>Licencia de EE.UU. sobre las sanciones<sup class="r" data-r="9"></sup></li>
           <li>Bajó impuestos a los combustibles<sup class="r" data-r="6"></sup></li>
@@ -264,7 +264,7 @@
         </ul>
       </div>
     </div>
-    <p class="reading" data-step><b>Respuesta:</b> la escala absorbe; cambiar de proveedor alivia, pero depende de otros.</p>
+    <p class="reading"><b>Respuesta:</b> la escala absorbe; cambiar de proveedor alivia, pero depende de otros.</p>
   </div>
   <div class="callout ink" data-anchor="novorossiysk" data-dx="-40" data-dy="-58"><span>Ruta alternativa: crudo ruso hacia India</span></div>
   <aside class="notes">
@@ -288,12 +288,12 @@
         </div>
       </div>
       <div>
-        <ol class="seq" data-step>
+        <ol class="seq">
           <li><time>16 mar</time><span><b>Reservas</b> que compran tiempo</span></li>
           <li><time>19 mar</time><span><b>Subsidio</b> para fijar la nafta en ¥170<sup class="r" data-r="12"></sup></span></li>
           <li><time>12 may</time><span><b>Diversificación</b>: crudo de Azerbaiyán<sup class="r" data-r="11"></sup></span></li>
         </ol>
-        <p class="reading" data-step><b>Respuesta:</b> las reservas compran tiempo; la diversificación compra autonomía.</p>
+        <p class="reading"><b>Respuesta:</b> las reservas compran tiempo; la diversificación compra autonomía.</p>
       </div>
     </div>
   </div>
@@ -319,7 +319,7 @@
         <tr><th>Lección</th><td>Producir no inmuniza</td><td>La escala absorbe</td><td>La autonomía tiene precio</td><td>La previsión compra tiempo</td></tr>
       </tbody>
     </table></div>
-    <div data-step>
+    <div>
     <h3 class="scales-title">Escalas de la organización territorial</h3>
     <div class="scales">
       <div><b>Global</b>el precio</div>
@@ -332,7 +332,7 @@
   <aside class="notes">
     <p>La tabla resume las respuestas a las cuatro preguntas. Las diferencias se explican por cuatro dimensiones: geografía (productor o importador, distancia), política energética, inserción internacional (aliados, sanciones, AIE) y lugar en las cadenas de producción.</p>
     <p>La fila clave es quién paga el ajuste: en Argentina el consumidor, aunque el país gana divisas; en China las refinadoras y los inventarios; en India el fisco, y además pierde autonomía frente a terceros; en Japón el Estado vía subsidio y reservas.</p>
-    <p>(Avanzar) Las escalas de la organización territorial, como pide la cátedra: el Brent y la AIE fijan el problema para todos; Asia absorbe el 84 % del flujo cortado; cada Estado elige su herramienta; y todo termina en el precio del surtidor.</p>
+    <p>Las escalas de la organización territorial, como pide la cátedra: el Brent y la AIE fijan el problema para todos; Asia absorbe el 84 % del flujo cortado; cada Estado elige su herramienta; y todo termina en el precio del surtidor.</p>
   </aside>
 </section>
 
@@ -342,12 +342,12 @@
     <h2><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>¿Qué puede aprender Argentina?</h2>
     <p class="lead">Cuatro lecciones de los casos, como propuestas de gestión territorial<sup class="r" data-r="32"></sup>.</p>
     <div class="lessons">
-      <div data-step><h3><svg class="flag" aria-hidden="true"><use href="#fl-jp"/></svg>Reservas</h3><p>Un stock estratégico de combustibles compra tiempo frente al próximo shock.</p></div>
-      <div data-step><h3><svg class="flag" aria-hidden="true"><use href="#fl-cn"/></svg>Matriz</h3><p>Electrificar el transporte baja lo que paga el consumidor cuando sube el crudo.</p></div>
-      <div data-step><h3><svg class="flag" aria-hidden="true"><use href="#fl-in"/></svg>Socios</h3><p>Diversificar compradores y contratos: la autonomía también se negocia.</p></div>
-      <div data-step data-aoi="vaca vmos"><h3><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>Infraestructura</h3><p>Vaca Muerta Sur: 180.000 barriles diarios por Punta Colorada desde 2027, hasta 550.000<sup class="r" data-r="33"></sup>.</p></div>
+      <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-jp"/></svg>Reservas</h3><p>Un stock estratégico de combustibles compra tiempo frente al próximo shock.</p></div>
+      <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-cn"/></svg>Matriz</h3><p>Electrificar el transporte baja lo que paga el consumidor cuando sube el crudo.</p></div>
+      <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-in"/></svg>Socios</h3><p>Diversificar compradores y contratos: la autonomía también se negocia.</p></div>
+      <div><h3><svg class="flag" aria-hidden="true"><use href="#fl-ar"/></svg>Infraestructura</h3><p>Vaca Muerta Sur: 180.000 barriles diarios por Punta Colorada desde 2027, hasta 550.000<sup class="r" data-r="33"></sup>.</p></div>
     </div>
-    <p class="reading" data-step><b>Propuesta:</b> convertir la ventaja de recursos en ventaja territorial, con desarrollo sustentable.</p>
+    <p class="reading"><b>Propuesta:</b> convertir la ventaja de recursos en ventaja territorial, con desarrollo sustentable.</p>
   </div>
   <aside class="notes">
     <p>Esta es la parte de gestión territorial que pide el programa: qué haría Argentina con lo aprendido. Son propuestas del grupo, no medidas en curso, salvo el oleoducto.</p>
