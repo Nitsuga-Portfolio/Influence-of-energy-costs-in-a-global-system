@@ -41,9 +41,6 @@
     ['Organismos', 'Fondo Monetario Internacional (julio de 2026). <i>World Economic Outlook Update</i>.', ''],
     ['Literatura económica', 'Hamilton, J. D. (1983). Oil and the macroeconomy since World War II. <i>Journal of Political Economy</i>, 91(2), 228–248.', ''],
     ['Literatura económica', 'Kilian, L. (2009). Not all oil price shocks are alike. <i>American Economic Review</i>, 99(3), 1053–1069.', ''],
-    ['Literatura económica', 'Jordà, Ò. (2005). Estimation and inference of impulse responses by local projections. <i>American Economic Review</i>, 95(1), 161–182.', ''],
-    ['Literatura económica', 'Bollerslev, T. (1986). Generalized autoregressive conditional heteroskedasticity. <i>Journal of Econometrics</i>, 31(3), 307–327.', ''],
-    ['Literatura económica', 'Baumeister, C. y Hamilton, J. D. (2019). Structural interpretation of vector autoregressions with incomplete identification: Revisiting the role of oil supply and demand shocks. <i>American Economic Review</i>, 109(5), 1873–1910.', ''],
     ['Bibliografía de la cátedra', 'Ferrer, A. (1998). <i>Hechos y ficciones de la globalización. Argentina y el Mercosur en el sistema internacional</i>. FCE.', ''],
     ['Bibliografía de la cátedra', 'Krugman, P. (1997). <i>Desarrollo, geografía y teoría económica</i>. Antoni Bosch.', ''],
     ['Bibliografía de la cátedra', 'Méndez, R. (1997). <i>Geografía económica. La lógica espacial del capitalismo global</i>. Ariel.', ''],
@@ -708,7 +705,7 @@
   }
   buildBrent();
 
-  /* ---------------- Anexo: pestañas y calculadora ---------------- */
+  /* ---------------- Anexo: pestañas y calculadora de la regla práctica ---------------- */
   $$('.tabs [data-tab]').forEach((b) => b.addEventListener('click', () => {
     const box = b.closest('.panel');
     $$('.tabs [data-tab]', box).forEach((x) => x.setAttribute('aria-selected', x === b));
@@ -720,7 +717,7 @@
     const p = +pct.value / 10;
     $('#pctv').textContent = pct.value;
     $('#outG').textContent = fmt1(-0.10 * p); $('#outG2').textContent = fmt1(-0.20 * p);
-    $('#outI').textContent = fmt1(0.3 * p); $('#outI2').textContent = fmt1(0.4 * p);
+    $('#outI').textContent = fmt1(0.4 * p);
   }
   if (pct) {
     pct.addEventListener('input', calc);

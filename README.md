@@ -15,7 +15,7 @@ La carta usa la proyección Mercator (la de la navegación), cubre toda la panta
 | Introducción | Contexto y motivación · Qué es Ormuz y por qué importa · Casos a analizar |
 | Desarrollo | El shock (Brent ene–jun 2026) · Implicancias de la guerra · Canales de transmisión e impacto efectivo · Argentina · China e India · Japón |
 | Conclusiones | Comparación de los cuatro casos y escalas de la organización territorial · Lecciones para Argentina (gestión territorial) · Vínculo con los núcleos del programa · Cierre con la tesis y preguntas |
-| Fuentes y anexo | Bibliografía y referencias · Anexo metodológico (regla práctica, SVAR, GARCH, proyecciones locales) |
+| Fuentes y anexo | Bibliografía y referencias · Anexo: regla práctica del FMI (calculadora) y glosario |
 
 Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su fuente numerada (pasar el cursor sobre los superíndices rojos).
 
@@ -68,9 +68,9 @@ Para exponer con dos pantallas: la presentación va al proyector en pantalla com
 
 Para regenerar el mapa: `cd tools && npm install && npm run build`.
 
-## Fase cuantitativa
+## Dimensión cuantitativa
 
-El anexo describe la estrategia econométrica (SVAR con instrumento externo, GARCH y proyecciones locales de Jordà) que sostiene el documento escrito. La presentación sólo muestra datos observados y cifras de las fuentes; los ejemplos numéricos del anexo están marcados como ilustrativos.
+El trabajo es un estudio comparado de casos con enfoque territorial. Para dimensionar el impacto se usa una sola herramienta cuantitativa, la regla práctica del FMI (cada 10 % de suba sostenida de la energía ≈ +0,4 pp de inflación y −0,1 a −0,2 pp de crecimiento mundial), con una calculadora en el anexo. La presentación sólo muestra datos observados y cifras de las fuentes citadas.
 
 ---
 
