@@ -17,75 +17,84 @@
   const small = () => matchMedia('(max-width: 860px)').matches;
 
   /* ---------------- Referencias ---------------- */
+  // Referencias idénticas a las del trabajo escrito (APA, orden alfabético); el número es el del superíndice
   const REFS = [
     null,
-    ['Fuentes del caso', 'U.S. Energy Information Administration (EIA). <i>World Oil Transit Chokepoints</i>.', 'https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints'],
-    ['Fuentes del caso', 'Gross, S. y Beane, R. (8 de junio de 2026). <i>From chokepoint to crisis: The Strait of Hormuz and global oil markets</i>. Brookings Institution.', 'https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/'],
-    ['Fuentes del caso', 'Agencia Internacional de Energía (11 de marzo de 2026). Liberación coordinada de 400 millones de barriles; contribuciones por país. Reseña de Enerdata, 13/03/2026.', 'https://www.enerdata.net/publications/daily-energy-news/iea-member-countries-agree-release-400-mbl-oil-stocks.html'],
-    ['Cronologías de verificación', 'Cronología consolidada del conflicto y del tránsito marítimo (UKMTO, OMI, Kpler): <i>2026 Strait of Hormuz crisis</i>. Consultado en octubre de 2026.', 'https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis'],
-    ['Cronologías de verificación', 'Cierres diarios del Brent y eventos de mercado: <i>2026–2028 world oil market chronology</i>. Consultado en octubre de 2026.', 'https://en.wikipedia.org/wiki/2026%E2%80%932028_world_oil_market_chronology'],
-    ['Cronologías de verificación', 'Medidas nacionales frente a la crisis de combustibles: <i>2026 Iran war fuel crisis</i>. Consultado en octubre de 2026.', 'https://en.wikipedia.org/wiki/2026_Iran_war_fuel_crisis'],
-    ['Fuentes del caso', 'EIA (31 de julio de 2026). <i>China’s crude oil imports fell in the second quarter</i>. Today in Energy.', 'https://www.eia.gov/TODAYinENERGY/detail.php?id=67905'],
-    ['Fuentes del caso', 'Downs, E. y Meidan, M. (13 de agosto de 2026). <i>How China is managing lower oil imports</i>. Center on Global Energy Policy, Columbia University.', 'https://www.energypolicy.columbia.edu/how-china-is-managing-lower-oil-imports/'],
-    ['Fuentes del caso', 'Enerdata (10 de marzo de 2026). <i>US grants one-month waiver for India’s Russian oil imports amid Middle East crisis</i>.', 'https://www.enerdata.net/publications/daily-energy-news/us-grants-one-month-waiver-indias-russian-oil-import-amid-middle-east-crisis.html'],
-    ['Fuentes del caso', 'Datos de Kpler sobre importaciones de crudo de India, junio de 2026. Citado en Superkalam, 20/06/2026.', 'https://superkalam.com/current-affairs/20-06-2026/india-s-russian-oil-imports-at-record-high-set-to-remain-core-of-crude-diet-pg3-8bf7ab59-48cf-4c58-917b-89f1a6a98d19'],
-    ['Fuentes del caso', 'Atlantic Council (2026). <i>How Japan is managing the energy shock</i>. Issue brief.', 'https://www.atlanticcouncil.org/in-depth-research-reports/issue-brief/how-japan-is-managing-the-energy-shock/'],
-    ['Fuentes del caso', 'Jiji Press, vía Adnkronos (18 y 19 de marzo de 2026). Récord de ¥190,8 por litro y reanudación de los subsidios a la nafta en Japón.', 'https://english.adnkronos.com/2026/03/19/japan-resumes-gasoline-subsidies-amid-middle-east-tensions/'],
-    ['Argentina', 'LM Neuquén (2 de abril de 2026). YPF congela los combustibles 45 días y activa un buffer para amortiguar la suba del petróleo.', 'https://mase.lmneuquen.com/pais/ypf-congela-los-combustibles-45-dias-y-activa-un-buffer-amortiguar-la-suba-del-petroleo-n1233720'],
-    ['Argentina', 'Perfil (29 de abril de 2026). YPF aumentó el precio de sus combustibles 27 días después de anunciar un congelamiento por 45 días.', 'https://www.perfil.com/noticias/sociedad/ypf-aumento-el-precio-de-sus-combustibles-apenas-27-dias-despues-de-anunciar-un-congelamiento-por-45-dias.phtml'],
-    ['Argentina', 'Bolsa de Comercio de Rosario, reseñado por Crónica (2026). Argentina registró el mayor superávit comercial energético para un primer semestre.', 'https://www.cronica.com.ar/politica/argentina-registro-el-mayor-superavit-comercial-energetico-para-un-primer-semestre-7856/'],
-    ['Argentina', 'Boletín Oficial de la República Argentina. Decreto 217/2026 y prórrogas: suspensión de la actualización del Impuesto a los Combustibles Líquidos y del Impuesto al Dióxido de Carbono. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
-    ['Argentina', 'Secretaría de Energía de la Nación. Resolución 79/2026: corte de bioetanol en naftas de hasta 15 %. Reseñado por iProfesional (2026).', 'https://www.iprofesional.com/energia/451681-precio-de-la-nafta-alcanzo-record-en-dolares-pese-al-operativo-surtidor-de-caputo'],
-    ['Organismos', 'Federal Reserve (8 de mayo de 2026). <i>Financial Stability Report</i>: el shock petrolero, segunda preocupación más citada (70 % de los consultados). Reseña de Reuters.', 'https://www.kitco.com/news/off-the-wire/2026-05-08/geopolitical-risks-oil-shock-cited-top-worries-fed-financial-stability'],
-    ['Organismos', 'Daiwa Institute of Research (5 de junio de 2026). <i>Japan’s Economy: Monthly Outlook (May 2026)</i>: escenarios de crecimiento ante el shock de Medio Oriente.', 'https://www.dir.co.jp/english/research/report/jmonthly/20260605_025806.html'],
-    ['Organismos', 'Fondo Monetario Internacional (julio de 2026). <i>World Economic Outlook Update</i>.', ''],
-    ['Literatura económica', 'Hamilton, J. D. (1983). Oil and the macroeconomy since World War II. <i>Journal of Political Economy</i>, 91(2), 228–248.', ''],
-    ['Literatura económica', 'Kilian, L. (2009). Not all oil price shocks are alike. <i>American Economic Review</i>, 99(3), 1053–1069.', ''],
-    ['Bibliografía de la cátedra', 'Ferrer, A. (1998). <i>Hechos y ficciones de la globalización. Argentina y el Mercosur en el sistema internacional</i>. FCE.', ''],
-    ['Bibliografía de la cátedra', 'Krugman, P. (1997). <i>Desarrollo, geografía y teoría económica</i>. Antoni Bosch.', ''],
-    ['Bibliografía de la cátedra', 'Méndez, R. (1997). <i>Geografía económica. La lógica espacial del capitalismo global</i>. Ariel.', ''],
-    ['Bibliografía de la cátedra', 'Sohr, R. (2010). <i>Chao petróleo. El mundo y las energías del futuro</i>. Debate.', ''],
-    ['Bibliografía de la cátedra', 'Knox, P. y Agnew, J. (1999). <i>Geografía económica mundial</i>. Fundación Hernandarias.', ''],
-    ['Bibliografía de la cátedra', 'Friedman, T. (2006). <i>La Tierra es plana. Breve historia del mundo globalizado del siglo XXI</i>. Martínez Roca.', ''],
-    ['Bibliografía de la cátedra', 'Roccatagliata, J. A. (coord.) (2008). <i>Argentina. Una visión actual y prospectiva desde la dimensión territorial</i>. Emecé.', ''],
-    ['Argentina', 'Ámbito (28 de julio de 2026). Vaca Muerta Oil Sur superó el 70 % de avance: YPF apunta a exportar a principios de 2027.', 'https://www.ambito.com/energia/vaca-muerta-oil-sur-supero-el-70-avance-ypf-apunta-exportar-principios-2027-n6304443'],
-    ['Fuentes del caso', 'Jiji Press, vía Adnkronos (16 de marzo de 2026). Japón comienza a liberar reservas: 146 días estatales y 101 privados; se liberan 45 días.', 'https://english.adnkronos.com/2026/03/16/japan-starts-releasing-oil-reserves/'],
-    ['Organismos', 'Georgieva, K. (6 de marzo de 2026). Entrevista en Bloomberg Television, conferencia del FMI «Asia in 2050», Bangkok: efecto de una suba de 10 % de la energía sobre la inflación y el crecimiento mundial. Reseña de The Edge Singapore.', 'https://alfi.dev.theedgesingapore.com/news/global-economy/imf-says-10-oil-rise-year-adds-40-basis-points-inflation'],
+    ["", "2026 Iran war fuel crisis. (2026). En <i>Wikipedia</i>. Consultado en octubre de 2026.", "https://en.wikipedia.org/wiki/2026_Iran_war_fuel_crisis"],
+    ["", "2026 Strait of Hormuz crisis. (2026). En <i>Wikipedia</i>. Consultado en octubre de 2026.", "https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis"],
+    ["", "2026–2028 world oil market chronology. (2026). En <i>Wikipedia</i>. Consultado en octubre de 2026.", "https://en.wikipedia.org/wiki/2026%E2%80%932028_world_oil_market_chronology"],
+    ["", "Ámbito. (2026, 28 de julio). <i>Vaca Muerta Oil Sur superó el 70 % de avance: YPF apunta a exportar a principios de 2027</i>.", "https://www.ambito.com/energia/vaca-muerta-oil-sur-supero-el-70-avance-ypf-apunta-exportar-principios-2027-n6304443"],
+    ["", "Argus. (2026). <i>Japan has enough oil supply to last into next year: PM</i>.", "https://www.argusmedia.com/news-and-insights/latest-market-news/2811107-japan-has-enough-oil-supply-to-last-into-next-year-pm"],
+    ["", "Atlantic Council. (2026). <i>How Japan is managing the energy shock</i> [Issue brief].", "https://www.atlanticcouncil.org/in-depth-research-reports/issue-brief/how-japan-is-managing-the-energy-shock/"],
+    ["", "Baird Maritime. (2026, 30 de junio). <i>US oil supplies help offset falling Middle Eastern imports to Japan</i> [Nota de Reuters].", "https://www.bairdmaritime.com/shipping/tankers/us-oil-supplies-help-offset-falling-middle-eastern-imports-to-japan"],
+    ["", "Crónica. (2026). <i>Argentina registró el mayor superávit comercial energético para un primer semestre</i> [Reseña de datos de la Bolsa de Comercio de Rosario].", "https://www.cronica.com.ar/politica/argentina-registro-el-mayor-superavit-comercial-energetico-para-un-primer-semestre-7856/"],
+    ["", "Daiwa Institute of Research. (2026, 5 de junio). <i>Japan’s economy: Monthly outlook (May 2026)</i>.", "https://www.dir.co.jp/english/research/report/jmonthly/20260605_025806.html"],
+    ["", "Dawn. (2025, 24 de junio). <i>Asian countries most vulnerable to Hormuz blockade</i> [Nota de AFP].", "https://www.dawn.com/news/1919557"],
+    ["", "Deccan Chronicle. (2026). <i>India has 100 million barrels in reserve, can cushion 40–45 days of Hormuz disruption: Kpler</i>.", "https://deccanchronicle.com/business/economics/india-has-25-days-of-crude-oil-and-refined-oil-stocks-govt-sources-1941175"],
+    ["", "Decreto 217/2026. (2026). Suspensión de la actualización del Impuesto a los Combustibles Líquidos y del Impuesto al Dióxido de Carbono, y prórrogas. <i>Boletín Oficial de la República Argentina</i>.", ""],
+    ["", "Downs, E. y Meidan, M. (2026, 13 de agosto). <i>How China is managing lower oil imports</i>. Center on Global Energy Policy, Columbia University.", "https://www.energypolicy.columbia.edu/how-china-is-managing-lower-oil-imports/"],
+    ["", "Enerdata. (2026a, 13 de marzo). <i>IEA member countries agree to release 400 mbl of oil stocks</i>.", "https://www.enerdata.net/publications/daily-energy-news/iea-member-countries-agree-release-400-mbl-oil-stocks.html"],
+    ["", "Enerdata. (2026b, 10 de marzo). <i>US grants one-month waiver for India’s Russian oil imports amid Middle East crisis</i>.", "https://www.enerdata.net/publications/daily-energy-news/us-grants-one-month-waiver-indias-russian-oil-import-amid-middle-east-crisis.html"],
+    ["Cátedra", "Ferrer, A. (1998). <i>Hechos y ficciones de la globalización. Argentina y el Mercosur en el sistema internacional</i>. Fondo de Cultura Económica.", ""],
+    ["", "Fondo Monetario Internacional. (2026, julio). <i>World Economic Outlook Update</i>. FMI.", ""],
+    ["Cátedra", "Friedman, T. (2006). <i>La Tierra es plana. Breve historia del mundo globalizado del siglo XXI</i>. Martínez Roca.", ""],
+    ["", "Gross, S. y Beane, R. (2026, 8 de junio). <i>From chokepoint to crisis: The Strait of Hormuz and global oil markets</i>. Brookings Institution.", "https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/"],
+    ["", "Hamilton, J. D. (1983). Oil and the macroeconomy since World War II. <i>Journal of Political Economy, 91</i>(2), 228–248.", ""],
+    ["", "Informist. (2026). <i>Russian crude oil imports up on month at 1.16 mln bpd, says Kpler</i>.", "https://informistmedia.com/CommodityWire/45848/Russia-Oil-Supply-India-Feb-Russian-crude-oil-imports-up-on-month-at-1-16-mln-bpd-says-Kpler"],
+    ["", "Jiji Press. (2026a, 19 de marzo). <i>Japan resumes gasoline subsidies amid Middle East tensions</i>. Adnkronos.", "https://english.adnkronos.com/2026/03/19/japan-resumes-gasoline-subsidies-amid-middle-east-tensions/"],
+    ["", "Jiji Press. (2026b, 16 de marzo). <i>Japan starts releasing oil reserves</i>. Adnkronos.", "https://english.adnkronos.com/2026/03/16/japan-starts-releasing-oil-reserves/"],
+    ["", "Kilian, L. (2009). Not all oil price shocks are alike: Disentangling demand and supply shocks in the crude oil market. <i>American Economic Review, 99</i>(3), 1053–1069.", ""],
+    ["Cátedra", "Knox, P. y Agnew, J. (1999). <i>Geografía económica mundial</i>. Fundación Hernandarias.", ""],
+    ["Cátedra", "Krugman, P. (1997). <i>Desarrollo, geografía y teoría económica</i>. Antoni Bosch.", ""],
+    ["", "LM Neuquén. (2026, 2 de abril). <i>YPF congela los combustibles 45 días y activa un buffer para amortiguar la suba del petróleo</i>.", "https://mase.lmneuquen.com/pais/ypf-congela-los-combustibles-45-dias-y-activa-un-buffer-amortiguar-la-suba-del-petroleo-n1233720"],
+    ["Cátedra", "Méndez, R. (1997). <i>Geografía económica. La lógica espacial del capitalismo global</i>. Ariel.", ""],
+    ["", "Nippon.com. (2026). <i>Japan set for record oil reserve release</i>.", "https://www.nippon.com/en/japan-data/h02732/"],
+    ["", "Perfil. (2026, 29 de abril). <i>YPF aumentó el precio de sus combustibles 27 días después de anunciar un congelamiento por 45 días</i>.", "https://www.perfil.com/noticias/sociedad/ypf-aumento-el-precio-de-sus-combustibles-apenas-27-dias-despues-de-anunciar-un-congelamiento-por-45-dias.phtml"],
+    ["", "Reserva Federal. (2026, 8 de mayo). <i>Financial Stability Report</i> [Reseña de Reuters publicada en Kitco].", "https://www.kitco.com/news/off-the-wire/2026-05-08/geopolitical-risks-oil-shock-cited-top-worries-fed-financial-stability"],
+    ["", "Resolución 79/2026. (2026). Corte de bioetanol en naftas de hasta 15 %. Secretaría de Energía de la Nación. <i>Boletín Oficial de la República Argentina</i>.", ""],
+    ["Cátedra", "Roccatagliata, J. A. (Coord.). (2008). <i>Argentina. Una visión actual y prospectiva desde la dimensión territorial</i>. Emecé.", ""],
+    ["Cátedra", "Sohr, R. (2010). <i>Chao petróleo. El mundo y las energías del futuro</i>. Debate.", ""],
+    ["", "Superkalam. (2026, 20 de junio). <i>India’s Russian oil imports at record high, set to remain core of crude diet</i> [Datos de Kpler].", "https://superkalam.com/current-affairs/20-06-2026/india-s-russian-oil-imports-at-record-high-set-to-remain-core-of-crude-diet-pg3-8bf7ab59-48cf-4c58-917b-89f1a6a98d19"],
+    ["", "The Edge Singapore. (2026, 6 de marzo). <i>IMF says 10% oil rise over a year adds 40 basis points to inflation</i> [Declaraciones de K. Georgieva en la conferencia del FMI “Asia in 2050”].", "https://alfi.dev.theedgesingapore.com/news/global-economy/imf-says-10-oil-rise-year-adds-40-basis-points-inflation"],
+    ["", "U.S. Energy Information Administration. (s. f.). <i>World oil transit chokepoints</i>.", "https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints"],
+    ["", "U.S. Energy Information Administration. (2026, 31 de julio). <i>China’s crude oil imports fell in the second quarter</i>. Today in Energy.", "https://www.eia.gov/TODAYinENERGY/detail.php?id=67905"],
+    ["", "Universidad Nacional de Mar del Plata. (2026). <i>Plan de trabajo del equipo docente: Estructura Económica Mundial y Argentina (código 946)</i>. 2.º cuatrimestre 2026.", ""],
   ];
 
   const refsEl = $('#refs');
   if (refsEl) {
     // Orden numérico, igual que los superíndices; la bibliografía de la cátedra va marcada
-    refsEl.innerHTML = '<ol>' + REFS.map((r, i) => (r ? `<li value="${i}">${r[0] === 'Bibliografía de la cátedra' ? '<span class="cat">Cátedra</span> ' : ''}${r[1]}${r[2] ? ` <a href="${r[2]}" target="_blank" rel="noopener">enlace</a>` : ''}</li>` : '')).join('') + '</ol>';
+    refsEl.innerHTML = '<ol>' + REFS.map((r, i) => (r ? `<li value="${i}">${r[0] === 'Cátedra' ? '<span class="cat">Cátedra</span> ' : ''}${r[1]}${r[2] ? ` <a href="${r[2]}" target="_blank" rel="noopener">enlace</a>` : ''}</li>` : '')).join('') + '</ol>';
   }
   /* Glosario: vocabulario específico con definición al pasar el cursor */
+  // Glosario idéntico al anexo del trabajo escrito
   const GLOSS = {
-    "aie": "Agencia Internacional de Energía: organismo de 32 países consumidores que coordina reservas de emergencia de petróleo. Japón es miembro desde su fundación, en 1974.",
-    "choke": "Chokepoint o cuello de botella: paso marítimo angosto y obligado de una ruta comercial. Su bloqueo no tiene sustituto inmediato (Ormuz, Malaca, Suez, Bab el-Mandeb).",
+    "aie": "Organismo de 32 países consumidores que coordina reservas de emergencia de petróleo. Japón es miembro desde su fundación, en 1974.",
+    "brics": "Bloque de economías emergentes: Brasil, Rusia, India, China y Sudáfrica, ampliado desde 2024 con Irán, Egipto, Etiopía y Emiratos Árabes Unidos, entre otros.",
+    "brent": "Crudo de referencia del Mar del Norte. Fija el precio de la mayor parte del petróleo que se comercia en el mundo, incluido el de Argentina.",
+    "buffer": "Mecanismo anunciado por YPF el 1 de abril de 2026: no trasladar al surtidor durante 45 días las subas del Brent, resignando margen para recuperarlo después.",
+    "choke": "Paso marítimo angosto y obligado de una ruta comercial. Su bloqueo no tiene sustituto inmediato; por ejemplo, Ormuz, Malaca, Suez y Bab el-Mandeb.",
+    "gestion": "Diseño de políticas que organizan el uso del territorio y sus recursos. Es un objetivo del curso según el Plan de Trabajo Docente.",
+    "gnl": "Gas enfriado a −162 °C para transportarlo en buques. Qatar es uno de los mayores exportadores y sale por Ormuz.",
     "mbd": "Millones de barriles por día. El mundo consume unos 100 mb/d; por Ormuz pasaban unos 20.",
-    "gnl": "Gas natural licuado (GNL): gas enfriado a −162 °C para transportarlo en buques. Qatar es uno de los mayores exportadores y sale por Ormuz.",
-    "brent": "Crudo de referencia del Mar del Norte: fija el precio de la mayor parte del petróleo que se comercia en el mundo, incluido el de Argentina.",
-    "shockof": "Shock de oferta: caída brusca de la cantidad disponible de un bien. Sube el precio y frena la actividad a la vez, a diferencia de un shock de demanda.",
-    "tdi": "Términos de intercambio: relación entre los precios de lo que un país exporta y lo que importa. Si sube el petróleo, mejoran para los exportadores y empeoran para los importadores.",
-    "pip": "Paridad de importación: el precio interno se alinea con lo que costaría importar el producto. Por eso el surtidor argentino sigue al Brent aunque el país produzca su crudo.",
-    "buffer": "Mecanismo anunciado por YPF el 1 de abril: no trasladar al surtidor durante 45 días las subas del Brent, resignando margen para recuperarlo después.",
-    "reservas": "Reservas estratégicas: stocks de petróleo que un Estado (o las empresas, por obligación legal) mantienen para usar en una emergencia de suministro.",
-    "gestion": "Gestión territorial: diseño de políticas que organizan el uso del territorio y sus recursos. Objetivo del curso según el Plan de Trabajo Docente.",
-    "vcl": "Ventaja competitiva locacional: ventaja que un territorio obtiene de su localización, sus recursos y su infraestructura. Concepto del marco teórico de la cátedra.",
-    "brics": "Bloque de economías emergentes: Brasil, Rusia, India, China y Sudáfrica, ampliado desde 2024 con Irán, Egipto, Etiopía y Emiratos, entre otros.",
+    "pip": "Criterio por el cual el precio interno se alinea con lo que costaría importar el producto. Por eso el surtidor argentino sigue al Brent aunque el país produzca su crudo.",
+    "reservas": "Stocks de petróleo que un Estado, o las empresas por obligación legal, mantienen para usar en una emergencia de suministro.",
+    "shockof": "Caída brusca de la cantidad disponible de un bien. Sube el precio y frena la actividad al mismo tiempo, a diferencia de un shock de demanda.",
+    "tdi": "Relación entre los precios de lo que un país exporta y los de lo que importa. Si sube el petróleo, mejoran para los exportadores y empeoran para los importadores.",
+    "vcl": "Ventaja que un territorio obtiene de su localización, sus recursos y su infraestructura. Es un concepto del marco teórico de la cátedra."
   };
   $$('dfn[data-g]').forEach((d) => { d.tabIndex = 0; });
-  const GNAMES = { aie: 'AIE', choke: 'Chokepoint (cuello de botella)', mbd: 'mb/d', gnl: 'GNL (gas natural licuado)', brent: 'Brent', shockof: 'Shock de oferta', tdi: 'Términos de intercambio', pip: 'Paridad de importación', buffer: 'Buffer de YPF', reservas: 'Reservas estratégicas', gestion: 'Gestión territorial', vcl: 'Ventaja competitiva locacional', brics: 'BRICS' };
+  const GNAMES = {"aie": "AIE (Agencia Internacional de Energía)", "brics": "BRICS", "brent": "Brent", "buffer": "Buffer de YPF", "choke": "Chokepoint (cuello de botella)", "gestion": "Gestión territorial", "gnl": "GNL (gas natural licuado)", "mbd": "mb/d", "pip": "Paridad de importación", "reservas": "Reservas estratégicas", "shockof": "Shock de oferta", "tdi": "Términos de intercambio", "vcl": "Ventaja competitiva locacional"};
   const gl = $('#glossList');
   if (gl) gl.innerHTML = Object.keys(GNAMES).sort((x, y) => GNAMES[x].localeCompare(GNAMES[y], 'es'))
-    .map((k) => `<div><dt>${GNAMES[k]}</dt><dd>${GLOSS[k].replace(/^[^:]+: /, '')}</dd></div>`).join('');
+    .map((k) => `<div><dt>${GNAMES[k]}</dt><dd>${GLOSS[k]}</dd></div>`).join('');
   $$('sup.r').forEach((s) => { s.textContent = s.dataset.r; s.tabIndex = 0; s.setAttribute('aria-label', 'Fuente ' + s.dataset.r); });
   const tip = $('#tip');
   const showTip = (e) => {
     const s = e.target.closest('sup.r, dfn[data-g]'); if (!s) return;
     if (s.matches('dfn')) {
       const g = GLOSS[s.dataset.g]; if (!g) return;
-      tip.innerHTML = g; tip.classList.add('gloss');
+      tip.innerHTML = `<b>${GNAMES[s.dataset.g]}.</b> ${g}`; tip.classList.add('gloss');
     } else {
       const r = REFS[+s.dataset.r]; if (!r) return;
       tip.innerHTML = `<b>[${s.dataset.r}]</b> ${r[1]}`; tip.classList.remove('gloss');

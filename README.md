@@ -17,7 +17,7 @@ La carta usa la proyección Mercator (la de la navegación), cubre toda la panta
 | Conclusiones | Comparación de los cuatro casos y escalas de la organización territorial · Lecciones para Argentina (gestión territorial) · Vínculo con los núcleos del programa · Cierre con la tesis y preguntas |
 | Fuentes y anexo | Bibliografía y referencias · Anexo: regla práctica del FMI (calculadora) y glosario |
 
-Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su fuente numerada (pasar el cursor sobre los superíndices rojos).
+Corte temporal del análisis: enero a junio de 2026. Todas las cifras tienen su fuente numerada (pasar el cursor sobre los superíndices rojos). Datos, hipótesis, referencias (APA, mismo orden) y glosario coinciden con el trabajo escrito, versión 1.2.
 
 ## Correspondencia con el Plan de Trabajo Docente
 

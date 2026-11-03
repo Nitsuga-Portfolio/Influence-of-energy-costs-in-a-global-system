@@ -166,6 +166,9 @@ sup.r + sup.r::before { content: ","; }
 sup.r { font-family: var(--f-head); font-size: .62em; color: var(--magenta); font-weight: 700; cursor: help; padding-left: 1px; }
 
 /* Bloques */
+.hypo { font-size: .98em; line-height: 1.42; margin: -.2rem 0 1rem; max-width: 64ch; }
+.hypo b { font-family: var(--f-head); font-variation-settings: "wdth" 85; }
+.lessons h3 .ptd { margin: 0 0 0 auto; font-size: .62rem; }
 .question { border-left: 3px solid var(--magenta); padding: .2rem 0 .2rem 1rem; margin: 1rem 0; font-size: 1.08em; font-style: italic; }
 .thesis { font-family: var(--f-head); font-variation-settings: "wdth" 76; font-weight: 800; font-size: 1.9em; line-height: 1.15; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--ink); padding: .7rem 0; margin: 1rem 0; }
 .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1.1rem 1.4rem; margin: 1rem 0 1.2rem; }
