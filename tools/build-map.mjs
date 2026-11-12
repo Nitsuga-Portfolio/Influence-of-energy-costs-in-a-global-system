@@ -24,7 +24,9 @@ const P = (ll) => proj(ll).map(r1);
 
 /* ---------- Países (50 m simplificado; los casos de estudio a resolución completa) ---------- */
 const ISO = { ARG: '032', CHN: '156', IND: '356', JPN: '392', KOR: '410', IRN: '364', IRQ: '368', KWT: '414', SAU: '682', BHR: '048', QAT: '634', ARE: '784', OMN: '512', RUS: '643', USA: '840' };
-const FULL = new Set(['032', '156', '356', '392']); // casos de estudio a resolución completa
+const FULL = new Set(['032', '156', '356', '392', '238', '239']); // casos de estudio a resolución completa
+// Islas Malvinas (238) e Islas Georgias del Sur y Sandwich del Sur (239): se dibujan como parte de Argentina
+const AS_ARG = new Set(['238', '239']);
 const c50raw = read('countries-50m.json');
 let c50 = presimplify(read('countries-50m.json'));
 c50 = simplify(c50, quantile(c50, Number(process.env.Q || 0.2)));
@@ -41,11 +43,13 @@ for (const i of order) {
   color[i] = c % 5;
 }
 geoms.forEach((g, i) => { if (g.id === '010') color[i] = 5; }); // Antártida: hielo
+const argColor = color[geoms.findIndex((g) => g.id === '032')];
+geoms.forEach((g, i) => { if (AS_ARG.has(g.id)) color[i] = argColor; });
 const path1 = geoPath(proj).digits(1);
 const countries = keep.map(([g, i]) => {
   const src = FULL.has(g.id) ? c50raw : c50;
   const geom = FULL.has(g.id) ? c50raw.objects.countries.geometries.find((x) => x.id === g.id) : g;
-  return [g.id || '', color[i], path1(topo.feature(src, geom))];
+  return [AS_ARG.has(g.id) ? '032' : g.id || '', color[i], path1(topo.feature(src, geom))];
 }).filter((c) => c[2]);
 const colorById = Object.fromEntries(countries.map(([id, c]) => [id, c]));
 
@@ -144,6 +148,7 @@ const labelsLL = [
   ['Riesgo en Bab el-Mandeb', 'aoi-risk', 48.6, 13.1, 1.6, 99, null, 'redsea'],
   ['Cuenca Neuquina · Vaca Muerta', 'aoi-prod', -69.2, -41.6, 0, 99, null, 'vaca'],
   ['Proveedor alternativo', 'aoi-rus', 62, 55.5, 0, 99, null, 'rus'],
+  ['Islas Malvinas', 'land', -57.4, -54.1, 0, 99, 'ar', 'malv'],
   ['Oleoducto Vaca Muerta Sur', 'aoi-ink', -64.2, -39.1, 0, 99, null, 'vmos'],
 ];
 const labels = labelsLL.map(([t, c, lo, la, a, b, f = null, z = null]) => [t, c, ...P([lo, la]), a, b, f, z]);
